@@ -1,0 +1,151 @@
+/*******************************************************************************
+* File Name: Dimming_Reference.c  
+* Version 2.10
+*
+* Description:
+*  This file contains API to enable firmware control of a Pins component.
+*
+* Note:
+*
+********************************************************************************
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* You may use this file only in accordance with the license, terms, conditions, 
+* disclaimers, and limitations in the end user license agreement accompanying 
+* the software package with which this file was provided.
+*******************************************************************************/
+
+#include "cytypes.h"
+#include "Dimming_Reference.h"
+
+#define SetP4PinDriveMode(shift, mode)  \
+    do { \
+        Dimming_Reference_PC =   (Dimming_Reference_PC & \
+                                (uint32)(~(uint32)(Dimming_Reference_DRIVE_MODE_IND_MASK << (Dimming_Reference_DRIVE_MODE_BITS * (shift))))) | \
+                                (uint32)((uint32)(mode) << (Dimming_Reference_DRIVE_MODE_BITS * (shift))); \
+    } while (0)
+
+
+/*******************************************************************************
+* Function Name: Dimming_Reference_Write
+********************************************************************************
+*
+* Summary:
+*  Assign a new value to the digital port's data output register.  
+*
+* Parameters:  
+*  prtValue:  The value to be assigned to the Digital Port. 
+*
+* Return: 
+*  None 
+*  
+*******************************************************************************/
+void Dimming_Reference_Write(uint8 value) 
+{
+    uint8 drVal = (uint8)(Dimming_Reference_DR & (uint8)(~Dimming_Reference_MASK));
+    drVal = (drVal | ((uint8)(value << Dimming_Reference_SHIFT) & Dimming_Reference_MASK));
+    Dimming_Reference_DR = (uint32)drVal;
+}
+
+
+/*******************************************************************************
+* Function Name: Dimming_Reference_SetDriveMode
+********************************************************************************
+*
+* Summary:
+*  Change the drive mode on the pins of the port.
+* 
+* Parameters:  
+*  mode:  Change the pins to one of the following drive modes.
+*
+*  Dimming_Reference_DM_STRONG     Strong Drive 
+*  Dimming_Reference_DM_OD_HI      Open Drain, Drives High 
+*  Dimming_Reference_DM_OD_LO      Open Drain, Drives Low 
+*  Dimming_Reference_DM_RES_UP     Resistive Pull Up 
+*  Dimming_Reference_DM_RES_DWN    Resistive Pull Down 
+*  Dimming_Reference_DM_RES_UPDWN  Resistive Pull Up/Down 
+*  Dimming_Reference_DM_DIG_HIZ    High Impedance Digital 
+*  Dimming_Reference_DM_ALG_HIZ    High Impedance Analog 
+*
+* Return: 
+*  None
+*
+*******************************************************************************/
+void Dimming_Reference_SetDriveMode(uint8 mode) 
+{
+	SetP4PinDriveMode(Dimming_Reference__0__SHIFT, mode);
+}
+
+
+/*******************************************************************************
+* Function Name: Dimming_Reference_Read
+********************************************************************************
+*
+* Summary:
+*  Read the current value on the pins of the Digital Port in right justified 
+*  form.
+*
+* Parameters:  
+*  None 
+*
+* Return: 
+*  Returns the current value of the Digital Port as a right justified number
+*  
+* Note:
+*  Macro Dimming_Reference_ReadPS calls this function. 
+*  
+*******************************************************************************/
+uint8 Dimming_Reference_Read(void) 
+{
+    return (uint8)((Dimming_Reference_PS & Dimming_Reference_MASK) >> Dimming_Reference_SHIFT);
+}
+
+
+/*******************************************************************************
+* Function Name: Dimming_Reference_ReadDataReg
+********************************************************************************
+*
+* Summary:
+*  Read the current value assigned to a Digital Port's data output register
+*
+* Parameters:  
+*  None 
+*
+* Return: 
+*  Returns the current value assigned to the Digital Port's data output register
+*  
+*******************************************************************************/
+uint8 Dimming_Reference_ReadDataReg(void) 
+{
+    return (uint8)((Dimming_Reference_DR & Dimming_Reference_MASK) >> Dimming_Reference_SHIFT);
+}
+
+
+/* If Interrupts Are Enabled for this Pins component */ 
+#if defined(Dimming_Reference_INTSTAT) 
+
+    /*******************************************************************************
+    * Function Name: Dimming_Reference_ClearInterrupt
+    ********************************************************************************
+    *
+    * Summary:
+    *  Clears any active interrupts attached to port and returns the value of the 
+    *  interrupt status register.
+    *
+    * Parameters:  
+    *  None 
+    *
+    * Return: 
+    *  Returns the value of the interrupt status register
+    *  
+    *******************************************************************************/
+    uint8 Dimming_Reference_ClearInterrupt(void) 
+    {
+		uint8 maskedStatus = (uint8)(Dimming_Reference_INTSTAT & Dimming_Reference_MASK);
+		Dimming_Reference_INTSTAT = maskedStatus;
+        return maskedStatus >> Dimming_Reference_SHIFT;
+    }
+
+#endif /* If Interrupts Are Enabled for this Pins component */ 
+
+
+/* [] END OF FILE */

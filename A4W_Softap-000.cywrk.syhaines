@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWrkspcCustomData" version="4">
+<CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997 type_name="CyDesigner.Common.Base.CyCustomData" version="2">
+<userData>
+<dataGuid v="1b906a0f-a7b6-4e4d-a428-82f98b53cb35">
+<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Source">
+<TreeKeys>
+<v>Source</v>
+<v>Components</v>
+<v>Output</v>
+</TreeKeys>
+<TreeStates>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="A4W_Softap-000\G7 Solenoid Test Fixture">
+<ExpandedNodeIds>
+<v>A4W_Softap-000</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\TopDesign</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\G7 Solenoid Test Fixture.cydwr</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Header Files</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Header Files\CY8C4124.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Header Files\dimming_ctrl.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Header Files\history.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Header Files\interrupts.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Header Files\pushbutton.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Header Files\user_main.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Source Files</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Source Files\main.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\User_Source</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\User_Source\CY8C4124.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\User_Source\dimming_ctrl.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\User_Source\interrupts.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\User_Source\pushbutton.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Cap_Mod\Cap_Mod.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Cap_Mod\Cap_Mod.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Cap_Mod\Cap_Mod_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1\CapSense_1.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1\CapSense_1.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1\CapSense_1_CSHL.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1\CapSense_1_CSHL.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1\CapSense_1_INT.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1\CapSense_1_IP.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1\CapSense_1_PM.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1\CapSense_1_PVT.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1\CapSense_1_SMS.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1\CapSense_1_SMS.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1\CapSense_1_TunerHelper.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1\CapSense_1_TunerHelper.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1_SampleClk\CapSense_1_SampleClk.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1_SampleClk\CapSense_1_SampleClk.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1_SenseClk\CapSense_1_SenseClk.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1_SenseClk\CapSense_1_SenseClk.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1_Sns\CapSense_1_Sns_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\cm0gcc.ld</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\Cm0Iar.icf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\Cm0RealView.scat</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\Cm0Start.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\core_cm0.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\core_cm0_psoc4.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\core_cmFunc.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\core_cmInstr.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\CyBootAsmGnu.s</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\CyBootAsmIar.s</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\CyBootAsmRv.s</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\CyFlash.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\CyFlash.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\CyLib.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\CyLib.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\cypins.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\cyPm.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\cyPm.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\cytypes.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot\cyutils.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\FIRE_SCR_ISR\FIRE_SCR_ISR.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\FIRE_SCR_ISR\FIRE_SCR_ISR.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\FIRE_SCR_TIMER</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\FIRE_SCR_TIMER\FIRE_SCR_TIMER.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\FIRE_SCR_TIMER\FIRE_SCR_TIMER.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\FIRE_SCR_TIMER\FIRE_SCR_TIMER_PM.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_1\LED_1.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_1\LED_1.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_1\LED_1_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_2\LED_2.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_2\LED_2.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_2\LED_2_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_3\LED_3.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_3\LED_3.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_3\LED_3_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_4\LED_4.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_4\LED_4.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_4\LED_4_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_5\LED_5.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_5\LED_5.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_5\LED_5_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Hi\LED_Hi.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Hi\LED_Hi.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Hi\LED_Hi_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_LO\LED_LO.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_LO\LED_LO.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_LO\LED_LO_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Main\LED_Main.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Main\LED_Main.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Main\LED_Main_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Minus\LED_Minus.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Minus\LED_Minus.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Minus\LED_Minus_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Plus\LED_Plus.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Plus\LED_Plus.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Plus\LED_Plus_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Relay_Cal_Bytes\Relay_Cal_Bytes.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Relay_Cal_Bytes\Relay_Cal_Bytes.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\SCR_Fire\SCR_Fire.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\SCR_Fire\SCR_Fire.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\SCR_Fire\SCR_Fire_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Test\Test.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Test\Test.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Test\Test_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\TIMER_CLK\TIMER_CLK.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\TIMER_CLK\TIMER_CLK.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\WDT_ISR\WDT_ISR.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\WDT_ISR\WDT_ISR.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\ZC_Inv\ZC_Inv.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\ZC_Inv\ZC_Inv.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\ZC_Inv\ZC_Inv_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\ZC_ISR\ZC_ISR.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\ZC_ISR\ZC_ISR.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\ZC_NInv\ZC_NInv.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\ZC_NInv\ZC_NInv.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\ZC_NInv\ZC_NInv_aliases.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Zero_Cross</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Zero_Cross\Zero_Cross.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Zero_Cross\Zero_Cross.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Zero_Cross\Zero_Cross_PM.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cycodeshareexport.ld</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cycodeshareimport.ld</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cycodeshareimport.scat</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cydevice_trm.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cydevicegnu_trm.inc</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cydeviceiar_trm.inc</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cydevicerv_trm.inc</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cydisabledsheets.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cyfitter.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cyfitter_cfg.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cyfitter_cfg.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cyfittergnu.inc</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cyfitteriar.inc</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cyfitterrv.inc</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cymetadata.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\project.h</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>A4W_Softap-000</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\TopDesign</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\G7 Solenoid Test Fixture.cydwr</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Header Files</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Header Files\CY8C4124.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Header Files\dimming_ctrl.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Header Files\history.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Header Files\interrupts.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Header Files\pushbutton.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Header Files\user_main.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Source Files</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Source Files\main.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\User_Source</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\User_Source\CY8C4124.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\User_Source\dimming_ctrl.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\User_Source\interrupts.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\User_Source\pushbutton.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Cap_Mod</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1_SampleClk</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1_SenseClk</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\CapSense_1_Sns</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cy_boot</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\FIRE_SCR_ISR</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\FIRE_SCR_TIMER</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\FIRE_SCR_TIMER\FIRE_SCR_TIMER.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\FIRE_SCR_TIMER\FIRE_SCR_TIMER.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\FIRE_SCR_TIMER\FIRE_SCR_TIMER_PM.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_1</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_2</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_3</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_4</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_5</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Hi</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_LO</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Main</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Minus</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\LED_Plus</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Relay_Cal_Bytes</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\SCR_Fire</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Test</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\TIMER_CLK</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\WDT_ISR</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\ZC_Inv</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\ZC_ISR</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\ZC_NInv</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Zero_Cross</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Zero_Cross\Zero_Cross.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Zero_Cross\Zero_Cross.h</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\Zero_Cross\Zero_Cross_PM.c</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cycodeshareexport.ld</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cycodeshareimport.ld</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cycodeshareimport.scat</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Generated_Source\PSoC4\cydevice_trm.h</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>A4W_Softap-000</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\TopDesign</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\TopDesign\TopDesign.cysch</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>A4W_Softap-000</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\TopDesign</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\TopDesign\TopDesign.cysch</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>A4W_Softap-000</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\Cap_Mod.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1_CSHL.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1_INT.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1_PM.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1_SampleClk.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1_SenseClk.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1_SMS.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1_TunerHelper.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\Cm0Start.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CY8C4124.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CyFlash.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CyLib.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\cymetadata.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\cyPm.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\cyutils.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\dimming_ctrl.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\FIRE_SCR_ISR.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\FIRE_SCR_TIMER.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\FIRE_SCR_TIMER_PM.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\interrupts.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_1.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_2.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_3.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_4.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_5.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_Hi.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_LO.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_Main.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_Minus.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_Plus.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\main.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\pushbutton.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\Relay_Cal_Bytes.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\SCR_Fire.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\Test.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\TIMER_CLK.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\WDT_ISR.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\ZC_Inv.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\ZC_ISR.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\ZC_NInv.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\Zero_Cross.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\Zero_Cross_PM.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\G7 Solenoid Test Fixture.elf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\G7 Solenoid Test Fixture.hex</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\G7 Solenoid Test Fixture.map</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\G7 Solenoid Test Fixture.gpdsc</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\G7 Solenoid Test Fixture.rpt</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\G7 Solenoid Test Fixture_timing.html</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>A4W_Softap-000</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\Cap_Mod.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1_CSHL.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1_INT.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1_PM.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1_SampleClk.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1_SenseClk.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1_SMS.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CapSense_1_TunerHelper.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\Cm0Start.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CY8C4124.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CyFlash.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\CyLib.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\cymetadata.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\cyPm.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\cyutils.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\dimming_ctrl.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\FIRE_SCR_ISR.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\FIRE_SCR_TIMER.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\FIRE_SCR_TIMER_PM.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\interrupts.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_1.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_2.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_3.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_4.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_5.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_Hi.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_LO.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_Main.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_Minus.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_Plus.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\main.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\pushbutton.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\Relay_Cal_Bytes.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\SCR_Fire.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\Test.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\TIMER_CLK.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\WDT_ISR.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\ZC_Inv.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\ZC_ISR.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\ZC_NInv.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\Zero_Cross.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\Listing Files\Zero_Cross_PM.lst</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\G7 Solenoid Test Fixture.elf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\G7 Solenoid Test Fixture.hex</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CortexM0\ARM_GCC_493\Debug\G7 Solenoid Test Fixture.map</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\G7 Solenoid Test Fixture.gpdsc</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\G7 Solenoid Test Fixture.rpt</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\G7 Solenoid Test Fixture_timing.html</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStates>
+<TreeKeysV2>
+<v>Datasheet</v>
+</TreeKeysV2>
+<TreeStatesV2>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>A4W_Softap-000</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\PSoC 4 Architecture TRM</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\PSoC 4100 Family Datasheet</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\System Reference Guides</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\System Reference Guides\cy_boot_v4_20</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CapSense_CSD_P4_v2_30.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Comp_P4_v1_10.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\cy_clock_v2_20.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\cy_gsref_v2_0</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\cy_gsref_v2_0\cy_gsref_v2_0.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\cy_isr_v1_70</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\cy_pins_v2_10</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\cy_pins_v2_10\cy_pins_v2_10.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Em_EEPROM_v1_10.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Gnd_v1_0.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\LED_v1_0</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\LED_v1_0\LED_v1_0.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Power_v1_0</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Power_v1_0\Power_v1_0.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Resistor_v1_0</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Resistor_v1_0\Resistor_v1_0.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\TCPWM_P4_v2_0.pdf</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>A4W_Softap-000</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\PSoC 4 Architecture TRM</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\PSoC 4100 Family Datasheet</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\System Reference Guides</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\System Reference Guides\cy_boot_v4_20</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\CapSense_CSD_P4_v2_30.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Comp_P4_v1_10.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\cy_clock_v2_20.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\cy_gsref_v2_0</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\cy_gsref_v2_0\cy_gsref_v2_0.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\cy_isr_v1_70</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\cy_pins_v2_10</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\cy_pins_v2_10\cy_pins_v2_10.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Em_EEPROM_v1_10.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Gnd_v1_0.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\LED_v1_0</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\LED_v1_0\LED_v1_0.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Power_v1_0</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Power_v1_0\Power_v1_0.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Resistor_v1_0</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\Resistor_v1_0\Resistor_v1_0.pdf</v>
+<v>A4W_Softap-000\G7 Solenoid Test Fixture\TCPWM_P4_v2_0.pdf</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStatesV2>
+</CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
+</dataGuid>
+<dataGuid v="5f2be1a5-0687-4501-bb8c-cf21cb8211bf">
+<CyGuid_5f2be1a5-0687-4501-bb8c-cf21cb8211bf type_name="CyDesigner.Common.ProjMgmt.GUI.CyBookmarkData" version="1">
+<indicators />
+</CyGuid_5f2be1a5-0687-4501-bb8c-cf21cb8211bf>
+</dataGuid>
+</userData>
+</CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
+<Unloaded />
+<OpenDocs>
+<name v="C:\Legrand\GFCI\Solenoid Test Fixture\G7 Solenoid Test Fixture.cydsn\User_Source\main.c" />
+<name v="C:\Legrand\GFCI\Solenoid Test Fixture\G7 Solenoid Test Fixture.cydsn\TopDesign\TopDesign.cysch" />
+<name v="C:\Legrand\GFCI\Solenoid Test Fixture\G7 Solenoid Test Fixture.cydsn\G7 Solenoid Test Fixture.cydwr" />
+<name v="C:\Legrand\GFCI\Solenoid Test Fixture\G7 Solenoid Test Fixture.cydsn\User_Source\dimming_ctrl.c" />
+<name v="C:\Legrand\GFCI\Solenoid Test Fixture\G7 Solenoid Test Fixture.cydsn\User_Source\interrupts.c" />
+<name v="C:\Legrand\GFCI\Solenoid Test Fixture\G7 Solenoid Test Fixture.cydsn\User_Source\interrupts.h" />
+<name v="C:\Legrand\GFCI\Solenoid Test Fixture\G7 Solenoid Test Fixture.cydsn\Generated_Source\PSoC4\FIRE_SCR_TIMER.h" />
+</OpenDocs>
+<config v="" />
+<AutoUpdate v="true" />
+</CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
+</CyXmlSerializer>

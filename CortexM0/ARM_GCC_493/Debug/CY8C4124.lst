@@ -1,0 +1,869 @@
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccg2qzsm.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 4
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"CY8C4124.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.init_data_flash,"ax",%progbits
+  18              		.align	1
+  19              		.global	init_data_flash
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	init_data_flash, %function
+  23              	init_data_flash:
+  24              	.LFB33:
+  25              		.file 1 ".\\User_Source\\CY8C4124.c"
+   1:.\User_Source/CY8C4124.c **** 
+   2:.\User_Source/CY8C4124.c **** /*----------------------------------------------------------------------------
+   3:.\User_Source/CY8C4124.c ****  *    ADORNE 4-WIRE SOFTAP DIMMER
+   4:.\User_Source/CY8C4124.c ****  *----------------------------------------------------------------------------
+   5:.\User_Source/CY8C4124.c ****  *    File Name: CY8C4124.c
+   6:.\User_Source/CY8C4124.c ****  *    Description: Implements EEPROM read/write functions for Cypress MCU, CY8C4124.
+   7:.\User_Source/CY8C4124.c ****  *----------------------------------------------------------------------------
+   8:.\User_Source/CY8C4124.c ****  *    Notes:
+   9:.\User_Source/CY8C4124.c ****  *    1. 
+  10:.\User_Source/CY8C4124.c ****  *----------------------------------------------------------------------------
+  11:.\User_Source/CY8C4124.c ****  *    This code is the property of P&S Division of Legrand Corporation.
+  12:.\User_Source/CY8C4124.c ****  *    Copyright (c) 2013 - 2014 Legrand Corp. All rights reserved.
+  13:.\User_Source/CY8C4124.c ****  *---------------------------------------------------------------------------*/   
+  14:.\User_Source/CY8C4124.c **** #include <CY8C4124.h>
+  15:.\User_Source/CY8C4124.c **** #include <user_main.h>
+  16:.\User_Source/CY8C4124.c **** 
+  17:.\User_Source/CY8C4124.c **** // Must declare EEprom segment as constant
+  18:.\User_Source/CY8C4124.c **** const uint8 CYCODE EEprom[]=
+  19:.\User_Source/CY8C4124.c **** { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+  20:.\User_Source/CY8C4124.c **** 
+  21:.\User_Source/CY8C4124.c **** void init_data_flash(void)
+  22:.\User_Source/CY8C4124.c **** {
+  26              		.loc 1 22 0
+  27              		.cfi_startproc
+  28              	.LVL0:
+  29              		.loc 1 22 0
+  30 0000 0023     		mov	r3, #0
+  31              	.LVL1:
+  32              	.L2:
+  23:.\User_Source/CY8C4124.c ****    uint8_t i;
+  24:.\User_Source/CY8C4124.c **** 
+  25:.\User_Source/CY8C4124.c ****    // initialize RAM buffer
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccg2qzsm.s 			page 2
+
+
+  26:.\User_Source/CY8C4124.c ****    for (i=0;i<A_SIZE;i++) 
+  27:.\User_Source/CY8C4124.c ****    {
+  28:.\User_Source/CY8C4124.c ****       NON_VOL_A[i] = 0xff;
+  33              		.loc 1 28 0 discriminator 3
+  34 0002 FF21     		mov	r1, #255
+  35 0004 024A     		ldr	r2, .L4
+  36 0006 D154     		strb	r1, [r2, r3]
+  37              	.LVL2:
+  38 0008 0133     		add	r3, r3, #1
+  39              	.LVL3:
+  26:.\User_Source/CY8C4124.c ****    {
+  40              		.loc 1 26 0 discriminator 3
+  41 000a 082B     		cmp	r3, #8
+  42 000c F9D1     		bne	.L2
+  29:.\User_Source/CY8C4124.c ****    }
+  30:.\User_Source/CY8C4124.c **** }
+  43              		.loc 1 30 0
+  44              		@ sp needed
+  45 000e 7047     		bx	lr
+  46              	.L5:
+  47              		.align	2
+  48              	.L4:
+  49 0010 00000000 		.word	NON_VOL_A
+  50              		.cfi_endproc
+  51              	.LFE33:
+  52              		.size	init_data_flash, .-init_data_flash
+  53              		.section	.text.write_data_flash,"ax",%progbits
+  54              		.align	1
+  55              		.global	write_data_flash
+  56              		.code	16
+  57              		.thumb_func
+  58              		.type	write_data_flash, %function
+  59              	write_data_flash:
+  60              	.LFB34:
+  31:.\User_Source/CY8C4124.c **** 
+  32:.\User_Source/CY8C4124.c **** 
+  33:.\User_Source/CY8C4124.c **** void write_data_flash(void)
+  34:.\User_Source/CY8C4124.c **** {
+  61              		.loc 1 34 0
+  62              		.cfi_startproc
+  63 0000 08B5     		push	{r3, lr}
+  64              		.cfi_def_cfa_offset 8
+  65              		.cfi_offset 3, -8
+  66              		.cfi_offset 14, -4
+  35:.\User_Source/CY8C4124.c ****         Relay_Cal_Bytes_Write(&NON_VOL_A[0],&EEprom[0],8u);
+  67              		.loc 1 35 0
+  68 0002 0348     		ldr	r0, .L7
+  69 0004 0349     		ldr	r1, .L7+4
+  70 0006 0822     		mov	r2, #8
+  71 0008 FFF7FEFF 		bl	Relay_Cal_Bytes_Write
+  72              	.LVL4:
+  36:.\User_Source/CY8C4124.c **** }
+  73              		.loc 1 36 0
+  74              		@ sp needed
+  75 000c 08BD     		pop	{r3, pc}
+  76              	.L8:
+  77 000e C046     		.align	2
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccg2qzsm.s 			page 3
+
+
+  78              	.L7:
+  79 0010 00000000 		.word	NON_VOL_A
+  80 0014 00000000 		.word	.LANCHOR0
+  81              		.cfi_endproc
+  82              	.LFE34:
+  83              		.size	write_data_flash, .-write_data_flash
+  84              		.section	.text.read_data_flash,"ax",%progbits
+  85              		.align	1
+  86              		.global	read_data_flash
+  87              		.code	16
+  88              		.thumb_func
+  89              		.type	read_data_flash, %function
+  90              	read_data_flash:
+  91              	.LFB35:
+  37:.\User_Source/CY8C4124.c **** 
+  38:.\User_Source/CY8C4124.c **** void read_data_flash(void)
+  39:.\User_Source/CY8C4124.c **** {
+  92              		.loc 1 39 0
+  93              		.cfi_startproc
+  94              	.LVL5:
+  95              		.loc 1 39 0
+  96 0000 0023     		mov	r3, #0
+  97              	.LVL6:
+  98              	.L10:
+  40:.\User_Source/CY8C4124.c **** uint8 i;
+  41:.\User_Source/CY8C4124.c ****     for(i=0;i<A_SIZE;i++)
+  42:.\User_Source/CY8C4124.c ****     {
+  43:.\User_Source/CY8C4124.c ****         NON_VOL_A[i] = *(volatile uint8_t *) &EEprom[i];  
+  99              		.loc 1 43 0 discriminator 3
+ 100 0002 044A     		ldr	r2, .L11
+ 101 0004 0449     		ldr	r1, .L11+4
+ 102 0006 D25C     		ldrb	r2, [r2, r3]
+ 103 0008 D2B2     		uxtb	r2, r2
+ 104 000a CA54     		strb	r2, [r1, r3]
+ 105              	.LVL7:
+ 106 000c 0133     		add	r3, r3, #1
+ 107              	.LVL8:
+  41:.\User_Source/CY8C4124.c ****     {
+ 108              		.loc 1 41 0 discriminator 3
+ 109 000e 082B     		cmp	r3, #8
+ 110 0010 F7D1     		bne	.L10
+  44:.\User_Source/CY8C4124.c ****         //2016-03-15: needed *(volatile uint8_t *) conditioner when optimizing
+  45:.\User_Source/CY8C4124.c ****     }
+  46:.\User_Source/CY8C4124.c **** }
+ 111              		.loc 1 46 0
+ 112              		@ sp needed
+ 113 0012 7047     		bx	lr
+ 114              	.L12:
+ 115              		.align	2
+ 116              	.L11:
+ 117 0014 00000000 		.word	.LANCHOR0
+ 118 0018 00000000 		.word	NON_VOL_A
+ 119              		.cfi_endproc
+ 120              	.LFE35:
+ 121              		.size	read_data_flash, .-read_data_flash
+ 122              		.global	EEprom
+ 123              		.section	.rodata
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccg2qzsm.s 			page 4
+
+
+ 124              		.set	.LANCHOR0,. + 0
+ 125              		.type	EEprom, %object
+ 126              		.size	EEprom, 8
+ 127              	EEprom:
+ 128 0000 00000000 		.space	8
+ 128      00000000 
+ 129              		.text
+ 130              	.Letext0:
+ 131              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 132              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 133              		.file 4 "Generated_Source\\PSoC4/cytypes.h"
+ 134              		.file 5 ".\\User_Source/user_main.h"
+ 135              		.file 6 "Generated_Source\\PSoC4/Relay_Cal_Bytes.h"
+ 136              		.section	.debug_info,"",%progbits
+ 137              	.Ldebug_info0:
+ 138 0000 A0010000 		.4byte	0x1a0
+ 139 0004 0400     		.2byte	0x4
+ 140 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 141 000a 04       		.byte	0x4
+ 142 000b 01       		.uleb128 0x1
+ 143 000c 94000000 		.4byte	.LASF23
+ 144 0010 01       		.byte	0x1
+ 145 0011 73000000 		.4byte	.LASF24
+ 146 0015 29000000 		.4byte	.LASF25
+ 147 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 148 001d 00000000 		.4byte	0
+ 149 0021 00000000 		.4byte	.Ldebug_line0
+ 150 0025 02       		.uleb128 0x2
+ 151 0026 01       		.byte	0x1
+ 152 0027 06       		.byte	0x6
+ 153 0028 C0010000 		.4byte	.LASF0
+ 154 002c 03       		.uleb128 0x3
+ 155 002d 4B010000 		.4byte	.LASF9
+ 156 0031 02       		.byte	0x2
+ 157 0032 1D       		.byte	0x1d
+ 158 0033 37000000 		.4byte	0x37
+ 159 0037 02       		.uleb128 0x2
+ 160 0038 01       		.byte	0x1
+ 161 0039 08       		.byte	0x8
+ 162 003a 7E010000 		.4byte	.LASF1
+ 163 003e 02       		.uleb128 0x2
+ 164 003f 02       		.byte	0x2
+ 165 0040 05       		.byte	0x5
+ 166 0041 EC010000 		.4byte	.LASF2
+ 167 0045 02       		.uleb128 0x2
+ 168 0046 02       		.byte	0x2
+ 169 0047 07       		.byte	0x7
+ 170 0048 55010000 		.4byte	.LASF3
+ 171 004c 02       		.uleb128 0x2
+ 172 004d 04       		.byte	0x4
+ 173 004e 05       		.byte	0x5
+ 174 004f 91010000 		.4byte	.LASF4
+ 175 0053 02       		.uleb128 0x2
+ 176 0054 04       		.byte	0x4
+ 177 0055 07       		.byte	0x7
+ 178 0056 22010000 		.4byte	.LASF5
+ 179 005a 02       		.uleb128 0x2
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccg2qzsm.s 			page 5
+
+
+ 180 005b 08       		.byte	0x8
+ 181 005c 05       		.byte	0x5
+ 182 005d 00000000 		.4byte	.LASF6
+ 183 0061 02       		.uleb128 0x2
+ 184 0062 08       		.byte	0x8
+ 185 0063 07       		.byte	0x7
+ 186 0064 34010000 		.4byte	.LASF7
+ 187 0068 04       		.uleb128 0x4
+ 188 0069 04       		.byte	0x4
+ 189 006a 05       		.byte	0x5
+ 190 006b 696E7400 		.ascii	"int\000"
+ 191 006f 02       		.uleb128 0x2
+ 192 0070 04       		.byte	0x4
+ 193 0071 07       		.byte	0x7
+ 194 0072 15000000 		.4byte	.LASF8
+ 195 0076 03       		.uleb128 0x3
+ 196 0077 8C000000 		.4byte	.LASF10
+ 197 007b 03       		.byte	0x3
+ 198 007c 15       		.byte	0x15
+ 199 007d 2C000000 		.4byte	0x2c
+ 200 0081 03       		.uleb128 0x3
+ 201 0082 BA010000 		.4byte	.LASF11
+ 202 0086 04       		.byte	0x4
+ 203 0087 A1       		.byte	0xa1
+ 204 0088 37000000 		.4byte	0x37
+ 205 008c 03       		.uleb128 0x3
+ 206 008d 0E000000 		.4byte	.LASF12
+ 207 0091 04       		.byte	0x4
+ 208 0092 A3       		.byte	0xa3
+ 209 0093 53000000 		.4byte	0x53
+ 210 0097 02       		.uleb128 0x2
+ 211 0098 04       		.byte	0x4
+ 212 0099 04       		.byte	0x4
+ 213 009a DC010000 		.4byte	.LASF13
+ 214 009e 02       		.uleb128 0x2
+ 215 009f 08       		.byte	0x8
+ 216 00a0 04       		.byte	0x4
+ 217 00a1 9A010000 		.4byte	.LASF14
+ 218 00a5 02       		.uleb128 0x2
+ 219 00a6 01       		.byte	0x1
+ 220 00a7 08       		.byte	0x8
+ 221 00a8 8C010000 		.4byte	.LASF15
+ 222 00ac 05       		.uleb128 0x5
+ 223 00ad B1010000 		.4byte	.LASF16
+ 224 00b1 04       		.byte	0x4
+ 225 00b2 4301     		.2byte	0x143
+ 226 00b4 53000000 		.4byte	0x53
+ 227 00b8 02       		.uleb128 0x2
+ 228 00b9 04       		.byte	0x4
+ 229 00ba 07       		.byte	0x7
+ 230 00bb F6010000 		.4byte	.LASF17
+ 231 00bf 06       		.uleb128 0x6
+ 232 00c0 CC010000 		.4byte	.LASF18
+ 233 00c4 01       		.byte	0x1
+ 234 00c5 15       		.byte	0x15
+ 235 00c6 00000000 		.4byte	.LFB33
+ 236 00ca 14000000 		.4byte	.LFE33-.LFB33
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccg2qzsm.s 			page 6
+
+
+ 237 00ce 01       		.uleb128 0x1
+ 238 00cf 9C       		.byte	0x9c
+ 239 00d0 E2000000 		.4byte	0xe2
+ 240 00d4 07       		.uleb128 0x7
+ 241 00d5 6900     		.ascii	"i\000"
+ 242 00d7 01       		.byte	0x1
+ 243 00d8 17       		.byte	0x17
+ 244 00d9 76000000 		.4byte	0x76
+ 245 00dd 00000000 		.4byte	.LLST0
+ 246 00e1 00       		.byte	0
+ 247 00e2 06       		.uleb128 0x6
+ 248 00e3 62000000 		.4byte	.LASF19
+ 249 00e7 01       		.byte	0x1
+ 250 00e8 21       		.byte	0x21
+ 251 00e9 00000000 		.4byte	.LFB34
+ 252 00ed 18000000 		.4byte	.LFE34-.LFB34
+ 253 00f1 01       		.uleb128 0x1
+ 254 00f2 9C       		.byte	0x9c
+ 255 00f3 10010000 		.4byte	0x110
+ 256 00f7 08       		.uleb128 0x8
+ 257 00f8 0C000000 		.4byte	.LVL4
+ 258 00fc 79010000 		.4byte	0x179
+ 259 0100 09       		.uleb128 0x9
+ 260 0101 01       		.uleb128 0x1
+ 261 0102 52       		.byte	0x52
+ 262 0103 01       		.uleb128 0x1
+ 263 0104 38       		.byte	0x38
+ 264 0105 09       		.uleb128 0x9
+ 265 0106 01       		.uleb128 0x1
+ 266 0107 51       		.byte	0x51
+ 267 0108 05       		.uleb128 0x5
+ 268 0109 03       		.byte	0x3
+ 269 010a 00000000 		.4byte	.LANCHOR0
+ 270 010e 00       		.byte	0
+ 271 010f 00       		.byte	0
+ 272 0110 06       		.uleb128 0x6
+ 273 0111 A1010000 		.4byte	.LASF20
+ 274 0115 01       		.byte	0x1
+ 275 0116 26       		.byte	0x26
+ 276 0117 00000000 		.4byte	.LFB35
+ 277 011b 1C000000 		.4byte	.LFE35-.LFB35
+ 278 011f 01       		.uleb128 0x1
+ 279 0120 9C       		.byte	0x9c
+ 280 0121 33010000 		.4byte	0x133
+ 281 0125 07       		.uleb128 0x7
+ 282 0126 6900     		.ascii	"i\000"
+ 283 0128 01       		.byte	0x1
+ 284 0129 28       		.byte	0x28
+ 285 012a 81000000 		.4byte	0x81
+ 286 012e 2C000000 		.4byte	.LLST1
+ 287 0132 00       		.byte	0
+ 288 0133 0A       		.uleb128 0xa
+ 289 0134 76000000 		.4byte	0x76
+ 290 0138 43010000 		.4byte	0x143
+ 291 013c 0B       		.uleb128 0xb
+ 292 013d B8000000 		.4byte	0xb8
+ 293 0141 07       		.byte	0x7
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccg2qzsm.s 			page 7
+
+
+ 294 0142 00       		.byte	0
+ 295 0143 0C       		.uleb128 0xc
+ 296 0144 E2010000 		.4byte	.LASF21
+ 297 0148 05       		.byte	0x5
+ 298 0149 FF       		.byte	0xff
+ 299 014a 4E010000 		.4byte	0x14e
+ 300 014e 0D       		.uleb128 0xd
+ 301 014f 33010000 		.4byte	0x133
+ 302 0153 0A       		.uleb128 0xa
+ 303 0154 81000000 		.4byte	0x81
+ 304 0158 63010000 		.4byte	0x163
+ 305 015c 0B       		.uleb128 0xb
+ 306 015d B8000000 		.4byte	0xb8
+ 307 0161 07       		.byte	0x7
+ 308 0162 00       		.byte	0
+ 309 0163 0E       		.uleb128 0xe
+ 310 0164 22000000 		.4byte	.LASF22
+ 311 0168 01       		.byte	0x1
+ 312 0169 12       		.byte	0x12
+ 313 016a 74010000 		.4byte	0x174
+ 314 016e 05       		.uleb128 0x5
+ 315 016f 03       		.byte	0x3
+ 316 0170 00000000 		.4byte	EEprom
+ 317 0174 0F       		.uleb128 0xf
+ 318 0175 53010000 		.4byte	0x153
+ 319 0179 10       		.uleb128 0x10
+ 320 017a 68010000 		.4byte	.LASF26
+ 321 017e 06       		.byte	0x6
+ 322 017f 2F       		.byte	0x2f
+ 323 0180 AC000000 		.4byte	0xac
+ 324 0184 98010000 		.4byte	0x198
+ 325 0188 11       		.uleb128 0x11
+ 326 0189 98010000 		.4byte	0x198
+ 327 018d 11       		.uleb128 0x11
+ 328 018e 98010000 		.4byte	0x198
+ 329 0192 11       		.uleb128 0x11
+ 330 0193 8C000000 		.4byte	0x8c
+ 331 0197 00       		.byte	0
+ 332 0198 12       		.uleb128 0x12
+ 333 0199 04       		.byte	0x4
+ 334 019a 9E010000 		.4byte	0x19e
+ 335 019e 0F       		.uleb128 0xf
+ 336 019f 81000000 		.4byte	0x81
+ 337 01a3 00       		.byte	0
+ 338              		.section	.debug_abbrev,"",%progbits
+ 339              	.Ldebug_abbrev0:
+ 340 0000 01       		.uleb128 0x1
+ 341 0001 11       		.uleb128 0x11
+ 342 0002 01       		.byte	0x1
+ 343 0003 25       		.uleb128 0x25
+ 344 0004 0E       		.uleb128 0xe
+ 345 0005 13       		.uleb128 0x13
+ 346 0006 0B       		.uleb128 0xb
+ 347 0007 03       		.uleb128 0x3
+ 348 0008 0E       		.uleb128 0xe
+ 349 0009 1B       		.uleb128 0x1b
+ 350 000a 0E       		.uleb128 0xe
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccg2qzsm.s 			page 8
+
+
+ 351 000b 55       		.uleb128 0x55
+ 352 000c 17       		.uleb128 0x17
+ 353 000d 11       		.uleb128 0x11
+ 354 000e 01       		.uleb128 0x1
+ 355 000f 10       		.uleb128 0x10
+ 356 0010 17       		.uleb128 0x17
+ 357 0011 00       		.byte	0
+ 358 0012 00       		.byte	0
+ 359 0013 02       		.uleb128 0x2
+ 360 0014 24       		.uleb128 0x24
+ 361 0015 00       		.byte	0
+ 362 0016 0B       		.uleb128 0xb
+ 363 0017 0B       		.uleb128 0xb
+ 364 0018 3E       		.uleb128 0x3e
+ 365 0019 0B       		.uleb128 0xb
+ 366 001a 03       		.uleb128 0x3
+ 367 001b 0E       		.uleb128 0xe
+ 368 001c 00       		.byte	0
+ 369 001d 00       		.byte	0
+ 370 001e 03       		.uleb128 0x3
+ 371 001f 16       		.uleb128 0x16
+ 372 0020 00       		.byte	0
+ 373 0021 03       		.uleb128 0x3
+ 374 0022 0E       		.uleb128 0xe
+ 375 0023 3A       		.uleb128 0x3a
+ 376 0024 0B       		.uleb128 0xb
+ 377 0025 3B       		.uleb128 0x3b
+ 378 0026 0B       		.uleb128 0xb
+ 379 0027 49       		.uleb128 0x49
+ 380 0028 13       		.uleb128 0x13
+ 381 0029 00       		.byte	0
+ 382 002a 00       		.byte	0
+ 383 002b 04       		.uleb128 0x4
+ 384 002c 24       		.uleb128 0x24
+ 385 002d 00       		.byte	0
+ 386 002e 0B       		.uleb128 0xb
+ 387 002f 0B       		.uleb128 0xb
+ 388 0030 3E       		.uleb128 0x3e
+ 389 0031 0B       		.uleb128 0xb
+ 390 0032 03       		.uleb128 0x3
+ 391 0033 08       		.uleb128 0x8
+ 392 0034 00       		.byte	0
+ 393 0035 00       		.byte	0
+ 394 0036 05       		.uleb128 0x5
+ 395 0037 16       		.uleb128 0x16
+ 396 0038 00       		.byte	0
+ 397 0039 03       		.uleb128 0x3
+ 398 003a 0E       		.uleb128 0xe
+ 399 003b 3A       		.uleb128 0x3a
+ 400 003c 0B       		.uleb128 0xb
+ 401 003d 3B       		.uleb128 0x3b
+ 402 003e 05       		.uleb128 0x5
+ 403 003f 49       		.uleb128 0x49
+ 404 0040 13       		.uleb128 0x13
+ 405 0041 00       		.byte	0
+ 406 0042 00       		.byte	0
+ 407 0043 06       		.uleb128 0x6
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccg2qzsm.s 			page 9
+
+
+ 408 0044 2E       		.uleb128 0x2e
+ 409 0045 01       		.byte	0x1
+ 410 0046 3F       		.uleb128 0x3f
+ 411 0047 19       		.uleb128 0x19
+ 412 0048 03       		.uleb128 0x3
+ 413 0049 0E       		.uleb128 0xe
+ 414 004a 3A       		.uleb128 0x3a
+ 415 004b 0B       		.uleb128 0xb
+ 416 004c 3B       		.uleb128 0x3b
+ 417 004d 0B       		.uleb128 0xb
+ 418 004e 27       		.uleb128 0x27
+ 419 004f 19       		.uleb128 0x19
+ 420 0050 11       		.uleb128 0x11
+ 421 0051 01       		.uleb128 0x1
+ 422 0052 12       		.uleb128 0x12
+ 423 0053 06       		.uleb128 0x6
+ 424 0054 40       		.uleb128 0x40
+ 425 0055 18       		.uleb128 0x18
+ 426 0056 9742     		.uleb128 0x2117
+ 427 0058 19       		.uleb128 0x19
+ 428 0059 01       		.uleb128 0x1
+ 429 005a 13       		.uleb128 0x13
+ 430 005b 00       		.byte	0
+ 431 005c 00       		.byte	0
+ 432 005d 07       		.uleb128 0x7
+ 433 005e 34       		.uleb128 0x34
+ 434 005f 00       		.byte	0
+ 435 0060 03       		.uleb128 0x3
+ 436 0061 08       		.uleb128 0x8
+ 437 0062 3A       		.uleb128 0x3a
+ 438 0063 0B       		.uleb128 0xb
+ 439 0064 3B       		.uleb128 0x3b
+ 440 0065 0B       		.uleb128 0xb
+ 441 0066 49       		.uleb128 0x49
+ 442 0067 13       		.uleb128 0x13
+ 443 0068 02       		.uleb128 0x2
+ 444 0069 17       		.uleb128 0x17
+ 445 006a 00       		.byte	0
+ 446 006b 00       		.byte	0
+ 447 006c 08       		.uleb128 0x8
+ 448 006d 898201   		.uleb128 0x4109
+ 449 0070 01       		.byte	0x1
+ 450 0071 11       		.uleb128 0x11
+ 451 0072 01       		.uleb128 0x1
+ 452 0073 31       		.uleb128 0x31
+ 453 0074 13       		.uleb128 0x13
+ 454 0075 00       		.byte	0
+ 455 0076 00       		.byte	0
+ 456 0077 09       		.uleb128 0x9
+ 457 0078 8A8201   		.uleb128 0x410a
+ 458 007b 00       		.byte	0
+ 459 007c 02       		.uleb128 0x2
+ 460 007d 18       		.uleb128 0x18
+ 461 007e 9142     		.uleb128 0x2111
+ 462 0080 18       		.uleb128 0x18
+ 463 0081 00       		.byte	0
+ 464 0082 00       		.byte	0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccg2qzsm.s 			page 10
+
+
+ 465 0083 0A       		.uleb128 0xa
+ 466 0084 01       		.uleb128 0x1
+ 467 0085 01       		.byte	0x1
+ 468 0086 49       		.uleb128 0x49
+ 469 0087 13       		.uleb128 0x13
+ 470 0088 01       		.uleb128 0x1
+ 471 0089 13       		.uleb128 0x13
+ 472 008a 00       		.byte	0
+ 473 008b 00       		.byte	0
+ 474 008c 0B       		.uleb128 0xb
+ 475 008d 21       		.uleb128 0x21
+ 476 008e 00       		.byte	0
+ 477 008f 49       		.uleb128 0x49
+ 478 0090 13       		.uleb128 0x13
+ 479 0091 2F       		.uleb128 0x2f
+ 480 0092 0B       		.uleb128 0xb
+ 481 0093 00       		.byte	0
+ 482 0094 00       		.byte	0
+ 483 0095 0C       		.uleb128 0xc
+ 484 0096 34       		.uleb128 0x34
+ 485 0097 00       		.byte	0
+ 486 0098 03       		.uleb128 0x3
+ 487 0099 0E       		.uleb128 0xe
+ 488 009a 3A       		.uleb128 0x3a
+ 489 009b 0B       		.uleb128 0xb
+ 490 009c 3B       		.uleb128 0x3b
+ 491 009d 0B       		.uleb128 0xb
+ 492 009e 49       		.uleb128 0x49
+ 493 009f 13       		.uleb128 0x13
+ 494 00a0 3F       		.uleb128 0x3f
+ 495 00a1 19       		.uleb128 0x19
+ 496 00a2 3C       		.uleb128 0x3c
+ 497 00a3 19       		.uleb128 0x19
+ 498 00a4 00       		.byte	0
+ 499 00a5 00       		.byte	0
+ 500 00a6 0D       		.uleb128 0xd
+ 501 00a7 35       		.uleb128 0x35
+ 502 00a8 00       		.byte	0
+ 503 00a9 49       		.uleb128 0x49
+ 504 00aa 13       		.uleb128 0x13
+ 505 00ab 00       		.byte	0
+ 506 00ac 00       		.byte	0
+ 507 00ad 0E       		.uleb128 0xe
+ 508 00ae 34       		.uleb128 0x34
+ 509 00af 00       		.byte	0
+ 510 00b0 03       		.uleb128 0x3
+ 511 00b1 0E       		.uleb128 0xe
+ 512 00b2 3A       		.uleb128 0x3a
+ 513 00b3 0B       		.uleb128 0xb
+ 514 00b4 3B       		.uleb128 0x3b
+ 515 00b5 0B       		.uleb128 0xb
+ 516 00b6 49       		.uleb128 0x49
+ 517 00b7 13       		.uleb128 0x13
+ 518 00b8 3F       		.uleb128 0x3f
+ 519 00b9 19       		.uleb128 0x19
+ 520 00ba 02       		.uleb128 0x2
+ 521 00bb 18       		.uleb128 0x18
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccg2qzsm.s 			page 11
+
+
+ 522 00bc 00       		.byte	0
+ 523 00bd 00       		.byte	0
+ 524 00be 0F       		.uleb128 0xf
+ 525 00bf 26       		.uleb128 0x26
+ 526 00c0 00       		.byte	0
+ 527 00c1 49       		.uleb128 0x49
+ 528 00c2 13       		.uleb128 0x13
+ 529 00c3 00       		.byte	0
+ 530 00c4 00       		.byte	0
+ 531 00c5 10       		.uleb128 0x10
+ 532 00c6 2E       		.uleb128 0x2e
+ 533 00c7 01       		.byte	0x1
+ 534 00c8 3F       		.uleb128 0x3f
+ 535 00c9 19       		.uleb128 0x19
+ 536 00ca 03       		.uleb128 0x3
+ 537 00cb 0E       		.uleb128 0xe
+ 538 00cc 3A       		.uleb128 0x3a
+ 539 00cd 0B       		.uleb128 0xb
+ 540 00ce 3B       		.uleb128 0x3b
+ 541 00cf 0B       		.uleb128 0xb
+ 542 00d0 27       		.uleb128 0x27
+ 543 00d1 19       		.uleb128 0x19
+ 544 00d2 49       		.uleb128 0x49
+ 545 00d3 13       		.uleb128 0x13
+ 546 00d4 3C       		.uleb128 0x3c
+ 547 00d5 19       		.uleb128 0x19
+ 548 00d6 01       		.uleb128 0x1
+ 549 00d7 13       		.uleb128 0x13
+ 550 00d8 00       		.byte	0
+ 551 00d9 00       		.byte	0
+ 552 00da 11       		.uleb128 0x11
+ 553 00db 05       		.uleb128 0x5
+ 554 00dc 00       		.byte	0
+ 555 00dd 49       		.uleb128 0x49
+ 556 00de 13       		.uleb128 0x13
+ 557 00df 00       		.byte	0
+ 558 00e0 00       		.byte	0
+ 559 00e1 12       		.uleb128 0x12
+ 560 00e2 0F       		.uleb128 0xf
+ 561 00e3 00       		.byte	0
+ 562 00e4 0B       		.uleb128 0xb
+ 563 00e5 0B       		.uleb128 0xb
+ 564 00e6 49       		.uleb128 0x49
+ 565 00e7 13       		.uleb128 0x13
+ 566 00e8 00       		.byte	0
+ 567 00e9 00       		.byte	0
+ 568 00ea 00       		.byte	0
+ 569              		.section	.debug_loc,"",%progbits
+ 570              	.Ldebug_loc0:
+ 571              	.LLST0:
+ 572 0000 00000000 		.4byte	.LVL0
+ 573 0004 02000000 		.4byte	.LVL1
+ 574 0008 0200     		.2byte	0x2
+ 575 000a 30       		.byte	0x30
+ 576 000b 9F       		.byte	0x9f
+ 577 000c 02000000 		.4byte	.LVL1
+ 578 0010 08000000 		.4byte	.LVL2
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccg2qzsm.s 			page 12
+
+
+ 579 0014 0100     		.2byte	0x1
+ 580 0016 53       		.byte	0x53
+ 581 0017 08000000 		.4byte	.LVL2
+ 582 001b 0A000000 		.4byte	.LVL3
+ 583 001f 0300     		.2byte	0x3
+ 584 0021 73       		.byte	0x73
+ 585 0022 01       		.sleb128 1
+ 586 0023 9F       		.byte	0x9f
+ 587 0024 00000000 		.4byte	0
+ 588 0028 00000000 		.4byte	0
+ 589              	.LLST1:
+ 590 002c 00000000 		.4byte	.LVL5
+ 591 0030 02000000 		.4byte	.LVL6
+ 592 0034 0200     		.2byte	0x2
+ 593 0036 30       		.byte	0x30
+ 594 0037 9F       		.byte	0x9f
+ 595 0038 02000000 		.4byte	.LVL6
+ 596 003c 0C000000 		.4byte	.LVL7
+ 597 0040 0100     		.2byte	0x1
+ 598 0042 53       		.byte	0x53
+ 599 0043 0C000000 		.4byte	.LVL7
+ 600 0047 0E000000 		.4byte	.LVL8
+ 601 004b 0300     		.2byte	0x3
+ 602 004d 73       		.byte	0x73
+ 603 004e 01       		.sleb128 1
+ 604 004f 9F       		.byte	0x9f
+ 605 0050 00000000 		.4byte	0
+ 606 0054 00000000 		.4byte	0
+ 607              		.section	.debug_aranges,"",%progbits
+ 608 0000 2C000000 		.4byte	0x2c
+ 609 0004 0200     		.2byte	0x2
+ 610 0006 00000000 		.4byte	.Ldebug_info0
+ 611 000a 04       		.byte	0x4
+ 612 000b 00       		.byte	0
+ 613 000c 0000     		.2byte	0
+ 614 000e 0000     		.2byte	0
+ 615 0010 00000000 		.4byte	.LFB33
+ 616 0014 14000000 		.4byte	.LFE33-.LFB33
+ 617 0018 00000000 		.4byte	.LFB34
+ 618 001c 18000000 		.4byte	.LFE34-.LFB34
+ 619 0020 00000000 		.4byte	.LFB35
+ 620 0024 1C000000 		.4byte	.LFE35-.LFB35
+ 621 0028 00000000 		.4byte	0
+ 622 002c 00000000 		.4byte	0
+ 623              		.section	.debug_ranges,"",%progbits
+ 624              	.Ldebug_ranges0:
+ 625 0000 00000000 		.4byte	.LFB33
+ 626 0004 14000000 		.4byte	.LFE33
+ 627 0008 00000000 		.4byte	.LFB34
+ 628 000c 18000000 		.4byte	.LFE34
+ 629 0010 00000000 		.4byte	.LFB35
+ 630 0014 1C000000 		.4byte	.LFE35
+ 631 0018 00000000 		.4byte	0
+ 632 001c 00000000 		.4byte	0
+ 633              		.section	.debug_line,"",%progbits
+ 634              	.Ldebug_line0:
+ 635 0000 BC010000 		.section	.debug_str,"MS",%progbits,1
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccg2qzsm.s 			page 13
+
+
+ 635      02006F01 
+ 635      00000201 
+ 635      FB0E0D00 
+ 635      01010101 
+ 636              	.LASF6:
+ 637 0000 6C6F6E67 		.ascii	"long long int\000"
+ 637      206C6F6E 
+ 637      6720696E 
+ 637      7400
+ 638              	.LASF12:
+ 639 000e 75696E74 		.ascii	"uint32\000"
+ 639      333200
+ 640              	.LASF8:
+ 641 0015 756E7369 		.ascii	"unsigned int\000"
+ 641      676E6564 
+ 641      20696E74 
+ 641      00
+ 642              	.LASF22:
+ 643 0022 45457072 		.ascii	"EEprom\000"
+ 643      6F6D00
+ 644              	.LASF25:
+ 645 0029 433A5C4C 		.ascii	"C:\\Legrand\\Dimmers\\A4W sofTap and Touch\\A4W_Sof"
+ 645      65677261 
+ 645      6E645C44 
+ 645      696D6D65 
+ 645      72735C41 
+ 646 0058 7461702E 		.ascii	"tap.cydsn\000"
+ 646      63796473 
+ 646      6E00
+ 647              	.LASF19:
+ 648 0062 77726974 		.ascii	"write_data_flash\000"
+ 648      655F6461 
+ 648      74615F66 
+ 648      6C617368 
+ 648      00
+ 649              	.LASF24:
+ 650 0073 2E5C5573 		.ascii	".\\User_Source\\CY8C4124.c\000"
+ 650      65725F53 
+ 650      6F757263 
+ 650      655C4359 
+ 650      38433431 
+ 651              	.LASF10:
+ 652 008c 75696E74 		.ascii	"uint8_t\000"
+ 652      385F7400 
+ 653              	.LASF23:
+ 654 0094 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 654      4320342E 
+ 654      392E3320 
+ 654      32303135 
+ 654      30333033 
+ 655 00c7 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 655      20726576 
+ 655      6973696F 
+ 655      6E203232 
+ 655      31323230 
+ 656 00fa 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 656      66756E63 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccg2qzsm.s 			page 14
+
+
+ 656      74696F6E 
+ 656      2D736563 
+ 656      74696F6E 
+ 657              	.LASF5:
+ 658 0122 6C6F6E67 		.ascii	"long unsigned int\000"
+ 658      20756E73 
+ 658      69676E65 
+ 658      6420696E 
+ 658      7400
+ 659              	.LASF7:
+ 660 0134 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 660      206C6F6E 
+ 660      6720756E 
+ 660      7369676E 
+ 660      65642069 
+ 661              	.LASF9:
+ 662 014b 5F5F7569 		.ascii	"__uint8_t\000"
+ 662      6E74385F 
+ 662      7400
+ 663              	.LASF3:
+ 664 0155 73686F72 		.ascii	"short unsigned int\000"
+ 664      7420756E 
+ 664      7369676E 
+ 664      65642069 
+ 664      6E7400
+ 665              	.LASF26:
+ 666 0168 52656C61 		.ascii	"Relay_Cal_Bytes_Write\000"
+ 666      795F4361 
+ 666      6C5F4279 
+ 666      7465735F 
+ 666      57726974 
+ 667              	.LASF1:
+ 668 017e 756E7369 		.ascii	"unsigned char\000"
+ 668      676E6564 
+ 668      20636861 
+ 668      7200
+ 669              	.LASF15:
+ 670 018c 63686172 		.ascii	"char\000"
+ 670      00
+ 671              	.LASF4:
+ 672 0191 6C6F6E67 		.ascii	"long int\000"
+ 672      20696E74 
+ 672      00
+ 673              	.LASF14:
+ 674 019a 646F7562 		.ascii	"double\000"
+ 674      6C6500
+ 675              	.LASF20:
+ 676 01a1 72656164 		.ascii	"read_data_flash\000"
+ 676      5F646174 
+ 676      615F666C 
+ 676      61736800 
+ 677              	.LASF16:
+ 678 01b1 63797374 		.ascii	"cystatus\000"
+ 678      61747573 
+ 678      00
+ 679              	.LASF11:
+ 680 01ba 75696E74 		.ascii	"uint8\000"
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccg2qzsm.s 			page 15
+
+
+ 680      3800
+ 681              	.LASF0:
+ 682 01c0 7369676E 		.ascii	"signed char\000"
+ 682      65642063 
+ 682      68617200 
+ 683              	.LASF18:
+ 684 01cc 696E6974 		.ascii	"init_data_flash\000"
+ 684      5F646174 
+ 684      615F666C 
+ 684      61736800 
+ 685              	.LASF13:
+ 686 01dc 666C6F61 		.ascii	"float\000"
+ 686      7400
+ 687              	.LASF21:
+ 688 01e2 4E4F4E5F 		.ascii	"NON_VOL_A\000"
+ 688      564F4C5F 
+ 688      4100
+ 689              	.LASF2:
+ 690 01ec 73686F72 		.ascii	"short int\000"
+ 690      7420696E 
+ 690      7400
+ 691              	.LASF17:
+ 692 01f6 73697A65 		.ascii	"sizetype\000"
+ 692      74797065 
+ 692      00
+ 693              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

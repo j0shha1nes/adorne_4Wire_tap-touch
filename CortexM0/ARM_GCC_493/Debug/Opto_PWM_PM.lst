@@ -1,0 +1,847 @@
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccwS7drY.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 4
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"Opto_PWM_PM.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.Opto_PWM_SaveConfig,"ax",%progbits
+  18              		.align	1
+  19              		.global	Opto_PWM_SaveConfig
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	Opto_PWM_SaveConfig, %function
+  23              	Opto_PWM_SaveConfig:
+  24              	.LFB0:
+  25              		.file 1 ".\\Generated_Source\\PSoC4\\Opto_PWM_PM.c"
+   1:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * File Name: Opto_PWM_PM.c
+   3:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Version 1.10
+   4:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+   5:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Description:
+   6:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  This file provides the power management source code to the API for the
+   7:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  Opamp (Analog Buffer) component.
+   8:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+   9:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+  10:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** ********************************************************************************
+  11:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Copyright 2013-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  12:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * You may use this file only in accordance with the license, terms, conditions,
+  13:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  14:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * the software package with which this file was provided.
+  15:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *******************************************************************************/
+  16:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** 
+  17:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** #include "Opto_PWM.h"
+  18:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** 
+  19:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** #if(!Opto_PWM_CHECK_DEEPSLEEP_SUPPORT)
+  20:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****     static Opto_PWM_BACKUP_STRUCT Opto_PWM_backup =
+  21:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****     {
+  22:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****         0u, /* enableState */
+  23:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****     };
+  24:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** #endif /* (Opto_PWM_CHECK_DEEPSLEEP_SUPPORT) */
+  25:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** 
+  26:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** 
+  27:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** /*******************************************************************************
+  28:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Function Name: Opto_PWM_SaveConfig
+  29:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** ********************************************************************************
+  30:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+  31:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Summary:
+  32:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  Empty function. Included for consistency with other components.
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccwS7drY.s 			page 2
+
+
+  33:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+  34:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Parameters:
+  35:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  None
+  36:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+  37:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Return:
+  38:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  None
+  39:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+  40:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *******************************************************************************/
+  41:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** void Opto_PWM_SaveConfig(void)
+  42:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** {
+  26              		.loc 1 42 0
+  27              		.cfi_startproc
+  43:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** 
+  44:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** }
+  28              		.loc 1 44 0
+  29              		@ sp needed
+  30 0000 7047     		bx	lr
+  31              		.cfi_endproc
+  32              	.LFE0:
+  33              		.size	Opto_PWM_SaveConfig, .-Opto_PWM_SaveConfig
+  34              		.section	.text.Opto_PWM_RestoreConfig,"ax",%progbits
+  35              		.align	1
+  36              		.global	Opto_PWM_RestoreConfig
+  37              		.code	16
+  38              		.thumb_func
+  39              		.type	Opto_PWM_RestoreConfig, %function
+  40              	Opto_PWM_RestoreConfig:
+  41              	.LFB1:
+  45:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** 
+  46:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** 
+  47:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** /*******************************************************************************
+  48:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Function Name: Opto_PWM_RestoreConfig
+  49:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** ********************************************************************************
+  50:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+  51:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Summary:
+  52:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  Empty function. Included for consistency with other components.
+  53:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+  54:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Parameters:
+  55:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  None
+  56:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+  57:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Return:
+  58:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  None
+  59:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+  60:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *******************************************************************************/
+  61:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** void Opto_PWM_RestoreConfig(void)
+  62:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** {
+  42              		.loc 1 62 0
+  43              		.cfi_startproc
+  63:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****     
+  64:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** }
+  44              		.loc 1 64 0
+  45              		@ sp needed
+  46 0000 7047     		bx	lr
+  47              		.cfi_endproc
+  48              	.LFE1:
+  49              		.size	Opto_PWM_RestoreConfig, .-Opto_PWM_RestoreConfig
+  50              		.section	.text.Opto_PWM_Sleep,"ax",%progbits
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccwS7drY.s 			page 3
+
+
+  51              		.align	1
+  52              		.global	Opto_PWM_Sleep
+  53              		.code	16
+  54              		.thumb_func
+  55              		.type	Opto_PWM_Sleep, %function
+  56              	Opto_PWM_Sleep:
+  57              	.LFB2:
+  65:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** 
+  66:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** 
+  67:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** /*******************************************************************************
+  68:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Function Name: Opto_PWM_Sleep
+  69:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** ********************************************************************************
+  70:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+  71:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Summary:
+  72:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  This is the preferred API to prepare the component for sleep. The Sleep() API 
+  73:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  saves the current component state. Call the Sleep() function before calling the 
+  74:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  CySysPmDeepSleep() or the CySysPmHibernate() functions. The "Deep sleep operation" 
+  75:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  option has an influence on this function implementation.
+  76:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+  77:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Parameters:
+  78:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  None
+  79:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+  80:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Return:
+  81:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  None
+  82:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+  83:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Global variables:
+  84:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  Opto_PWM_backup: The structure field 'enableState' is modified
+  85:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  depending on the enable state of the block before entering the sleep mode.
+  86:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+  87:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *******************************************************************************/
+  88:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** void Opto_PWM_Sleep(void)
+  89:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** {
+  58              		.loc 1 89 0
+  59              		.cfi_startproc
+  60 0000 08B5     		push	{r3, lr}
+  61              		.cfi_def_cfa_offset 8
+  62              		.cfi_offset 3, -8
+  63              		.cfi_offset 14, -4
+  90:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** #if(!Opto_PWM_CHECK_DEEPSLEEP_SUPPORT)
+  91:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****     if(Opto_PWM_CHECK_PWR_MODE_OFF)
+  64              		.loc 1 91 0
+  65 0002 064B     		ldr	r3, .L7
+  66 0004 1A68     		ldr	r2, [r3]
+  67 0006 0323     		mov	r3, #3
+  68 0008 1340     		and	r3, r2
+  69 000a 054A     		ldr	r2, .L7+4
+  70 000c 04D0     		beq	.L4
+  92:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****     {
+  93:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****         Opto_PWM_backup.enableState = 1u;
+  71              		.loc 1 93 0
+  72 000e 0123     		mov	r3, #1
+  73 0010 1370     		strb	r3, [r2]
+  94:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****         Opto_PWM_Stop();
+  74              		.loc 1 94 0
+  75 0012 FFF7FEFF 		bl	Opto_PWM_Stop
+  76              	.LVL0:
+  77 0016 00E0     		b	.L3
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccwS7drY.s 			page 4
+
+
+  78              	.L4:
+  95:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****     }
+  96:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****     else /* The component is disabled */
+  97:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****     {
+  98:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****         Opto_PWM_backup.enableState = 0u;
+  79              		.loc 1 98 0
+  80 0018 1370     		strb	r3, [r2]
+  81              	.L3:
+  99:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****     }
+ 100:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** #endif /* (Opto_PWM_CHECK_DEEPSLEEP_SUPPORT) */
+ 101:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** }
+  82              		.loc 1 101 0
+  83              		@ sp needed
+  84 001a 08BD     		pop	{r3, pc}
+  85              	.L8:
+  86              		.align	2
+  87              	.L7:
+  88 001c 04001040 		.word	1074790404
+  89 0020 00000000 		.word	.LANCHOR0
+  90              		.cfi_endproc
+  91              	.LFE2:
+  92              		.size	Opto_PWM_Sleep, .-Opto_PWM_Sleep
+  93              		.section	.text.Opto_PWM_Wakeup,"ax",%progbits
+  94              		.align	1
+  95              		.global	Opto_PWM_Wakeup
+  96              		.code	16
+  97              		.thumb_func
+  98              		.type	Opto_PWM_Wakeup, %function
+  99              	Opto_PWM_Wakeup:
+ 100              	.LFB3:
+ 102:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** 
+ 103:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** 
+ 104:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** /*******************************************************************************
+ 105:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Function Name: Opto_PWM_Wakeup
+ 106:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** ********************************************************************************
+ 107:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+ 108:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Summary:
+ 109:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  This is the preferred API to restore the component to the state when Sleep() 
+ 110:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  is called. If the component has been enabled before the Sleep() function is 
+ 111:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  called, the Wakeup() function will also re-enable the component.
+ 112:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  The "Deep sleep operation" option has an influence on this function
+ 113:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  implementation.
+ 114:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+ 115:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Parameters:
+ 116:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  None
+ 117:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+ 118:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Return:
+ 119:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  None
+ 120:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+ 121:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** * Global variables:
+ 122:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  Opto_PWM_backup: The structure field 'enableState' is used to
+ 123:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *  restore the enable state of block after wakeup from sleep mode.
+ 124:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *
+ 125:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** *******************************************************************************/
+ 126:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** void Opto_PWM_Wakeup(void)
+ 127:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** {
+ 101              		.loc 1 127 0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccwS7drY.s 			page 5
+
+
+ 102              		.cfi_startproc
+ 103 0000 08B5     		push	{r3, lr}
+ 104              		.cfi_def_cfa_offset 8
+ 105              		.cfi_offset 3, -8
+ 106              		.cfi_offset 14, -4
+ 128:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** #if(!Opto_PWM_CHECK_DEEPSLEEP_SUPPORT)
+ 129:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****     if(0u != Opto_PWM_backup.enableState)
+ 107              		.loc 1 129 0
+ 108 0002 034B     		ldr	r3, .L14
+ 109 0004 1B78     		ldrb	r3, [r3]
+ 110 0006 002B     		cmp	r3, #0
+ 111 0008 01D0     		beq	.L9
+ 130:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****     {
+ 131:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****         /* Enable Opamp's operation */
+ 132:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****         Opto_PWM_Enable();
+ 112              		.loc 1 132 0
+ 113 000a FFF7FEFF 		bl	Opto_PWM_Enable
+ 114              	.LVL1:
+ 115              	.L9:
+ 133:.\Generated_Source\PSoC4/Opto_PWM_PM.c ****     } /* Do nothing if Opamp was disabled before */
+ 134:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** #endif /* (Opto_PWM_CHECK_DEEPSLEEP_SUPPORT) */
+ 135:.\Generated_Source\PSoC4/Opto_PWM_PM.c **** }
+ 116              		.loc 1 135 0
+ 117              		@ sp needed
+ 118 000e 08BD     		pop	{r3, pc}
+ 119              	.L15:
+ 120              		.align	2
+ 121              	.L14:
+ 122 0010 00000000 		.word	.LANCHOR0
+ 123              		.cfi_endproc
+ 124              	.LFE3:
+ 125              		.size	Opto_PWM_Wakeup, .-Opto_PWM_Wakeup
+ 126              		.bss
+ 127              		.set	.LANCHOR0,. + 0
+ 128              		.type	Opto_PWM_backup, %object
+ 129              		.size	Opto_PWM_backup, 1
+ 130              	Opto_PWM_backup:
+ 131 0000 00       		.space	1
+ 132              		.text
+ 133              	.Letext0:
+ 134              		.file 2 ".\\Generated_Source\\PSoC4\\cytypes.h"
+ 135              		.file 3 ".\\Generated_Source\\PSoC4\\Opto_PWM.h"
+ 136              		.section	.debug_info,"",%progbits
+ 137              	.Ldebug_info0:
+ 138 0000 43010000 		.4byte	0x143
+ 139 0004 0400     		.2byte	0x4
+ 140 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 141 000a 04       		.byte	0x4
+ 142 000b 01       		.uleb128 0x1
+ 143 000c 06000000 		.4byte	.LASF22
+ 144 0010 01       		.byte	0x1
+ 145 0011 8C010000 		.4byte	.LASF23
+ 146 0015 BA000000 		.4byte	.LASF24
+ 147 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 148 001d 00000000 		.4byte	0
+ 149 0021 00000000 		.4byte	.Ldebug_line0
+ 150 0025 02       		.uleb128 0x2
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccwS7drY.s 			page 6
+
+
+ 151 0026 01       		.byte	0x1
+ 152 0027 06       		.byte	0x6
+ 153 0028 16020000 		.4byte	.LASF0
+ 154 002c 02       		.uleb128 0x2
+ 155 002d 01       		.byte	0x1
+ 156 002e 08       		.byte	0x8
+ 157 002f 07010000 		.4byte	.LASF1
+ 158 0033 02       		.uleb128 0x2
+ 159 0034 02       		.byte	0x2
+ 160 0035 05       		.byte	0x5
+ 161 0036 F1010000 		.4byte	.LASF2
+ 162 003a 02       		.uleb128 0x2
+ 163 003b 02       		.byte	0x2
+ 164 003c 07       		.byte	0x7
+ 165 003d 37010000 		.4byte	.LASF3
+ 166 0041 02       		.uleb128 0x2
+ 167 0042 04       		.byte	0x4
+ 168 0043 05       		.byte	0x5
+ 169 0044 01020000 		.4byte	.LASF4
+ 170 0048 02       		.uleb128 0x2
+ 171 0049 04       		.byte	0x4
+ 172 004a 07       		.byte	0x7
+ 173 004b 25010000 		.4byte	.LASF5
+ 174 004f 02       		.uleb128 0x2
+ 175 0050 08       		.byte	0x8
+ 176 0051 05       		.byte	0x5
+ 177 0052 DE010000 		.4byte	.LASF6
+ 178 0056 02       		.uleb128 0x2
+ 179 0057 08       		.byte	0x8
+ 180 0058 07       		.byte	0x7
+ 181 0059 B3010000 		.4byte	.LASF7
+ 182 005d 03       		.uleb128 0x3
+ 183 005e 04       		.byte	0x4
+ 184 005f 05       		.byte	0x5
+ 185 0060 696E7400 		.ascii	"int\000"
+ 186 0064 02       		.uleb128 0x2
+ 187 0065 04       		.byte	0x4
+ 188 0066 07       		.byte	0x7
+ 189 0067 7F010000 		.4byte	.LASF8
+ 190 006b 04       		.uleb128 0x4
+ 191 006c FB010000 		.4byte	.LASF9
+ 192 0070 02       		.byte	0x2
+ 193 0071 A1       		.byte	0xa1
+ 194 0072 2C000000 		.4byte	0x2c
+ 195 0076 04       		.uleb128 0x4
+ 196 0077 78010000 		.4byte	.LASF10
+ 197 007b 02       		.byte	0x2
+ 198 007c A3       		.byte	0xa3
+ 199 007d 48000000 		.4byte	0x48
+ 200 0081 02       		.uleb128 0x2
+ 201 0082 04       		.byte	0x4
+ 202 0083 04       		.byte	0x4
+ 203 0084 01010000 		.4byte	.LASF11
+ 204 0088 02       		.uleb128 0x2
+ 205 0089 08       		.byte	0x8
+ 206 008a 04       		.byte	0x4
+ 207 008b 5A010000 		.4byte	.LASF12
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccwS7drY.s 			page 7
+
+
+ 208 008f 02       		.uleb128 0x2
+ 209 0090 01       		.byte	0x1
+ 210 0091 08       		.byte	0x8
+ 211 0092 EC010000 		.4byte	.LASF13
+ 212 0096 05       		.uleb128 0x5
+ 213 0097 00000000 		.4byte	.LASF14
+ 214 009b 02       		.byte	0x2
+ 215 009c 4D01     		.2byte	0x14d
+ 216 009e A2000000 		.4byte	0xa2
+ 217 00a2 06       		.uleb128 0x6
+ 218 00a3 76000000 		.4byte	0x76
+ 219 00a7 07       		.uleb128 0x7
+ 220 00a8 01       		.byte	0x1
+ 221 00a9 03       		.byte	0x3
+ 222 00aa 1E       		.byte	0x1e
+ 223 00ab BC000000 		.4byte	0xbc
+ 224 00af 08       		.uleb128 0x8
+ 225 00b0 0A020000 		.4byte	.LASF25
+ 226 00b4 03       		.byte	0x3
+ 227 00b5 20       		.byte	0x20
+ 228 00b6 6B000000 		.4byte	0x6b
+ 229 00ba 00       		.byte	0
+ 230 00bb 00       		.byte	0
+ 231 00bc 04       		.uleb128 0x4
+ 232 00bd 61010000 		.4byte	.LASF15
+ 233 00c1 03       		.byte	0x3
+ 234 00c2 21       		.byte	0x21
+ 235 00c3 A7000000 		.4byte	0xa7
+ 236 00c7 09       		.uleb128 0x9
+ 237 00c8 CA010000 		.4byte	.LASF16
+ 238 00cc 01       		.byte	0x1
+ 239 00cd 29       		.byte	0x29
+ 240 00ce 00000000 		.4byte	.LFB0
+ 241 00d2 02000000 		.4byte	.LFE0-.LFB0
+ 242 00d6 01       		.uleb128 0x1
+ 243 00d7 9C       		.byte	0x9c
+ 244 00d8 09       		.uleb128 0x9
+ 245 00d9 94000000 		.4byte	.LASF17
+ 246 00dd 01       		.byte	0x1
+ 247 00de 3D       		.byte	0x3d
+ 248 00df 00000000 		.4byte	.LFB1
+ 249 00e3 02000000 		.4byte	.LFE1-.LFB1
+ 250 00e7 01       		.uleb128 0x1
+ 251 00e8 9C       		.byte	0x9c
+ 252 00e9 0A       		.uleb128 0xa
+ 253 00ea AB000000 		.4byte	.LASF18
+ 254 00ee 01       		.byte	0x1
+ 255 00ef 58       		.byte	0x58
+ 256 00f0 00000000 		.4byte	.LFB2
+ 257 00f4 24000000 		.4byte	.LFE2-.LFB2
+ 258 00f8 01       		.uleb128 0x1
+ 259 00f9 9C       		.byte	0x9c
+ 260 00fa 08010000 		.4byte	0x108
+ 261 00fe 0B       		.uleb128 0xb
+ 262 00ff 16000000 		.4byte	.LVL0
+ 263 0103 38010000 		.4byte	0x138
+ 264 0107 00       		.byte	0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccwS7drY.s 			page 8
+
+
+ 265 0108 0A       		.uleb128 0xa
+ 266 0109 4A010000 		.4byte	.LASF19
+ 267 010d 01       		.byte	0x1
+ 268 010e 7E       		.byte	0x7e
+ 269 010f 00000000 		.4byte	.LFB3
+ 270 0113 14000000 		.4byte	.LFE3-.LFB3
+ 271 0117 01       		.uleb128 0x1
+ 272 0118 9C       		.byte	0x9c
+ 273 0119 27010000 		.4byte	0x127
+ 274 011d 0B       		.uleb128 0xb
+ 275 011e 0E000000 		.4byte	.LVL1
+ 276 0122 3F010000 		.4byte	0x13f
+ 277 0126 00       		.byte	0
+ 278 0127 0C       		.uleb128 0xc
+ 279 0128 15010000 		.4byte	.LASF26
+ 280 012c 01       		.byte	0x1
+ 281 012d 14       		.byte	0x14
+ 282 012e BC000000 		.4byte	0xbc
+ 283 0132 05       		.uleb128 0x5
+ 284 0133 03       		.byte	0x3
+ 285 0134 00000000 		.4byte	Opto_PWM_backup
+ 286 0138 0D       		.uleb128 0xd
+ 287 0139 F3000000 		.4byte	.LASF20
+ 288 013d 03       		.byte	0x3
+ 289 013e 2A       		.byte	0x2a
+ 290 013f 0D       		.uleb128 0xd
+ 291 0140 22020000 		.4byte	.LASF21
+ 292 0144 03       		.byte	0x3
+ 293 0145 28       		.byte	0x28
+ 294 0146 00       		.byte	0
+ 295              		.section	.debug_abbrev,"",%progbits
+ 296              	.Ldebug_abbrev0:
+ 297 0000 01       		.uleb128 0x1
+ 298 0001 11       		.uleb128 0x11
+ 299 0002 01       		.byte	0x1
+ 300 0003 25       		.uleb128 0x25
+ 301 0004 0E       		.uleb128 0xe
+ 302 0005 13       		.uleb128 0x13
+ 303 0006 0B       		.uleb128 0xb
+ 304 0007 03       		.uleb128 0x3
+ 305 0008 0E       		.uleb128 0xe
+ 306 0009 1B       		.uleb128 0x1b
+ 307 000a 0E       		.uleb128 0xe
+ 308 000b 55       		.uleb128 0x55
+ 309 000c 17       		.uleb128 0x17
+ 310 000d 11       		.uleb128 0x11
+ 311 000e 01       		.uleb128 0x1
+ 312 000f 10       		.uleb128 0x10
+ 313 0010 17       		.uleb128 0x17
+ 314 0011 00       		.byte	0
+ 315 0012 00       		.byte	0
+ 316 0013 02       		.uleb128 0x2
+ 317 0014 24       		.uleb128 0x24
+ 318 0015 00       		.byte	0
+ 319 0016 0B       		.uleb128 0xb
+ 320 0017 0B       		.uleb128 0xb
+ 321 0018 3E       		.uleb128 0x3e
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccwS7drY.s 			page 9
+
+
+ 322 0019 0B       		.uleb128 0xb
+ 323 001a 03       		.uleb128 0x3
+ 324 001b 0E       		.uleb128 0xe
+ 325 001c 00       		.byte	0
+ 326 001d 00       		.byte	0
+ 327 001e 03       		.uleb128 0x3
+ 328 001f 24       		.uleb128 0x24
+ 329 0020 00       		.byte	0
+ 330 0021 0B       		.uleb128 0xb
+ 331 0022 0B       		.uleb128 0xb
+ 332 0023 3E       		.uleb128 0x3e
+ 333 0024 0B       		.uleb128 0xb
+ 334 0025 03       		.uleb128 0x3
+ 335 0026 08       		.uleb128 0x8
+ 336 0027 00       		.byte	0
+ 337 0028 00       		.byte	0
+ 338 0029 04       		.uleb128 0x4
+ 339 002a 16       		.uleb128 0x16
+ 340 002b 00       		.byte	0
+ 341 002c 03       		.uleb128 0x3
+ 342 002d 0E       		.uleb128 0xe
+ 343 002e 3A       		.uleb128 0x3a
+ 344 002f 0B       		.uleb128 0xb
+ 345 0030 3B       		.uleb128 0x3b
+ 346 0031 0B       		.uleb128 0xb
+ 347 0032 49       		.uleb128 0x49
+ 348 0033 13       		.uleb128 0x13
+ 349 0034 00       		.byte	0
+ 350 0035 00       		.byte	0
+ 351 0036 05       		.uleb128 0x5
+ 352 0037 16       		.uleb128 0x16
+ 353 0038 00       		.byte	0
+ 354 0039 03       		.uleb128 0x3
+ 355 003a 0E       		.uleb128 0xe
+ 356 003b 3A       		.uleb128 0x3a
+ 357 003c 0B       		.uleb128 0xb
+ 358 003d 3B       		.uleb128 0x3b
+ 359 003e 05       		.uleb128 0x5
+ 360 003f 49       		.uleb128 0x49
+ 361 0040 13       		.uleb128 0x13
+ 362 0041 00       		.byte	0
+ 363 0042 00       		.byte	0
+ 364 0043 06       		.uleb128 0x6
+ 365 0044 35       		.uleb128 0x35
+ 366 0045 00       		.byte	0
+ 367 0046 49       		.uleb128 0x49
+ 368 0047 13       		.uleb128 0x13
+ 369 0048 00       		.byte	0
+ 370 0049 00       		.byte	0
+ 371 004a 07       		.uleb128 0x7
+ 372 004b 13       		.uleb128 0x13
+ 373 004c 01       		.byte	0x1
+ 374 004d 0B       		.uleb128 0xb
+ 375 004e 0B       		.uleb128 0xb
+ 376 004f 3A       		.uleb128 0x3a
+ 377 0050 0B       		.uleb128 0xb
+ 378 0051 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccwS7drY.s 			page 10
+
+
+ 379 0052 0B       		.uleb128 0xb
+ 380 0053 01       		.uleb128 0x1
+ 381 0054 13       		.uleb128 0x13
+ 382 0055 00       		.byte	0
+ 383 0056 00       		.byte	0
+ 384 0057 08       		.uleb128 0x8
+ 385 0058 0D       		.uleb128 0xd
+ 386 0059 00       		.byte	0
+ 387 005a 03       		.uleb128 0x3
+ 388 005b 0E       		.uleb128 0xe
+ 389 005c 3A       		.uleb128 0x3a
+ 390 005d 0B       		.uleb128 0xb
+ 391 005e 3B       		.uleb128 0x3b
+ 392 005f 0B       		.uleb128 0xb
+ 393 0060 49       		.uleb128 0x49
+ 394 0061 13       		.uleb128 0x13
+ 395 0062 38       		.uleb128 0x38
+ 396 0063 0B       		.uleb128 0xb
+ 397 0064 00       		.byte	0
+ 398 0065 00       		.byte	0
+ 399 0066 09       		.uleb128 0x9
+ 400 0067 2E       		.uleb128 0x2e
+ 401 0068 00       		.byte	0
+ 402 0069 3F       		.uleb128 0x3f
+ 403 006a 19       		.uleb128 0x19
+ 404 006b 03       		.uleb128 0x3
+ 405 006c 0E       		.uleb128 0xe
+ 406 006d 3A       		.uleb128 0x3a
+ 407 006e 0B       		.uleb128 0xb
+ 408 006f 3B       		.uleb128 0x3b
+ 409 0070 0B       		.uleb128 0xb
+ 410 0071 27       		.uleb128 0x27
+ 411 0072 19       		.uleb128 0x19
+ 412 0073 11       		.uleb128 0x11
+ 413 0074 01       		.uleb128 0x1
+ 414 0075 12       		.uleb128 0x12
+ 415 0076 06       		.uleb128 0x6
+ 416 0077 40       		.uleb128 0x40
+ 417 0078 18       		.uleb128 0x18
+ 418 0079 9742     		.uleb128 0x2117
+ 419 007b 19       		.uleb128 0x19
+ 420 007c 00       		.byte	0
+ 421 007d 00       		.byte	0
+ 422 007e 0A       		.uleb128 0xa
+ 423 007f 2E       		.uleb128 0x2e
+ 424 0080 01       		.byte	0x1
+ 425 0081 3F       		.uleb128 0x3f
+ 426 0082 19       		.uleb128 0x19
+ 427 0083 03       		.uleb128 0x3
+ 428 0084 0E       		.uleb128 0xe
+ 429 0085 3A       		.uleb128 0x3a
+ 430 0086 0B       		.uleb128 0xb
+ 431 0087 3B       		.uleb128 0x3b
+ 432 0088 0B       		.uleb128 0xb
+ 433 0089 27       		.uleb128 0x27
+ 434 008a 19       		.uleb128 0x19
+ 435 008b 11       		.uleb128 0x11
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccwS7drY.s 			page 11
+
+
+ 436 008c 01       		.uleb128 0x1
+ 437 008d 12       		.uleb128 0x12
+ 438 008e 06       		.uleb128 0x6
+ 439 008f 40       		.uleb128 0x40
+ 440 0090 18       		.uleb128 0x18
+ 441 0091 9742     		.uleb128 0x2117
+ 442 0093 19       		.uleb128 0x19
+ 443 0094 01       		.uleb128 0x1
+ 444 0095 13       		.uleb128 0x13
+ 445 0096 00       		.byte	0
+ 446 0097 00       		.byte	0
+ 447 0098 0B       		.uleb128 0xb
+ 448 0099 898201   		.uleb128 0x4109
+ 449 009c 00       		.byte	0
+ 450 009d 11       		.uleb128 0x11
+ 451 009e 01       		.uleb128 0x1
+ 452 009f 31       		.uleb128 0x31
+ 453 00a0 13       		.uleb128 0x13
+ 454 00a1 00       		.byte	0
+ 455 00a2 00       		.byte	0
+ 456 00a3 0C       		.uleb128 0xc
+ 457 00a4 34       		.uleb128 0x34
+ 458 00a5 00       		.byte	0
+ 459 00a6 03       		.uleb128 0x3
+ 460 00a7 0E       		.uleb128 0xe
+ 461 00a8 3A       		.uleb128 0x3a
+ 462 00a9 0B       		.uleb128 0xb
+ 463 00aa 3B       		.uleb128 0x3b
+ 464 00ab 0B       		.uleb128 0xb
+ 465 00ac 49       		.uleb128 0x49
+ 466 00ad 13       		.uleb128 0x13
+ 467 00ae 02       		.uleb128 0x2
+ 468 00af 18       		.uleb128 0x18
+ 469 00b0 00       		.byte	0
+ 470 00b1 00       		.byte	0
+ 471 00b2 0D       		.uleb128 0xd
+ 472 00b3 2E       		.uleb128 0x2e
+ 473 00b4 00       		.byte	0
+ 474 00b5 3F       		.uleb128 0x3f
+ 475 00b6 19       		.uleb128 0x19
+ 476 00b7 03       		.uleb128 0x3
+ 477 00b8 0E       		.uleb128 0xe
+ 478 00b9 3A       		.uleb128 0x3a
+ 479 00ba 0B       		.uleb128 0xb
+ 480 00bb 3B       		.uleb128 0x3b
+ 481 00bc 0B       		.uleb128 0xb
+ 482 00bd 27       		.uleb128 0x27
+ 483 00be 19       		.uleb128 0x19
+ 484 00bf 3C       		.uleb128 0x3c
+ 485 00c0 19       		.uleb128 0x19
+ 486 00c1 00       		.byte	0
+ 487 00c2 00       		.byte	0
+ 488 00c3 00       		.byte	0
+ 489              		.section	.debug_aranges,"",%progbits
+ 490 0000 34000000 		.4byte	0x34
+ 491 0004 0200     		.2byte	0x2
+ 492 0006 00000000 		.4byte	.Ldebug_info0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccwS7drY.s 			page 12
+
+
+ 493 000a 04       		.byte	0x4
+ 494 000b 00       		.byte	0
+ 495 000c 0000     		.2byte	0
+ 496 000e 0000     		.2byte	0
+ 497 0010 00000000 		.4byte	.LFB0
+ 498 0014 02000000 		.4byte	.LFE0-.LFB0
+ 499 0018 00000000 		.4byte	.LFB1
+ 500 001c 02000000 		.4byte	.LFE1-.LFB1
+ 501 0020 00000000 		.4byte	.LFB2
+ 502 0024 24000000 		.4byte	.LFE2-.LFB2
+ 503 0028 00000000 		.4byte	.LFB3
+ 504 002c 14000000 		.4byte	.LFE3-.LFB3
+ 505 0030 00000000 		.4byte	0
+ 506 0034 00000000 		.4byte	0
+ 507              		.section	.debug_ranges,"",%progbits
+ 508              	.Ldebug_ranges0:
+ 509 0000 00000000 		.4byte	.LFB0
+ 510 0004 02000000 		.4byte	.LFE0
+ 511 0008 00000000 		.4byte	.LFB1
+ 512 000c 02000000 		.4byte	.LFE1
+ 513 0010 00000000 		.4byte	.LFB2
+ 514 0014 24000000 		.4byte	.LFE2
+ 515 0018 00000000 		.4byte	.LFB3
+ 516 001c 14000000 		.4byte	.LFE3
+ 517 0020 00000000 		.4byte	0
+ 518 0024 00000000 		.4byte	0
+ 519              		.section	.debug_line,"",%progbits
+ 520              	.Ldebug_line0:
+ 521 0000 A6000000 		.section	.debug_str,"MS",%progbits,1
+ 521      02005800 
+ 521      00000201 
+ 521      FB0E0D00 
+ 521      01010101 
+ 522              	.LASF14:
+ 523 0000 72656733 		.ascii	"reg32\000"
+ 523      3200
+ 524              	.LASF22:
+ 525 0006 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 525      4320342E 
+ 525      392E3320 
+ 525      32303135 
+ 525      30333033 
+ 526 0039 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 526      20726576 
+ 526      6973696F 
+ 526      6E203232 
+ 526      31323230 
+ 527 006c 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 527      66756E63 
+ 527      74696F6E 
+ 527      2D736563 
+ 527      74696F6E 
+ 528              	.LASF17:
+ 529 0094 4F70746F 		.ascii	"Opto_PWM_RestoreConfig\000"
+ 529      5F50574D 
+ 529      5F526573 
+ 529      746F7265 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccwS7drY.s 			page 13
+
+
+ 529      436F6E66 
+ 530              	.LASF18:
+ 531 00ab 4F70746F 		.ascii	"Opto_PWM_Sleep\000"
+ 531      5F50574D 
+ 531      5F536C65 
+ 531      657000
+ 532              	.LASF24:
+ 533 00ba 433A5C4C 		.ascii	"C:\\Legrand\\Dimmers\\A4W sofTap and Touch\\A4W_Sof"
+ 533      65677261 
+ 533      6E645C44 
+ 533      696D6D65 
+ 533      72735C41 
+ 534 00e9 7461702E 		.ascii	"tap.cydsn\000"
+ 534      63796473 
+ 534      6E00
+ 535              	.LASF20:
+ 536 00f3 4F70746F 		.ascii	"Opto_PWM_Stop\000"
+ 536      5F50574D 
+ 536      5F53746F 
+ 536      7000
+ 537              	.LASF11:
+ 538 0101 666C6F61 		.ascii	"float\000"
+ 538      7400
+ 539              	.LASF1:
+ 540 0107 756E7369 		.ascii	"unsigned char\000"
+ 540      676E6564 
+ 540      20636861 
+ 540      7200
+ 541              	.LASF26:
+ 542 0115 4F70746F 		.ascii	"Opto_PWM_backup\000"
+ 542      5F50574D 
+ 542      5F626163 
+ 542      6B757000 
+ 543              	.LASF5:
+ 544 0125 6C6F6E67 		.ascii	"long unsigned int\000"
+ 544      20756E73 
+ 544      69676E65 
+ 544      6420696E 
+ 544      7400
+ 545              	.LASF3:
+ 546 0137 73686F72 		.ascii	"short unsigned int\000"
+ 546      7420756E 
+ 546      7369676E 
+ 546      65642069 
+ 546      6E7400
+ 547              	.LASF19:
+ 548 014a 4F70746F 		.ascii	"Opto_PWM_Wakeup\000"
+ 548      5F50574D 
+ 548      5F57616B 
+ 548      65757000 
+ 549              	.LASF12:
+ 550 015a 646F7562 		.ascii	"double\000"
+ 550      6C6500
+ 551              	.LASF15:
+ 552 0161 4F70746F 		.ascii	"Opto_PWM_BACKUP_STRUCT\000"
+ 552      5F50574D 
+ 552      5F424143 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccwS7drY.s 			page 14
+
+
+ 552      4B55505F 
+ 552      53545255 
+ 553              	.LASF10:
+ 554 0178 75696E74 		.ascii	"uint32\000"
+ 554      333200
+ 555              	.LASF8:
+ 556 017f 756E7369 		.ascii	"unsigned int\000"
+ 556      676E6564 
+ 556      20696E74 
+ 556      00
+ 557              	.LASF23:
+ 558 018c 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\Opto_PWM_PM.c\000"
+ 558      6E657261 
+ 558      7465645F 
+ 558      536F7572 
+ 558      63655C50 
+ 559              	.LASF7:
+ 560 01b3 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 560      206C6F6E 
+ 560      6720756E 
+ 560      7369676E 
+ 560      65642069 
+ 561              	.LASF16:
+ 562 01ca 4F70746F 		.ascii	"Opto_PWM_SaveConfig\000"
+ 562      5F50574D 
+ 562      5F536176 
+ 562      65436F6E 
+ 562      66696700 
+ 563              	.LASF6:
+ 564 01de 6C6F6E67 		.ascii	"long long int\000"
+ 564      206C6F6E 
+ 564      6720696E 
+ 564      7400
+ 565              	.LASF13:
+ 566 01ec 63686172 		.ascii	"char\000"
+ 566      00
+ 567              	.LASF2:
+ 568 01f1 73686F72 		.ascii	"short int\000"
+ 568      7420696E 
+ 568      7400
+ 569              	.LASF9:
+ 570 01fb 75696E74 		.ascii	"uint8\000"
+ 570      3800
+ 571              	.LASF4:
+ 572 0201 6C6F6E67 		.ascii	"long int\000"
+ 572      20696E74 
+ 572      00
+ 573              	.LASF25:
+ 574 020a 656E6162 		.ascii	"enableState\000"
+ 574      6C655374 
+ 574      61746500 
+ 575              	.LASF0:
+ 576 0216 7369676E 		.ascii	"signed char\000"
+ 576      65642063 
+ 576      68617200 
+ 577              	.LASF21:
+ 578 0222 4F70746F 		.ascii	"Opto_PWM_Enable\000"
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccwS7drY.s 			page 15
+
+
+ 578      5F50574D 
+ 578      5F456E61 
+ 578      626C6500 
+ 579              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

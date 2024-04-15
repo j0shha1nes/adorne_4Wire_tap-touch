@@ -1,0 +1,2428 @@
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 4
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"interrupts.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	__aeabi_uidiv
+  18              		.section	.text.zero_cross,"ax",%progbits
+  19              		.align	1
+  20              		.global	zero_cross
+  21              		.code	16
+  22              		.thumb_func
+  23              		.type	zero_cross, %function
+  24              	zero_cross:
+  25              	.LFB33:
+  26              		.file 1 ".\\User_Source\\interrupts.c"
+   1:.\User_Source/interrupts.c **** /*----------------------------------------------------------------------------
+   2:.\User_Source/interrupts.c ****  *    ADORNE GEN 2 SOFTAP TRUE UNIVERSAL DIMMER
+   3:.\User_Source/interrupts.c ****  *----------------------------------------------------------------------------
+   4:.\User_Source/interrupts.c ****  *    File Name:     user_main.c
+   5:.\User_Source/interrupts.c ****  *    Description:   Main Program File for Gen. 2 sofTap 4-Wire Dimmer 
+   6:.\User_Source/interrupts.c ****  *    Target:        Renesas R5F10268
+   7:.\User_Source/interrupts.c ****  *    Environment:   IAR EWB for RL78 Version 1.40.1
+   8:.\User_Source/interrupts.c ****  *    Author:        Josh Haines
+   9:.\User_Source/interrupts.c ****  *    Specification: Document #TBD
+  10:.\User_Source/interrupts.c ****  *----------------------------------------------------------------------------
+  11:.\User_Source/interrupts.c ****  *    Revisions:
+  12:.\User_Source/interrupts.c ****  *    1.00  Initial revision JPH 10/20/2014
+  13:.\User_Source/interrupts.c ****  *----------------------------------------------------------------------------
+  14:.\User_Source/interrupts.c ****  *    Notes:
+  15:.\User_Source/interrupts.c ****  *    1. 
+  16:.\User_Source/interrupts.c ****  *----------------------------------------------------------------------------
+  17:.\User_Source/interrupts.c ****  *    This code is the property of P&S Division of Legrand Corporation.
+  18:.\User_Source/interrupts.c ****  *    Copyright (c) 2013 - 2014 Legrand Corp. All rights reserved.
+  19:.\User_Source/interrupts.c ****  *---------------------------------------------------------------------------*/
+  20:.\User_Source/interrupts.c **** #define _INTERRUPTS_C   // for global variable declarations in user_main.h
+  21:.\User_Source/interrupts.c **** 
+  22:.\User_Source/interrupts.c **** #include <interrupts.h>
+  23:.\User_Source/interrupts.c **** #include <user_main.h>
+  24:.\User_Source/interrupts.c **** #include <dimming_ctrl.h>
+  25:.\User_Source/interrupts.c **** #include <project.h>
+  26:.\User_Source/interrupts.c **** #include <CY8C4124.h>
+  27:.\User_Source/interrupts.c **** 
+  28:.\User_Source/interrupts.c ****   
+  29:.\User_Source/interrupts.c **** /*----------------------------------------------------------------------------
+  30:.\User_Source/interrupts.c ****  *  Private Functions
+  31:.\User_Source/interrupts.c ****  *---------------------------------------------------------------------------*/ 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 2
+
+
+  32:.\User_Source/interrupts.c **** 
+  33:.\User_Source/interrupts.c **** /*----------------------------------------------------------------------------
+  34:.\User_Source/interrupts.c ****  *  Public Interface
+  35:.\User_Source/interrupts.c ****  *---------------------------------------------------------------------------*/ 
+  36:.\User_Source/interrupts.c **** 
+  37:.\User_Source/interrupts.c **** /*----------------------------------------------------------------------------
+  38:.\User_Source/interrupts.c ****  *  Interrupts - Listed in order of Priority where 1 is the highest priority
+  39:.\User_Source/interrupts.c ****  *  1. zero_cross - this interrupt is serviced every rising edge of the comparator output.  
+  40:.\User_Source/interrupts.c ****  *  ISR_PERIOD: 1/60cycles = 16.6667mS
+  41:.\User_Source/interrupts.c ****  *  ISR_DURATION: 7µ - 10µS in duration
+  42:.\User_Source/interrupts.c ****  *
+  43:.\User_Source/interrupts.c ****  *  2. pwm_timer - this interrupt's sole purpose is to output a pseudo-analog value to the 
+  44:.\User_Source/interrupts.c ****  *  constant current source that in turn varies the current through the LED front end of an 
+  45:.\User_Source/interrupts.c ****  *  opto coupler.  The duty cycle of this PWM timer are controlled by the PWM_MIN and
+  46:.\User_Source/interrupts.c ****  *  PWM_MAX values which can vary from 1% (PWM_lower_max_limit) to 54.5% (PWM_upper_min_limit).
+  47:.\User_Source/interrupts.c ****  *  ISR_PERIOD: 1mS
+  48:.\User_Source/interrupts.c ****  *  ISR_DURATION: 2µ - 3µS in duration
+  49:.\User_Source/interrupts.c ****  *
+  50:.\User_Source/interrupts.c ****  *  3.  Relay_Offset_timer - this general purpose timer interupts program flow every 50µS.  This
+  51:.\User_Source/interrupts.c ****  *  function performs two important tasks.  First, it implements a precise offset from the zero 
+  52:.\User_Source/interrupts.c ****  *  cross interrupt with which to fire the relay such that the relay contacts will close on or 
+  53:.\User_Source/interrupts.c ****  *  close to a zero cross.  Second, the Relay_Offset_timer isr provides an opportunity to dim
+  54:.\User_Source/interrupts.c ****  *  the display intensity at a (1/(PWM_display_interval*50µ))= 200Hz rate.  
+  55:.\User_Source/interrupts.c ****  *  ISR_PERIOD: 50µS
+  56:.\User_Source/interrupts.c ****  *  ISR_DURATION: 1µ - 6µS in duration
+  57:.\User_Source/interrupts.c ****  *
+  58:.\User_Source/interrupts.c ****  *---------------------------------------------------------------------------*/ 
+  59:.\User_Source/interrupts.c **** 
+  60:.\User_Source/interrupts.c **** /**************************************************************************************************
+  61:.\User_Source/interrupts.c **** void zero_cross(void) 
+  62:.\User_Source/interrupts.c **** {
+  27              		.loc 1 62 0
+  28              		.cfi_startproc
+  29 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  30              		.cfi_def_cfa_offset 24
+  31              		.cfi_offset 3, -24
+  32              		.cfi_offset 4, -20
+  33              		.cfi_offset 5, -16
+  34              		.cfi_offset 6, -12
+  35              		.cfi_offset 7, -8
+  36              		.cfi_offset 14, -4
+  63:.\User_Source/interrupts.c ****     Zero_Cross_ClearInterrupt(Zero_Cross_INTR);
+  37              		.loc 1 63 0
+  38 0002 0220     		mov	r0, #2
+  39 0004 FFF7FEFF 		bl	Zero_Cross_ClearInterrupt
+  40              	.LVL0:
+  64:.\User_Source/interrupts.c ****     ZC_ISR_Disable();
+  41              		.loc 1 64 0
+  42 0008 FFF7FEFF 		bl	ZC_ISR_Disable
+  43              	.LVL1:
+  65:.\User_Source/interrupts.c ****     
+  66:.\User_Source/interrupts.c ****     TICK_CNT = 0;
+  44              		.loc 1 66 0
+  45 000c 0022     		mov	r2, #0
+  46 000e 504B     		ldr	r3, .L44
+  67:.\User_Source/interrupts.c ****     
+  68:.\User_Source/interrupts.c **** //    //test the oscilator frequency using the zero cross interrupt
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 3
+
+
+  69:.\User_Source/interrupts.c **** //    if(ZC_TEST >= zc_test_min && ZC_TEST <= zc_test_max) MCU_OSC_ACC = 0;
+  70:.\User_Source/interrupts.c **** //    else MCU_OSC_ACC++;
+  71:.\User_Source/interrupts.c **** //    ZC_TEST = 0;
+  72:.\User_Source/interrupts.c **** //    
+  73:.\User_Source/interrupts.c **** //    if (MCU_OSC_ACC > 10) 
+  74:.\User_Source/interrupts.c **** //    {
+  75:.\User_Source/interrupts.c **** //        Relay_Offset_Sleep();
+  76:.\User_Source/interrupts.c **** //    }
+  77:.\User_Source/interrupts.c ****     
+  78:.\User_Source/interrupts.c ****     if (DMR_Status.throwrelay) 
+  47              		.loc 1 78 0
+  48 0010 504C     		ldr	r4, .L44+4
+  66:.\User_Source/interrupts.c ****     
+  49              		.loc 1 66 0
+  50 0012 1A80     		strh	r2, [r3]
+  51              		.loc 1 78 0
+  52 0014 6378     		ldrb	r3, [r4, #1]
+  53 0016 9B07     		lsl	r3, r3, #30
+  54 0018 04D5     		bpl	.L2
+  79:.\User_Source/interrupts.c ****     {
+  80:.\User_Source/interrupts.c ****         TMR_Status.zc_tick = SET;
+  55              		.loc 1 80 0
+  56 001a 0821     		mov	r1, #8
+  57 001c 4E4A     		ldr	r2, .L44+8
+  58 001e 1378     		ldrb	r3, [r2]
+  59 0020 0B43     		orr	r3, r1
+  60 0022 1370     		strb	r3, [r2]
+  61              	.L2:
+  81:.\User_Source/interrupts.c ****     }
+  82:.\User_Source/interrupts.c ****     
+  83:.\User_Source/interrupts.c ****     #if(OvrldEndurance == 0)
+  84:.\User_Source/interrupts.c ****     if (!DMR_Status.goto_bed && !DMR_Status.mincalibration && !DMR_Status.maxcalibration) 
+  62              		.loc 1 84 0
+  63 0024 2288     		ldrh	r2, [r4]
+  64 0026 4D4B     		ldr	r3, .L44+12
+  65 0028 1A42     		tst	r2, r3
+  66 002a 0ED1     		bne	.L3
+  85:.\User_Source/interrupts.c ****     {
+  86:.\User_Source/interrupts.c ****         UI_VAL = (user_interface_levels-((Dimming_ReadCompare()-PWM_MAX)/(PWM_CHG*translation_facto
+  67              		.loc 1 86 0
+  68 002c FFF7FEFF 		bl	Dimming_ReadCompare
+  69              	.LVL2:
+  70 0030 4B4B     		ldr	r3, .L44+16
+  71 0032 1B88     		ldrh	r3, [r3]
+  72 0034 C01A     		sub	r0, r0, r3
+  73 0036 4B4B     		ldr	r3, .L44+20
+  74 0038 1988     		ldrh	r1, [r3]
+  75 003a 0523     		mov	r3, #5
+  76 003c 5943     		mul	r1, r3
+  77 003e FFF7FEFF 		bl	__aeabi_uidiv
+  78              	.LVL3:
+  79 0042 0723     		mov	r3, #7
+  80 0044 181A     		sub	r0, r3, r0
+  81 0046 484B     		ldr	r3, .L44+24
+  82 0048 1880     		strh	r0, [r3]
+  83              	.L3:
+  87:.\User_Source/interrupts.c ****     }
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 4
+
+
+  88:.\User_Source/interrupts.c ****     
+  89:.\User_Source/interrupts.c ****     
+  90:.\User_Source/interrupts.c ****     //Current Sensing Tasks
+  91:.\User_Source/interrupts.c ****     if (I_SENSE_CNT >= i_presence_threshold_hi)                                   //current thresho
+  84              		.loc 1 91 0
+  85 004a 4848     		ldr	r0, .L44+28
+  86 004c 484B     		ldr	r3, .L44+32
+  87 004e 0278     		ldrb	r2, [r0]
+  88 0050 002A     		cmp	r2, #0
+  89 0052 06D0     		beq	.L4
+  92:.\User_Source/interrupts.c ****     {
+  93:.\User_Source/interrupts.c ****         I_SENSE_ACC += 2;                                                           //accumulate if
+  90              		.loc 1 93 0
+  91 0054 1A88     		ldrh	r2, [r3]
+  92 0056 0232     		add	r2, r2, #2
+  93 0058 92B2     		uxth	r2, r2
+  94:.\User_Source/interrupts.c ****         if (I_SENSE_ACC > i_sense_threshold) I_SENSE_ACC = i_sense_threshold;       //manage the ov
+  94              		.loc 1 94 0
+  95 005a 282A     		cmp	r2, #40
+  96 005c 0AD9     		bls	.L41
+  97              		.loc 1 94 0 is_stmt 0 discriminator 1
+  98 005e 2822     		mov	r2, #40
+  99 0060 08E0     		b	.L41
+ 100              	.L4:
+  95:.\User_Source/interrupts.c ****     }
+  96:.\User_Source/interrupts.c ****     else 
+  97:.\User_Source/interrupts.c ****     {
+  98:.\User_Source/interrupts.c ****         if (I_SENSE_CNT == 0) 
+  99:.\User_Source/interrupts.c ****         {
+ 100:.\User_Source/interrupts.c ****             if (I_SENSE_ACC > 1) I_SENSE_ACC--;
+ 101              		.loc 1 100 0 is_stmt 1
+ 102 0062 1A88     		ldrh	r2, [r3]
+ 103 0064 012A     		cmp	r2, #1
+ 104 0066 01D9     		bls	.L7
+ 105              		.loc 1 100 0 is_stmt 0 discriminator 1
+ 106 0068 013A     		sub	r2, r2, #1
+ 107 006a 1A80     		strh	r2, [r3]
+ 108              	.L7:
+ 101:.\User_Source/interrupts.c ****             if (I_SENSE_ACC <= 1) I_SENSE_ACC = 0;                                //current not pre
+ 109              		.loc 1 101 0 is_stmt 1
+ 110 006c 1A88     		ldrh	r2, [r3]
+ 111 006e 012A     		cmp	r2, #1
+ 112 0070 01D8     		bhi	.L6
+ 113              		.loc 1 101 0 is_stmt 0 discriminator 1
+ 114 0072 0022     		mov	r2, #0
+ 115              	.L41:
+ 116 0074 1A80     		strh	r2, [r3]
+ 117              	.L6:
+ 102:.\User_Source/interrupts.c ****         }
+ 103:.\User_Source/interrupts.c ****     }
+ 104:.\User_Source/interrupts.c ****     
+ 105:.\User_Source/interrupts.c ****     //One Second Timer made from zero cross counting
+ 106:.\User_Source/interrupts.c ****     if(++ZC_CNTR >= one_second_interval) 
+ 118              		.loc 1 106 0 is_stmt 1
+ 119 0076 3F4A     		ldr	r2, .L44+36
+ 120 0078 1378     		ldrb	r3, [r2]
+ 121 007a 0133     		add	r3, r3, #1
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 5
+
+
+ 122 007c DBB2     		uxtb	r3, r3
+ 123 007e 1370     		strb	r3, [r2]
+ 124 0080 3B2B     		cmp	r3, #59
+ 125 0082 43D9     		bls	.L9
+ 107:.\User_Source/interrupts.c ****     {
+ 108:.\User_Source/interrupts.c ****         TMR_Status.second = SET;
+ 126              		.loc 1 108 0
+ 127 0084 0425     		mov	r5, #4
+ 128 0086 3449     		ldr	r1, .L44+8
+ 129 0088 0B78     		ldrb	r3, [r1]
+ 130 008a 2B43     		orr	r3, r5
+ 131 008c 0B70     		strb	r3, [r1]
+ 109:.\User_Source/interrupts.c ****         
+ 110:.\User_Source/interrupts.c ****         if(PB_Status[PB_MAIN].held_on && DMR_Status.on) 
+ 132              		.loc 1 110 0
+ 133 008e 3A49     		ldr	r1, .L44+40
+ 134 0090 3A4B     		ldr	r3, .L44+44
+ 135 0092 0D78     		ldrb	r5, [r1]
+ 136 0094 AD07     		lsl	r5, r5, #30
+ 137 0096 05D5     		bpl	.L10
+ 138              		.loc 1 110 0 is_stmt 0 discriminator 1
+ 139 0098 2578     		ldrb	r5, [r4]
+ 140 009a ED07     		lsl	r5, r5, #31
+ 141 009c 02D5     		bpl	.L10
+ 111:.\User_Source/interrupts.c ****         {
+ 112:.\User_Source/interrupts.c ****             ++SECOND_CNTR;
+ 142              		.loc 1 112 0 is_stmt 1
+ 143 009e 1D78     		ldrb	r5, [r3]
+ 144 00a0 0135     		add	r5, r5, #1
+ 145 00a2 00E0     		b	.L42
+ 146              	.L10:
+ 113:.\User_Source/interrupts.c ****         }
+ 114:.\User_Source/interrupts.c ****         else SECOND_CNTR = 0;
+ 147              		.loc 1 114 0
+ 148 00a4 0025     		mov	r5, #0
+ 149              	.L42:
+ 150 00a6 1D70     		strb	r5, [r3]
+ 115:.\User_Source/interrupts.c ****         
+ 116:.\User_Source/interrupts.c ****         //Enter Calibraton Mode - Maximum Cal
+ 117:.\User_Source/interrupts.c ****         if(PWM_TARGET <= PWM_MAX && PB_Status[PB_UP].held_on && !DMR_Status.maxcalibration)
+ 151              		.loc 1 117 0
+ 152 00a8 354B     		ldr	r3, .L44+48
+ 153 00aa 1F88     		ldrh	r7, [r3]
+ 154 00ac 2C4B     		ldr	r3, .L44+16
+ 155 00ae 1B88     		ldrh	r3, [r3]
+ 156 00b0 BB42     		cmp	r3, r7
+ 157 00b2 13D3     		bcc	.L13
+ 158              		.loc 1 117 0 is_stmt 0 discriminator 1
+ 159 00b4 4B78     		ldrb	r3, [r1, #1]
+ 160 00b6 9B07     		lsl	r3, r3, #30
+ 161 00b8 10D5     		bpl	.L13
+ 162              		.loc 1 117 0 discriminator 2
+ 163 00ba 1023     		mov	r3, #16
+ 164 00bc 6578     		ldrb	r5, [r4, #1]
+ 165 00be 9C46     		mov	ip, r3
+ 166 00c0 1D42     		tst	r5, r3
+ 167 00c2 0BD1     		bne	.L13
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 6
+
+
+ 118:.\User_Source/interrupts.c ****         {
+ 119:.\User_Source/interrupts.c ****             if (++PWM_CAL_CNT >= PWM_cal_count_limit) 
+ 168              		.loc 1 119 0 is_stmt 1
+ 169 00c4 2F4E     		ldr	r6, .L44+52
+ 170 00c6 3388     		ldrh	r3, [r6]
+ 171 00c8 0133     		add	r3, r3, #1
+ 172 00ca 9BB2     		uxth	r3, r3
+ 173 00cc 3380     		strh	r3, [r6]
+ 174 00ce 092B     		cmp	r3, #9
+ 175 00d0 04D9     		bls	.L13
+ 120:.\User_Source/interrupts.c ****             {
+ 121:.\User_Source/interrupts.c ****                 DMR_Status.maxcalibration = SET;
+ 176              		.loc 1 121 0
+ 177 00d2 6346     		mov	r3, ip
+ 178 00d4 2B43     		orr	r3, r5
+ 179 00d6 6370     		strb	r3, [r4, #1]
+ 122:.\User_Source/interrupts.c ****                 PWM_CAL_CNT = PWM_cal_count_limit;
+ 180              		.loc 1 122 0
+ 181 00d8 0A23     		mov	r3, #10
+ 182 00da 3380     		strh	r3, [r6]
+ 183              	.L13:
+ 123:.\User_Source/interrupts.c ****             }                
+ 124:.\User_Source/interrupts.c ****         }
+ 125:.\User_Source/interrupts.c ****         
+ 126:.\User_Source/interrupts.c ****         //Enter Calibraton Mode - Minimum Cal
+ 127:.\User_Source/interrupts.c ****         if(PWM_TARGET >= PWM_MIN && PB_Status[PB_DOWN].held_on && !DMR_Status.mincalibration)
+ 184              		.loc 1 127 0
+ 185 00dc 2A4B     		ldr	r3, .L44+56
+ 186 00de 1B88     		ldrh	r3, [r3]
+ 187 00e0 BB42     		cmp	r3, r7
+ 188 00e2 11D8     		bhi	.L16
+ 189              		.loc 1 127 0 is_stmt 0 discriminator 1
+ 190 00e4 8B78     		ldrb	r3, [r1, #2]
+ 191 00e6 9B07     		lsl	r3, r3, #30
+ 192 00e8 0ED5     		bpl	.L16
+ 193              		.loc 1 127 0 discriminator 2
+ 194 00ea 0826     		mov	r6, #8
+ 195 00ec 6178     		ldrb	r1, [r4, #1]
+ 196 00ee 3142     		tst	r1, r6
+ 197 00f0 0AD1     		bne	.L16
+ 128:.\User_Source/interrupts.c ****         {
+ 129:.\User_Source/interrupts.c ****             if (++PWM_CAL_CNT >= PWM_cal_count_limit) 
+ 198              		.loc 1 129 0 is_stmt 1
+ 199 00f2 244D     		ldr	r5, .L44+52
+ 200 00f4 2B88     		ldrh	r3, [r5]
+ 201 00f6 0133     		add	r3, r3, #1
+ 202 00f8 9BB2     		uxth	r3, r3
+ 203 00fa 2B80     		strh	r3, [r5]
+ 204 00fc 092B     		cmp	r3, #9
+ 205 00fe 03D9     		bls	.L16
+ 130:.\User_Source/interrupts.c ****             {
+ 131:.\User_Source/interrupts.c ****                 DMR_Status.mincalibration = SET;
+ 132:.\User_Source/interrupts.c ****                 PWM_CAL_CNT = PWM_cal_count_limit;
+ 206              		.loc 1 132 0
+ 207 0100 0A23     		mov	r3, #10
+ 131:.\User_Source/interrupts.c ****                 PWM_CAL_CNT = PWM_cal_count_limit;
+ 208              		.loc 1 131 0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 7
+
+
+ 209 0102 3143     		orr	r1, r6
+ 210 0104 6170     		strb	r1, [r4, #1]
+ 211              		.loc 1 132 0
+ 212 0106 2B80     		strh	r3, [r5]
+ 213              	.L16:
+ 133:.\User_Source/interrupts.c ****             }
+ 134:.\User_Source/interrupts.c ****         }
+ 135:.\User_Source/interrupts.c ****         
+ 136:.\User_Source/interrupts.c ****         ZC_CNTR = 0;
+ 214              		.loc 1 136 0
+ 215 0108 0023     		mov	r3, #0
+ 216 010a 1370     		strb	r3, [r2]
+ 217              	.L9:
+ 137:.\User_Source/interrupts.c ****     }
+ 138:.\User_Source/interrupts.c ****     
+ 139:.\User_Source/interrupts.c ****     //wait for the button release to set the calibration flag and reset the count
+ 140:.\User_Source/interrupts.c ****     if(DMR_Status.maxcalibration && !PB_Status[PB_UP].held_on && !DMR_Status.max_cal_adjust)
+ 218              		.loc 1 140 0
+ 219 010c 6378     		ldrb	r3, [r4, #1]
+ 220 010e DA06     		lsl	r2, r3, #27
+ 221 0110 0BD5     		bpl	.L18
+ 222              		.loc 1 140 0 is_stmt 0 discriminator 1
+ 223 0112 194A     		ldr	r2, .L44+40
+ 224 0114 5278     		ldrb	r2, [r2, #1]
+ 225 0116 9207     		lsl	r2, r2, #30
+ 226 0118 07D4     		bmi	.L18
+ 227              		.loc 1 140 0 discriminator 2
+ 228 011a 4022     		mov	r2, #64
+ 229 011c 191C     		mov	r1, r3
+ 230 011e 1140     		and	r1, r2
+ 231 0120 03D1     		bne	.L18
+ 141:.\User_Source/interrupts.c ****     {
+ 142:.\User_Source/interrupts.c ****         PWM_CAL_CNT = 0;
+ 232              		.loc 1 142 0 is_stmt 1
+ 233 0122 184D     		ldr	r5, .L44+52
+ 143:.\User_Source/interrupts.c ****         DMR_Status.max_cal_adjust = SET;
+ 234              		.loc 1 143 0
+ 235 0124 1343     		orr	r3, r2
+ 142:.\User_Source/interrupts.c ****         DMR_Status.max_cal_adjust = SET;
+ 236              		.loc 1 142 0
+ 237 0126 2980     		strh	r1, [r5]
+ 238              		.loc 1 143 0
+ 239 0128 6370     		strb	r3, [r4, #1]
+ 240              	.L18:
+ 144:.\User_Source/interrupts.c ****     }
+ 145:.\User_Source/interrupts.c ****     
+ 146:.\User_Source/interrupts.c ****         //wait for the button release to set the calibration flag and reset the count
+ 147:.\User_Source/interrupts.c ****     if(DMR_Status.mincalibration && !PB_Status[PB_DOWN].held_on  && !DMR_Status.min_cal_adjust)
+ 241              		.loc 1 147 0
+ 242 012a 6378     		ldrb	r3, [r4, #1]
+ 243 012c 1A07     		lsl	r2, r3, #28
+ 244 012e 0BD5     		bpl	.L19
+ 245              		.loc 1 147 0 is_stmt 0 discriminator 1
+ 246 0130 114A     		ldr	r2, .L44+40
+ 247 0132 9278     		ldrb	r2, [r2, #2]
+ 248 0134 9207     		lsl	r2, r2, #30
+ 249 0136 07D4     		bmi	.L19
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 8
+
+
+ 250              		.loc 1 147 0 discriminator 2
+ 251 0138 2022     		mov	r2, #32
+ 252 013a 191C     		mov	r1, r3
+ 253 013c 1140     		and	r1, r2
+ 254 013e 03D1     		bne	.L19
+ 148:.\User_Source/interrupts.c ****     {
+ 149:.\User_Source/interrupts.c ****         PWM_CAL_CNT = 0;
+ 255              		.loc 1 149 0 is_stmt 1
+ 256 0140 104D     		ldr	r5, .L44+52
+ 150:.\User_Source/interrupts.c ****         DMR_Status.min_cal_adjust = SET;
+ 257              		.loc 1 150 0
+ 258 0142 1343     		orr	r3, r2
+ 149:.\User_Source/interrupts.c ****         DMR_Status.min_cal_adjust = SET;
+ 259              		.loc 1 149 0
+ 260 0144 2980     		strh	r1, [r5]
+ 261              		.loc 1 150 0
+ 262 0146 6370     		strb	r3, [r4, #1]
+ 263              	.L19:
+ 151:.\User_Source/interrupts.c ****     }
+ 152:.\User_Source/interrupts.c ****     #endif
+ 153:.\User_Source/interrupts.c ****     
+ 154:.\User_Source/interrupts.c ****     I_SENSE_CNT = 0;  
+ 264              		.loc 1 154 0
+ 265 0148 0023     		mov	r3, #0
+ 155:.\User_Source/interrupts.c **** 
+ 156:.\User_Source/interrupts.c **** }   //End of Zero Cross ISR
+ 266              		.loc 1 156 0
+ 267              		@ sp needed
+ 154:.\User_Source/interrupts.c **** 
+ 268              		.loc 1 154 0
+ 269 014a 0370     		strb	r3, [r0]
+ 270              		.loc 1 156 0
+ 271 014c F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 272              	.L45:
+ 273 014e C046     		.align	2
+ 274              	.L44:
+ 275 0150 00000000 		.word	TICK_CNT
+ 276 0154 00000000 		.word	DMR_Status
+ 277 0158 00000000 		.word	TMR_Status
+ 278 015c 10180000 		.word	6160
+ 279 0160 00000000 		.word	PWM_MAX
+ 280 0164 00000000 		.word	PWM_CHG
+ 281 0168 00000000 		.word	UI_VAL
+ 282 016c 00000000 		.word	I_SENSE_CNT
+ 283 0170 00000000 		.word	I_SENSE_ACC
+ 284 0174 00000000 		.word	ZC_CNTR
+ 285 0178 00000000 		.word	PB_Status
+ 286 017c 00000000 		.word	SECOND_CNTR
+ 287 0180 00000000 		.word	PWM_TARGET
+ 288 0184 00000000 		.word	PWM_CAL_CNT
+ 289 0188 00000000 		.word	PWM_MIN
+ 290              		.cfi_endproc
+ 291              	.LFE33:
+ 292              		.size	zero_cross, .-zero_cross
+ 293              		.section	.text.pwm_timer,"ax",%progbits
+ 294              		.align	1
+ 295              		.global	pwm_timer
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 9
+
+
+ 296              		.code	16
+ 297              		.thumb_func
+ 298              		.type	pwm_timer, %function
+ 299              	pwm_timer:
+ 300              	.LFB34:
+ 157:.\User_Source/interrupts.c **** /**************************************************************************************************
+ 158:.\User_Source/interrupts.c **** 
+ 159:.\User_Source/interrupts.c **** /**************************************************************************************************
+ 160:.\User_Source/interrupts.c **** void pwm_timer(void)
+ 161:.\User_Source/interrupts.c **** {
+ 301              		.loc 1 161 0
+ 302              		.cfi_startproc
+ 303 0000 38B5     		push	{r3, r4, r5, lr}
+ 304              		.cfi_def_cfa_offset 16
+ 305              		.cfi_offset 3, -16
+ 306              		.cfi_offset 4, -12
+ 307              		.cfi_offset 5, -8
+ 308              		.cfi_offset 14, -4
+ 162:.\User_Source/interrupts.c ****     Dimming_ClearInterrupt(Dimming_INTR_MASK_TC);   
+ 163:.\User_Source/interrupts.c ****     
+ 164:.\User_Source/interrupts.c ****     if (TMR_Status.single_tap)
+ 309              		.loc 1 164 0
+ 310 0002 2024     		mov	r4, #32
+ 162:.\User_Source/interrupts.c ****     Dimming_ClearInterrupt(Dimming_INTR_MASK_TC);   
+ 311              		.loc 1 162 0
+ 312 0004 0120     		mov	r0, #1
+ 313 0006 FFF7FEFF 		bl	Dimming_ClearInterrupt
+ 314              	.LVL4:
+ 315              		.loc 1 164 0
+ 316 000a 0B4B     		ldr	r3, .L51
+ 317 000c 1978     		ldrb	r1, [r3]
+ 318 000e 2142     		tst	r1, r4
+ 319 0010 0CD0     		beq	.L48
+ 165:.\User_Source/interrupts.c ****     {
+ 166:.\User_Source/interrupts.c ****         if (++TICK_DBL_TAP >= double_tap_interval)
+ 320              		.loc 1 166 0
+ 321 0012 0A48     		ldr	r0, .L51+4
+ 322 0014 0A4D     		ldr	r5, .L51+8
+ 323 0016 0288     		ldrh	r2, [r0]
+ 324 0018 0132     		add	r2, r2, #1
+ 325 001a 92B2     		uxth	r2, r2
+ 326 001c AA42     		cmp	r2, r5
+ 327 001e 01D8     		bhi	.L49
+ 328 0020 0280     		strh	r2, [r0]
+ 329 0022 03E0     		b	.L48
+ 330              	.L49:
+ 167:.\User_Source/interrupts.c ****         {
+ 168:.\User_Source/interrupts.c ****             TICK_DBL_TAP = 0;
+ 331              		.loc 1 168 0
+ 332 0024 0022     		mov	r2, #0
+ 169:.\User_Source/interrupts.c ****             TMR_Status.single_tap = CLEAR;
+ 333              		.loc 1 169 0
+ 334 0026 A143     		bic	r1, r4
+ 168:.\User_Source/interrupts.c ****             TMR_Status.single_tap = CLEAR;
+ 335              		.loc 1 168 0
+ 336 0028 0280     		strh	r2, [r0]
+ 337              		.loc 1 169 0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 10
+
+
+ 338 002a 1970     		strb	r1, [r3]
+ 339              	.L48:
+ 170:.\User_Source/interrupts.c ****         }
+ 171:.\User_Source/interrupts.c ****     }
+ 172:.\User_Source/interrupts.c ****     
+ 173:.\User_Source/interrupts.c ****     TMR_Status.pwmtick = SET;
+ 340              		.loc 1 173 0
+ 341 002c 0221     		mov	r1, #2
+ 342 002e 1A78     		ldrb	r2, [r3]
+ 174:.\User_Source/interrupts.c **** 
+ 175:.\User_Source/interrupts.c **** }  //End of the PWM Timer ISR
+ 343              		.loc 1 175 0
+ 344              		@ sp needed
+ 173:.\User_Source/interrupts.c **** 
+ 345              		.loc 1 173 0
+ 346 0030 0A43     		orr	r2, r1
+ 347 0032 1A70     		strb	r2, [r3]
+ 348              		.loc 1 175 0
+ 349 0034 38BD     		pop	{r3, r4, r5, pc}
+ 350              	.L52:
+ 351 0036 C046     		.align	2
+ 352              	.L51:
+ 353 0038 00000000 		.word	TMR_Status
+ 354 003c 00000000 		.word	TICK_DBL_TAP
+ 355 0040 ED020000 		.word	749
+ 356              		.cfi_endproc
+ 357              	.LFE34:
+ 358              		.size	pwm_timer, .-pwm_timer
+ 359              		.section	.text.Relay_Offset_timer,"ax",%progbits
+ 360              		.align	1
+ 361              		.global	Relay_Offset_timer
+ 362              		.code	16
+ 363              		.thumb_func
+ 364              		.type	Relay_Offset_timer, %function
+ 365              	Relay_Offset_timer:
+ 366              	.LFB35:
+ 176:.\User_Source/interrupts.c **** 
+ 177:.\User_Source/interrupts.c **** /**************************************************************************************************
+ 178:.\User_Source/interrupts.c **** void Relay_Offset_timer(void) 
+ 179:.\User_Source/interrupts.c **** {
+ 367              		.loc 1 179 0
+ 368              		.cfi_startproc
+ 369 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 370              		.cfi_def_cfa_offset 24
+ 371              		.cfi_offset 3, -24
+ 372              		.cfi_offset 4, -20
+ 373              		.cfi_offset 5, -16
+ 374              		.cfi_offset 6, -12
+ 375              		.cfi_offset 7, -8
+ 376              		.cfi_offset 14, -4
+ 180:.\User_Source/interrupts.c ****     Relay_Offset_ClearInterrupt(Relay_Offset_INTR_MASK_TC);
+ 377              		.loc 1 180 0
+ 378 0002 0120     		mov	r0, #1
+ 379 0004 FFF7FEFF 		bl	Relay_Offset_ClearInterrupt
+ 380              	.LVL5:
+ 181:.\User_Source/interrupts.c ****     
+ 182:.\User_Source/interrupts.c ****     TICK_CNT_100mS++;
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 11
+
+
+ 381              		.loc 1 182 0
+ 382 0008 3A4A     		ldr	r2, .L75
+ 383 000a 1388     		ldrh	r3, [r2]
+ 384 000c 0133     		add	r3, r3, #1
+ 385 000e 1380     		strh	r3, [r2]
+ 183:.\User_Source/interrupts.c ****     ZC_TEST++;
+ 386              		.loc 1 183 0
+ 387 0010 394A     		ldr	r2, .L75+4
+ 388 0012 1388     		ldrh	r3, [r2]
+ 389 0014 0133     		add	r3, r3, #1
+ 390 0016 1380     		strh	r3, [r2]
+ 184:.\User_Source/interrupts.c ****         
+ 185:.\User_Source/interrupts.c ****     PB_INTERVAL_TICK++;             // marks every 10mS for pushbutton measurement
+ 391              		.loc 1 185 0
+ 392 0018 384A     		ldr	r2, .L75+8
+ 393 001a 1378     		ldrb	r3, [r2]
+ 394 001c 0133     		add	r3, r3, #1
+ 395 001e 1370     		strb	r3, [r2]
+ 186:.\User_Source/interrupts.c ****     //re-enable zero cross interrupt after acceptable number of PWM counts
+ 187:.\User_Source/interrupts.c ****     if (++TICK_CNT >= full_cycle_count) ZC_ISR_Enable();
+ 396              		.loc 1 187 0
+ 397 0020 374A     		ldr	r2, .L75+12
+ 398 0022 1388     		ldrh	r3, [r2]
+ 399 0024 0133     		add	r3, r3, #1
+ 400 0026 9BB2     		uxth	r3, r3
+ 401 0028 1380     		strh	r3, [r2]
+ 402 002a 2C22     		mov	r2, #44
+ 403 002c FF32     		add	r2, r2, #255
+ 404 002e 9342     		cmp	r3, r2
+ 405 0030 01D9     		bls	.L54
+ 406              		.loc 1 187 0 is_stmt 0 discriminator 1
+ 407 0032 FFF7FEFF 		bl	ZC_ISR_Enable
+ 408              	.LVL6:
+ 409              	.L54:
+ 188:.\User_Source/interrupts.c ****     
+ 189:.\User_Source/interrupts.c ****     //Attenuate the display to dim the bright LED's to some value
+ 190:.\User_Source/interrupts.c ****     TICK_CNT_Display++;
+ 410              		.loc 1 190 0 is_stmt 1
+ 411 0036 334A     		ldr	r2, .L75+16
+ 191:.\User_Source/interrupts.c ****     
+ 192:.\User_Source/interrupts.c ****     if (TMR_Status.zc_tick && DMR_Status.throwrelay && !TMR_Status.ovldend_bug)
+ 412              		.loc 1 192 0
+ 413 0038 334D     		ldr	r5, .L75+20
+ 190:.\User_Source/interrupts.c ****     
+ 414              		.loc 1 190 0
+ 415 003a 1378     		ldrb	r3, [r2]
+ 416 003c 0133     		add	r3, r3, #1
+ 417 003e 1370     		strb	r3, [r2]
+ 418              		.loc 1 192 0
+ 419 0040 2B78     		ldrb	r3, [r5]
+ 420 0042 1B07     		lsl	r3, r3, #28
+ 421 0044 55D5     		bpl	.L53
+ 422              		.loc 1 192 0 is_stmt 0 discriminator 1
+ 423 0046 314C     		ldr	r4, .L75+24
+ 424 0048 6378     		ldrb	r3, [r4, #1]
+ 425 004a 9B07     		lsl	r3, r3, #30
+ 426 004c 51D5     		bpl	.L53
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 12
+
+
+ 427              		.loc 1 192 0 discriminator 2
+ 428 004e 0127     		mov	r7, #1
+ 429 0050 6B78     		ldrb	r3, [r5, #1]
+ 430 0052 3B42     		tst	r3, r7
+ 431 0054 4DD1     		bne	.L53
+ 193:.\User_Source/interrupts.c ****     {
+ 194:.\User_Source/interrupts.c ****         ++RELAY_CNT;
+ 432              		.loc 1 194 0 is_stmt 1
+ 433 0056 2E4E     		ldr	r6, .L75+28
+ 434 0058 3388     		ldrh	r3, [r6]
+ 435 005a DA19     		add	r2, r3, r7
+ 436 005c 3280     		strh	r2, [r6]
+ 195:.\User_Source/interrupts.c ****         if (DMR_Status.single_pole && RELAY_CNT >= relay_delay_1p && RELAY_CNT < Relay_coil_active 
+ 437              		.loc 1 195 0
+ 438 005e 2278     		ldrb	r2, [r4]
+ 439 0060 5106     		lsl	r1, r2, #25
+ 440 0062 0DD5     		bpl	.L58
+ 441              		.loc 1 195 0 is_stmt 0 discriminator 1
+ 442 0064 191C     		mov	r1, r3
+ 443 0066 C220     		mov	r0, #194
+ 444 0068 3139     		sub	r1, r1, #49
+ 445 006a 89B2     		uxth	r1, r1
+ 446 006c FF30     		add	r0, r0, #255
+ 447 006e 8142     		cmp	r1, r0
+ 448 0070 06D8     		bhi	.L58
+ 196:.\User_Source/interrupts.c ****         {
+ 197:.\User_Source/interrupts.c ****             if (RELAY_CNT >= relay_delay_1p) 
+ 198:.\User_Source/interrupts.c ****             {
+ 199:.\User_Source/interrupts.c ****                 Relay_3W_Write(0xFF);
+ 449              		.loc 1 199 0 is_stmt 1
+ 450 0072 C238     		sub	r0, r0, #194
+ 451 0074 FFF7FEFF 		bl	Relay_3W_Write
+ 452              	.LVL7:
+ 200:.\User_Source/interrupts.c ****                 DMR_Status.coilactive = SET;
+ 453              		.loc 1 200 0
+ 454 0078 6378     		ldrb	r3, [r4, #1]
+ 455 007a 1F43     		orr	r7, r3
+ 456 007c 6770     		strb	r7, [r4, #1]
+ 457 007e 0EE0     		b	.L59
+ 458              	.L58:
+ 201:.\User_Source/interrupts.c ****             }
+ 202:.\User_Source/interrupts.c ****         }
+ 203:.\User_Source/interrupts.c ****         else if (DMR_Status.three_way && RELAY_CNT >= relay_delay_3w && RELAY_CNT < Relay_coil_acti
+ 459              		.loc 1 203 0
+ 460 0080 D209     		lsr	r2, r2, #7
+ 461 0082 0CD0     		beq	.L59
+ 462              		.loc 1 203 0 is_stmt 0 discriminator 1
+ 463 0084 DE22     		mov	r2, #222
+ 464 0086 363B     		sub	r3, r3, #54
+ 465 0088 9BB2     		uxth	r3, r3
+ 466 008a 5200     		lsl	r2, r2, #1
+ 467 008c 9342     		cmp	r3, r2
+ 468 008e 06D8     		bhi	.L59
+ 204:.\User_Source/interrupts.c ****         {
+ 205:.\User_Source/interrupts.c ****             if (RELAY_CNT >= relay_delay_3w) 
+ 206:.\User_Source/interrupts.c ****             {
+ 207:.\User_Source/interrupts.c ****                 Relay_1P_Write(0xFF);
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 13
+
+
+ 469              		.loc 1 207 0 is_stmt 1
+ 470 0090 FF20     		mov	r0, #255
+ 471 0092 FFF7FEFF 		bl	Relay_1P_Write
+ 472              	.LVL8:
+ 208:.\User_Source/interrupts.c ****                 DMR_Status.coilactive = SET;
+ 473              		.loc 1 208 0
+ 474 0096 0122     		mov	r2, #1
+ 475 0098 6378     		ldrb	r3, [r4, #1]
+ 476 009a 1343     		orr	r3, r2
+ 477 009c 6370     		strb	r3, [r4, #1]
+ 478              	.L59:
+ 209:.\User_Source/interrupts.c ****             }
+ 210:.\User_Source/interrupts.c ****         }
+ 211:.\User_Source/interrupts.c ****         
+ 212:.\User_Source/interrupts.c ****         if (RELAY_CNT >= Relay_coil_active)
+ 479              		.loc 1 212 0
+ 480 009e F423     		mov	r3, #244
+ 481 00a0 3288     		ldrh	r2, [r6]
+ 482 00a2 FF33     		add	r3, r3, #255
+ 483 00a4 9A42     		cmp	r2, r3
+ 484 00a6 24D9     		bls	.L53
+ 213:.\User_Source/interrupts.c ****         {
+ 214:.\User_Source/interrupts.c ****             if (DMR_Status.single_pole)
+ 485              		.loc 1 214 0
+ 486 00a8 4021     		mov	r1, #64
+ 487 00aa 2378     		ldrb	r3, [r4]
+ 488 00ac 0B42     		tst	r3, r1
+ 489 00ae 05D0     		beq	.L60
+ 215:.\User_Source/interrupts.c ****             {
+ 216:.\User_Source/interrupts.c ****                 DMR_Status.three_way = SET;
+ 490              		.loc 1 216 0
+ 491 00b0 8022     		mov	r2, #128
+ 492 00b2 5242     		neg	r2, r2
+ 493 00b4 1343     		orr	r3, r2
+ 217:.\User_Source/interrupts.c ****                 DMR_Status.single_pole = CLEAR;
+ 494              		.loc 1 217 0
+ 495 00b6 DBB2     		uxtb	r3, r3
+ 496 00b8 8B43     		bic	r3, r1
+ 497 00ba 02E0     		b	.L74
+ 498              	.L60:
+ 218:.\User_Source/interrupts.c ****             }
+ 219:.\User_Source/interrupts.c ****             else
+ 220:.\User_Source/interrupts.c ****             {
+ 221:.\User_Source/interrupts.c ****                 DMR_Status.three_way = CLEAR;
+ 222:.\User_Source/interrupts.c ****                 DMR_Status.single_pole = SET;
+ 499              		.loc 1 222 0
+ 500 00bc 7F22     		mov	r2, #127
+ 501 00be 1340     		and	r3, r2
+ 502 00c0 0B43     		orr	r3, r1
+ 503              	.L74:
+ 504 00c2 2370     		strb	r3, [r4]
+ 223:.\User_Source/interrupts.c ****             }
+ 224:.\User_Source/interrupts.c ****             RELAY_CNT = 0;
+ 225:.\User_Source/interrupts.c ****             #if(OvrldEndurance == 1)
+ 226:.\User_Source/interrupts.c ****             TMR_Status.ovldend_bug = SET;
+ 227:.\User_Source/interrupts.c ****             #endif
+ 228:.\User_Source/interrupts.c ****             DMR_Status.coilactive = CLEAR;
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 14
+
+
+ 229:.\User_Source/interrupts.c ****             DMR_Status.throwrelay = CLEAR;
+ 505              		.loc 1 229 0
+ 506 00c4 FC23     		mov	r3, #252
+ 228:.\User_Source/interrupts.c ****             DMR_Status.throwrelay = CLEAR;
+ 507              		.loc 1 228 0
+ 508 00c6 6278     		ldrb	r2, [r4, #1]
+ 224:.\User_Source/interrupts.c ****             #if(OvrldEndurance == 1)
+ 509              		.loc 1 224 0
+ 510 00c8 0027     		mov	r7, #0
+ 511              		.loc 1 229 0
+ 512 00ca 1340     		and	r3, r2
+ 230:.\User_Source/interrupts.c ****             TMR_Status.zc_tick = CLEAR;
+ 513              		.loc 1 230 0
+ 514 00cc 0822     		mov	r2, #8
+ 229:.\User_Source/interrupts.c ****             TMR_Status.zc_tick = CLEAR;
+ 515              		.loc 1 229 0
+ 516 00ce 6370     		strb	r3, [r4, #1]
+ 517              		.loc 1 230 0
+ 518 00d0 2B78     		ldrb	r3, [r5]
+ 231:.\User_Source/interrupts.c ****             Relay_3W_Write(0);
+ 519              		.loc 1 231 0
+ 520 00d2 381C     		mov	r0, r7
+ 230:.\User_Source/interrupts.c ****             TMR_Status.zc_tick = CLEAR;
+ 521              		.loc 1 230 0
+ 522 00d4 9343     		bic	r3, r2
+ 523 00d6 2B70     		strb	r3, [r5]
+ 224:.\User_Source/interrupts.c ****             #if(OvrldEndurance == 1)
+ 524              		.loc 1 224 0
+ 525 00d8 3780     		strh	r7, [r6]
+ 526              		.loc 1 231 0
+ 527 00da FFF7FEFF 		bl	Relay_3W_Write
+ 528              	.LVL9:
+ 232:.\User_Source/interrupts.c ****             Relay_1P_Write(0);
+ 529              		.loc 1 232 0
+ 530 00de 381C     		mov	r0, r7
+ 531 00e0 FFF7FEFF 		bl	Relay_1P_Write
+ 532              	.LVL10:
+ 233:.\User_Source/interrupts.c ****             I_SENSE_ACC = 0;                // reset the current sense accumlation
+ 533              		.loc 1 233 0
+ 534 00e4 0B4B     		ldr	r3, .L75+32
+ 234:.\User_Source/interrupts.c ****             if (DMR_Status.fade_on) I_SENSE_ACC = i_sense_threshold;
+ 535              		.loc 1 234 0
+ 536 00e6 2278     		ldrb	r2, [r4]
+ 233:.\User_Source/interrupts.c ****             I_SENSE_ACC = 0;                // reset the current sense accumlation
+ 537              		.loc 1 233 0
+ 538 00e8 1F80     		strh	r7, [r3]
+ 539              		.loc 1 234 0
+ 540 00ea 5207     		lsl	r2, r2, #29
+ 541 00ec 01D5     		bpl	.L53
+ 542              		.loc 1 234 0 is_stmt 0 discriminator 1
+ 543 00ee 2822     		mov	r2, #40
+ 544 00f0 1A80     		strh	r2, [r3]
+ 545              	.L53:
+ 235:.\User_Source/interrupts.c ****         }
+ 236:.\User_Source/interrupts.c ****     }
+ 237:.\User_Source/interrupts.c **** }
+ 546              		.loc 1 237 0 is_stmt 1
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 15
+
+
+ 547              		@ sp needed
+ 548 00f2 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 549              	.L76:
+ 550              		.align	2
+ 551              	.L75:
+ 552 00f4 00000000 		.word	TICK_CNT_100mS
+ 553 00f8 00000000 		.word	ZC_TEST
+ 554 00fc 00000000 		.word	PB_INTERVAL_TICK
+ 555 0100 00000000 		.word	TICK_CNT
+ 556 0104 00000000 		.word	TICK_CNT_Display
+ 557 0108 00000000 		.word	TMR_Status
+ 558 010c 00000000 		.word	DMR_Status
+ 559 0110 00000000 		.word	RELAY_CNT
+ 560 0114 00000000 		.word	I_SENSE_ACC
+ 561              		.cfi_endproc
+ 562              	.LFE35:
+ 563              		.size	Relay_Offset_timer, .-Relay_Offset_timer
+ 564              		.text
+ 565              	.Letext0:
+ 566              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 567              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 568              		.file 4 "Generated_Source\\PSoC4/cytypes.h"
+ 569              		.file 5 ".\\User_Source/user_main.h"
+ 570              		.file 6 "Generated_Source\\PSoC4/Zero_Cross.h"
+ 571              		.file 7 "Generated_Source\\PSoC4/Dimming.h"
+ 572              		.file 8 "Generated_Source\\PSoC4/Relay_Offset.h"
+ 573              		.file 9 "Generated_Source\\PSoC4/ZC_ISR.h"
+ 574              		.file 10 "Generated_Source\\PSoC4/Relay_3W.h"
+ 575              		.file 11 "Generated_Source\\PSoC4/Relay_1P.h"
+ 576              		.section	.debug_info,"",%progbits
+ 577              	.Ldebug_info0:
+ 578 0000 0A050000 		.4byte	0x50a
+ 579 0004 0400     		.2byte	0x4
+ 580 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 581 000a 04       		.byte	0x4
+ 582 000b 01       		.uleb128 0x1
+ 583 000c 08000000 		.4byte	.LASF83
+ 584 0010 01       		.byte	0x1
+ 585 0011 8E040000 		.4byte	.LASF84
+ 586 0015 D1020000 		.4byte	.LASF85
+ 587 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 588 001d 00000000 		.4byte	0
+ 589 0021 00000000 		.4byte	.Ldebug_line0
+ 590 0025 02       		.uleb128 0x2
+ 591 0026 01       		.byte	0x1
+ 592 0027 06       		.byte	0x6
+ 593 0028 FF000000 		.4byte	.LASF0
+ 594 002c 03       		.uleb128 0x3
+ 595 002d 9E000000 		.4byte	.LASF3
+ 596 0031 02       		.byte	0x2
+ 597 0032 1D       		.byte	0x1d
+ 598 0033 37000000 		.4byte	0x37
+ 599 0037 02       		.uleb128 0x2
+ 600 0038 01       		.byte	0x1
+ 601 0039 08       		.byte	0x8
+ 602 003a 22030000 		.4byte	.LASF1
+ 603 003e 02       		.uleb128 0x2
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 16
+
+
+ 604 003f 02       		.byte	0x2
+ 605 0040 05       		.byte	0x5
+ 606 0041 40030000 		.4byte	.LASF2
+ 607 0045 03       		.uleb128 0x3
+ 608 0046 9C030000 		.4byte	.LASF4
+ 609 004a 02       		.byte	0x2
+ 610 004b 2B       		.byte	0x2b
+ 611 004c 50000000 		.4byte	0x50
+ 612 0050 02       		.uleb128 0x2
+ 613 0051 02       		.byte	0x2
+ 614 0052 07       		.byte	0x7
+ 615 0053 45020000 		.4byte	.LASF5
+ 616 0057 02       		.uleb128 0x2
+ 617 0058 04       		.byte	0x4
+ 618 0059 05       		.byte	0x5
+ 619 005a 34010000 		.4byte	.LASF6
+ 620 005e 02       		.uleb128 0x2
+ 621 005f 04       		.byte	0x4
+ 622 0060 07       		.byte	0x7
+ 623 0061 F7010000 		.4byte	.LASF7
+ 624 0065 02       		.uleb128 0x2
+ 625 0066 08       		.byte	0x8
+ 626 0067 05       		.byte	0x5
+ 627 0068 F1000000 		.4byte	.LASF8
+ 628 006c 02       		.uleb128 0x2
+ 629 006d 08       		.byte	0x8
+ 630 006e 07       		.byte	0x7
+ 631 006f B6000000 		.4byte	.LASF9
+ 632 0073 04       		.uleb128 0x4
+ 633 0074 04       		.byte	0x4
+ 634 0075 05       		.byte	0x5
+ 635 0076 696E7400 		.ascii	"int\000"
+ 636 007a 02       		.uleb128 0x2
+ 637 007b 04       		.byte	0x4
+ 638 007c 07       		.byte	0x7
+ 639 007d EA010000 		.4byte	.LASF10
+ 640 0081 03       		.uleb128 0x3
+ 641 0082 48040000 		.4byte	.LASF11
+ 642 0086 03       		.byte	0x3
+ 643 0087 15       		.byte	0x15
+ 644 0088 2C000000 		.4byte	0x2c
+ 645 008c 03       		.uleb128 0x3
+ 646 008d 6F010000 		.4byte	.LASF12
+ 647 0091 03       		.byte	0x3
+ 648 0092 21       		.byte	0x21
+ 649 0093 45000000 		.4byte	0x45
+ 650 0097 03       		.uleb128 0x3
+ 651 0098 5A010000 		.4byte	.LASF13
+ 652 009c 04       		.byte	0x4
+ 653 009d A1       		.byte	0xa1
+ 654 009e 37000000 		.4byte	0x37
+ 655 00a2 03       		.uleb128 0x3
+ 656 00a3 90010000 		.4byte	.LASF14
+ 657 00a7 04       		.byte	0x4
+ 658 00a8 A3       		.byte	0xa3
+ 659 00a9 5E000000 		.4byte	0x5e
+ 660 00ad 02       		.uleb128 0x2
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 17
+
+
+ 661 00ae 04       		.byte	0x4
+ 662 00af 04       		.byte	0x4
+ 663 00b0 0A030000 		.4byte	.LASF15
+ 664 00b4 02       		.uleb128 0x2
+ 665 00b5 08       		.byte	0x8
+ 666 00b6 04       		.byte	0x4
+ 667 00b7 78010000 		.4byte	.LASF16
+ 668 00bb 02       		.uleb128 0x2
+ 669 00bc 01       		.byte	0x1
+ 670 00bd 08       		.byte	0x8
+ 671 00be 97030000 		.4byte	.LASF17
+ 672 00c2 02       		.uleb128 0x2
+ 673 00c3 04       		.byte	0x4
+ 674 00c4 07       		.byte	0x7
+ 675 00c5 AD020000 		.4byte	.LASF18
+ 676 00c9 05       		.uleb128 0x5
+ 677 00ca 9F010000 		.4byte	.LASF86
+ 678 00ce 01       		.byte	0x1
+ 679 00cf 05       		.byte	0x5
+ 680 00d0 9F       		.byte	0x9f
+ 681 00d1 E8000000 		.4byte	0xe8
+ 682 00d5 06       		.uleb128 0x6
+ 683 00d6 E9000000 		.4byte	.LASF19
+ 684 00da 00       		.sleb128 0
+ 685 00db 06       		.uleb128 0x6
+ 686 00dc 10030000 		.4byte	.LASF20
+ 687 00e0 01       		.sleb128 1
+ 688 00e1 06       		.uleb128 0x6
+ 689 00e2 92020000 		.4byte	.LASF21
+ 690 00e6 02       		.sleb128 2
+ 691 00e7 00       		.byte	0
+ 692 00e8 07       		.uleb128 0x7
+ 693 00e9 3D010000 		.4byte	.LASF27
+ 694 00ed 01       		.byte	0x1
+ 695 00ee 05       		.byte	0x5
+ 696 00ef A5       		.byte	0xa5
+ 697 00f0 31010000 		.4byte	0x131
+ 698 00f4 08       		.uleb128 0x8
+ 699 00f5 1A010000 		.4byte	.LASF22
+ 700 00f9 05       		.byte	0x5
+ 701 00fa A6       		.byte	0xa6
+ 702 00fb 81000000 		.4byte	0x81
+ 703 00ff 01       		.byte	0x1
+ 704 0100 01       		.byte	0x1
+ 705 0101 07       		.byte	0x7
+ 706 0102 00       		.byte	0
+ 707 0103 08       		.uleb128 0x8
+ 708 0104 38030000 		.4byte	.LASF23
+ 709 0108 05       		.byte	0x5
+ 710 0109 A7       		.byte	0xa7
+ 711 010a 81000000 		.4byte	0x81
+ 712 010e 01       		.byte	0x1
+ 713 010f 01       		.byte	0x1
+ 714 0110 06       		.byte	0x6
+ 715 0111 00       		.byte	0
+ 716 0112 08       		.uleb128 0x8
+ 717 0113 9A020000 		.4byte	.LASF24
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 18
+
+
+ 718 0117 05       		.byte	0x5
+ 719 0118 A8       		.byte	0xa8
+ 720 0119 81000000 		.4byte	0x81
+ 721 011d 01       		.byte	0x1
+ 722 011e 01       		.byte	0x1
+ 723 011f 05       		.byte	0x5
+ 724 0120 00       		.byte	0
+ 725 0121 08       		.uleb128 0x8
+ 726 0122 89020000 		.4byte	.LASF25
+ 727 0126 05       		.byte	0x5
+ 728 0127 A9       		.byte	0xa9
+ 729 0128 81000000 		.4byte	0x81
+ 730 012c 01       		.byte	0x1
+ 731 012d 01       		.byte	0x1
+ 732 012e 04       		.byte	0x4
+ 733 012f 00       		.byte	0
+ 734 0130 00       		.byte	0
+ 735 0131 03       		.uleb128 0x3
+ 736 0132 D3010000 		.4byte	.LASF26
+ 737 0136 05       		.byte	0x5
+ 738 0137 AA       		.byte	0xaa
+ 739 0138 E8000000 		.4byte	0xe8
+ 740 013c 07       		.uleb128 0x7
+ 741 013d CC030000 		.4byte	.LASF28
+ 742 0141 02       		.byte	0x2
+ 743 0142 05       		.byte	0x5
+ 744 0143 AC       		.byte	0xac
+ 745 0144 D0010000 		.4byte	0x1d0
+ 746 0148 08       		.uleb128 0x8
+ 747 0149 8B010000 		.4byte	.LASF29
+ 748 014d 05       		.byte	0x5
+ 749 014e AD       		.byte	0xad
+ 750 014f 81000000 		.4byte	0x81
+ 751 0153 01       		.byte	0x1
+ 752 0154 01       		.byte	0x1
+ 753 0155 07       		.byte	0x7
+ 754 0156 00       		.byte	0
+ 755 0157 08       		.uleb128 0x8
+ 756 0158 97010000 		.4byte	.LASF30
+ 757 015c 05       		.byte	0x5
+ 758 015d AE       		.byte	0xae
+ 759 015e 81000000 		.4byte	0x81
+ 760 0162 01       		.byte	0x1
+ 761 0163 01       		.byte	0x1
+ 762 0164 06       		.byte	0x6
+ 763 0165 00       		.byte	0
+ 764 0166 08       		.uleb128 0x8
+ 765 0167 26010000 		.4byte	.LASF31
+ 766 016b 05       		.byte	0x5
+ 767 016c AF       		.byte	0xaf
+ 768 016d 81000000 		.4byte	0x81
+ 769 0171 01       		.byte	0x1
+ 770 0172 01       		.byte	0x1
+ 771 0173 05       		.byte	0x5
+ 772 0174 00       		.byte	0
+ 773 0175 08       		.uleb128 0x8
+ 774 0176 30030000 		.4byte	.LASF32
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 19
+
+
+ 775 017a 05       		.byte	0x5
+ 776 017b B0       		.byte	0xb0
+ 777 017c 81000000 		.4byte	0x81
+ 778 0180 01       		.byte	0x1
+ 779 0181 01       		.byte	0x1
+ 780 0182 04       		.byte	0x4
+ 781 0183 00       		.byte	0
+ 782 0184 08       		.uleb128 0x8
+ 783 0185 61030000 		.4byte	.LASF33
+ 784 0189 05       		.byte	0x5
+ 785 018a B1       		.byte	0xb1
+ 786 018b 81000000 		.4byte	0x81
+ 787 018f 01       		.byte	0x1
+ 788 0190 01       		.byte	0x1
+ 789 0191 03       		.byte	0x3
+ 790 0192 00       		.byte	0
+ 791 0193 08       		.uleb128 0x8
+ 792 0194 F7030000 		.4byte	.LASF34
+ 793 0198 05       		.byte	0x5
+ 794 0199 B2       		.byte	0xb2
+ 795 019a 81000000 		.4byte	0x81
+ 796 019e 01       		.byte	0x1
+ 797 019f 01       		.byte	0x1
+ 798 01a0 02       		.byte	0x2
+ 799 01a1 00       		.byte	0
+ 800 01a2 08       		.uleb128 0x8
+ 801 01a3 58020000 		.4byte	.LASF35
+ 802 01a7 05       		.byte	0x5
+ 803 01a8 B3       		.byte	0xb3
+ 804 01a9 81000000 		.4byte	0x81
+ 805 01ad 01       		.byte	0x1
+ 806 01ae 01       		.byte	0x1
+ 807 01af 01       		.byte	0x1
+ 808 01b0 00       		.byte	0
+ 809 01b1 08       		.uleb128 0x8
+ 810 01b2 36040000 		.4byte	.LASF36
+ 811 01b6 05       		.byte	0x5
+ 812 01b7 B4       		.byte	0xb4
+ 813 01b8 81000000 		.4byte	0x81
+ 814 01bc 01       		.byte	0x1
+ 815 01bd 01       		.byte	0x1
+ 816 01be 00       		.byte	0
+ 817 01bf 00       		.byte	0
+ 818 01c0 08       		.uleb128 0x8
+ 819 01c1 AB010000 		.4byte	.LASF37
+ 820 01c5 05       		.byte	0x5
+ 821 01c6 B5       		.byte	0xb5
+ 822 01c7 81000000 		.4byte	0x81
+ 823 01cb 01       		.byte	0x1
+ 824 01cc 01       		.byte	0x1
+ 825 01cd 07       		.byte	0x7
+ 826 01ce 01       		.byte	0x1
+ 827 01cf 00       		.byte	0
+ 828 01d0 03       		.uleb128 0x3
+ 829 01d1 7E020000 		.4byte	.LASF38
+ 830 01d5 05       		.byte	0x5
+ 831 01d6 B6       		.byte	0xb6
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 20
+
+
+ 832 01d7 3C010000 		.4byte	0x13c
+ 833 01db 07       		.uleb128 0x7
+ 834 01dc DE000000 		.4byte	.LASF39
+ 835 01e0 02       		.byte	0x2
+ 836 01e1 05       		.byte	0x5
+ 837 01e2 B8       		.byte	0xb8
+ 838 01e3 C8020000 		.4byte	0x2c8
+ 839 01e7 09       		.uleb128 0x9
+ 840 01e8 6F6E00   		.ascii	"on\000"
+ 841 01eb 05       		.byte	0x5
+ 842 01ec B9       		.byte	0xb9
+ 843 01ed 8C000000 		.4byte	0x8c
+ 844 01f1 02       		.byte	0x2
+ 845 01f2 01       		.byte	0x1
+ 846 01f3 0F       		.byte	0xf
+ 847 01f4 00       		.byte	0
+ 848 01f5 09       		.uleb128 0x9
+ 849 01f6 6F666600 		.ascii	"off\000"
+ 850 01fa 05       		.byte	0x5
+ 851 01fb BA       		.byte	0xba
+ 852 01fc 8C000000 		.4byte	0x8c
+ 853 0200 02       		.byte	0x2
+ 854 0201 01       		.byte	0x1
+ 855 0202 0E       		.byte	0xe
+ 856 0203 00       		.byte	0
+ 857 0204 08       		.uleb128 0x8
+ 858 0205 86030000 		.4byte	.LASF40
+ 859 0209 05       		.byte	0x5
+ 860 020a BB       		.byte	0xbb
+ 861 020b 8C000000 		.4byte	0x8c
+ 862 020f 02       		.byte	0x2
+ 863 0210 01       		.byte	0x1
+ 864 0211 0D       		.byte	0xd
+ 865 0212 00       		.byte	0
+ 866 0213 08       		.uleb128 0x8
+ 867 0214 8E030000 		.4byte	.LASF41
+ 868 0218 05       		.byte	0x5
+ 869 0219 BC       		.byte	0xbc
+ 870 021a 8C000000 		.4byte	0x8c
+ 871 021e 02       		.byte	0x2
+ 872 021f 01       		.byte	0x1
+ 873 0220 0C       		.byte	0xc
+ 874 0221 00       		.byte	0
+ 875 0222 08       		.uleb128 0x8
+ 876 0223 3F040000 		.4byte	.LASF42
+ 877 0227 05       		.byte	0x5
+ 878 0228 BD       		.byte	0xbd
+ 879 0229 8C000000 		.4byte	0x8c
+ 880 022d 02       		.byte	0x2
+ 881 022e 01       		.byte	0x1
+ 882 022f 0B       		.byte	0xb
+ 883 0230 00       		.byte	0
+ 884 0231 08       		.uleb128 0x8
+ 885 0232 A7020000 		.4byte	.LASF43
+ 886 0236 05       		.byte	0x5
+ 887 0237 BE       		.byte	0xbe
+ 888 0238 8C000000 		.4byte	0x8c
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 21
+
+
+ 889 023c 02       		.byte	0x2
+ 890 023d 01       		.byte	0x1
+ 891 023e 0A       		.byte	0xa
+ 892 023f 00       		.byte	0
+ 893 0240 08       		.uleb128 0x8
+ 894 0241 20020000 		.4byte	.LASF44
+ 895 0245 05       		.byte	0x5
+ 896 0246 BF       		.byte	0xbf
+ 897 0247 8C000000 		.4byte	0x8c
+ 898 024b 02       		.byte	0x2
+ 899 024c 01       		.byte	0x1
+ 900 024d 09       		.byte	0x9
+ 901 024e 00       		.byte	0
+ 902 024f 08       		.uleb128 0x8
+ 903 0250 C1040000 		.4byte	.LASF45
+ 904 0254 05       		.byte	0x5
+ 905 0255 C0       		.byte	0xc0
+ 906 0256 8C000000 		.4byte	0x8c
+ 907 025a 02       		.byte	0x2
+ 908 025b 01       		.byte	0x1
+ 909 025c 08       		.byte	0x8
+ 910 025d 00       		.byte	0
+ 911 025e 08       		.uleb128 0x8
+ 912 025f 56030000 		.4byte	.LASF46
+ 913 0263 05       		.byte	0x5
+ 914 0264 C1       		.byte	0xc1
+ 915 0265 8C000000 		.4byte	0x8c
+ 916 0269 02       		.byte	0x2
+ 917 026a 01       		.byte	0x1
+ 918 026b 07       		.byte	0x7
+ 919 026c 00       		.byte	0
+ 920 026d 08       		.uleb128 0x8
+ 921 026e A7030000 		.4byte	.LASF47
+ 922 0272 05       		.byte	0x5
+ 923 0273 C2       		.byte	0xc2
+ 924 0274 8C000000 		.4byte	0x8c
+ 925 0278 02       		.byte	0x2
+ 926 0279 01       		.byte	0x1
+ 927 027a 06       		.byte	0x6
+ 928 027b 00       		.byte	0
+ 929 027c 08       		.uleb128 0x8
+ 930 027d 15040000 		.4byte	.LASF48
+ 931 0281 05       		.byte	0x5
+ 932 0282 C3       		.byte	0xc3
+ 933 0283 8C000000 		.4byte	0x8c
+ 934 0287 02       		.byte	0x2
+ 935 0288 01       		.byte	0x1
+ 936 0289 05       		.byte	0x5
+ 937 028a 00       		.byte	0
+ 938 028b 08       		.uleb128 0x8
+ 939 028c A9040000 		.4byte	.LASF49
+ 940 0290 05       		.byte	0x5
+ 941 0291 C4       		.byte	0xc4
+ 942 0292 8C000000 		.4byte	0x8c
+ 943 0296 02       		.byte	0x2
+ 944 0297 01       		.byte	0x1
+ 945 0298 04       		.byte	0x4
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 22
+
+
+ 946 0299 00       		.byte	0
+ 947 029a 08       		.uleb128 0x8
+ 948 029b 6F020000 		.4byte	.LASF50
+ 949 029f 05       		.byte	0x5
+ 950 02a0 C5       		.byte	0xc5
+ 951 02a1 8C000000 		.4byte	0x8c
+ 952 02a5 02       		.byte	0x2
+ 953 02a6 01       		.byte	0x1
+ 954 02a7 03       		.byte	0x3
+ 955 02a8 00       		.byte	0
+ 956 02a9 08       		.uleb128 0x8
+ 957 02aa B6020000 		.4byte	.LASF51
+ 958 02ae 05       		.byte	0x5
+ 959 02af C6       		.byte	0xc6
+ 960 02b0 8C000000 		.4byte	0x8c
+ 961 02b4 02       		.byte	0x2
+ 962 02b5 01       		.byte	0x1
+ 963 02b6 02       		.byte	0x2
+ 964 02b7 00       		.byte	0
+ 965 02b8 08       		.uleb128 0x8
+ 966 02b9 6F030000 		.4byte	.LASF52
+ 967 02bd 05       		.byte	0x5
+ 968 02be C7       		.byte	0xc7
+ 969 02bf 8C000000 		.4byte	0x8c
+ 970 02c3 02       		.byte	0x2
+ 971 02c4 01       		.byte	0x1
+ 972 02c5 01       		.byte	0x1
+ 973 02c6 00       		.byte	0
+ 974 02c7 00       		.byte	0
+ 975 02c8 03       		.uleb128 0x3
+ 976 02c9 A8000000 		.4byte	.LASF53
+ 977 02cd 05       		.byte	0x5
+ 978 02ce C8       		.byte	0xc8
+ 979 02cf DB010000 		.4byte	0x1db
+ 980 02d3 0A       		.uleb128 0xa
+ 981 02d4 DF010000 		.4byte	.LASF54
+ 982 02d8 01       		.byte	0x1
+ 983 02d9 3D       		.byte	0x3d
+ 984 02da 00000000 		.4byte	.LFB33
+ 985 02de 8C010000 		.4byte	.LFE33-.LFB33
+ 986 02e2 01       		.uleb128 0x1
+ 987 02e3 9C       		.byte	0x9c
+ 988 02e4 0E030000 		.4byte	0x30e
+ 989 02e8 0B       		.uleb128 0xb
+ 990 02e9 08000000 		.4byte	.LVL0
+ 991 02ed A0040000 		.4byte	0x4a0
+ 992 02f1 FB020000 		.4byte	0x2fb
+ 993 02f5 0C       		.uleb128 0xc
+ 994 02f6 01       		.uleb128 0x1
+ 995 02f7 50       		.byte	0x50
+ 996 02f8 01       		.uleb128 0x1
+ 997 02f9 32       		.byte	0x32
+ 998 02fa 00       		.byte	0
+ 999 02fb 0D       		.uleb128 0xd
+ 1000 02fc 0C000000 		.4byte	.LVL1
+ 1001 0300 B1040000 		.4byte	0x4b1
+ 1002 0304 0D       		.uleb128 0xd
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 23
+
+
+ 1003 0305 30000000 		.4byte	.LVL2
+ 1004 0309 B8040000 		.4byte	0x4b8
+ 1005 030d 00       		.byte	0
+ 1006 030e 0E       		.uleb128 0xe
+ 1007 030f 2C040000 		.4byte	.LASF55
+ 1008 0313 01       		.byte	0x1
+ 1009 0314 A0       		.byte	0xa0
+ 1010 0315 00000000 		.4byte	.LFB34
+ 1011 0319 44000000 		.4byte	.LFE34-.LFB34
+ 1012 031d 01       		.uleb128 0x1
+ 1013 031e 9C       		.byte	0x9c
+ 1014 031f 33030000 		.4byte	0x333
+ 1015 0323 0F       		.uleb128 0xf
+ 1016 0324 0A000000 		.4byte	.LVL4
+ 1017 0328 C4040000 		.4byte	0x4c4
+ 1018 032c 0C       		.uleb128 0xc
+ 1019 032d 01       		.uleb128 0x1
+ 1020 032e 50       		.byte	0x50
+ 1021 032f 01       		.uleb128 0x1
+ 1022 0330 31       		.byte	0x31
+ 1023 0331 00       		.byte	0
+ 1024 0332 00       		.byte	0
+ 1025 0333 0E       		.uleb128 0xe
+ 1026 0334 02040000 		.4byte	.LASF56
+ 1027 0338 01       		.byte	0x1
+ 1028 0339 B2       		.byte	0xb2
+ 1029 033a 00000000 		.4byte	.LFB35
+ 1030 033e 18010000 		.4byte	.LFE35-.LFB35
+ 1031 0342 01       		.uleb128 0x1
+ 1032 0343 9C       		.byte	0x9c
+ 1033 0344 B1030000 		.4byte	0x3b1
+ 1034 0348 0B       		.uleb128 0xb
+ 1035 0349 08000000 		.4byte	.LVL5
+ 1036 034d D6040000 		.4byte	0x4d6
+ 1037 0351 5B030000 		.4byte	0x35b
+ 1038 0355 0C       		.uleb128 0xc
+ 1039 0356 01       		.uleb128 0x1
+ 1040 0357 50       		.byte	0x50
+ 1041 0358 01       		.uleb128 0x1
+ 1042 0359 31       		.byte	0x31
+ 1043 035a 00       		.byte	0
+ 1044 035b 0D       		.uleb128 0xd
+ 1045 035c 36000000 		.4byte	.LVL6
+ 1046 0360 E8040000 		.4byte	0x4e8
+ 1047 0364 0B       		.uleb128 0xb
+ 1048 0365 78000000 		.4byte	.LVL7
+ 1049 0369 EF040000 		.4byte	0x4ef
+ 1050 036d 78030000 		.4byte	0x378
+ 1051 0371 0C       		.uleb128 0xc
+ 1052 0372 01       		.uleb128 0x1
+ 1053 0373 50       		.byte	0x50
+ 1054 0374 02       		.uleb128 0x2
+ 1055 0375 09       		.byte	0x9
+ 1056 0376 FF       		.byte	0xff
+ 1057 0377 00       		.byte	0
+ 1058 0378 0B       		.uleb128 0xb
+ 1059 0379 96000000 		.4byte	.LVL8
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 24
+
+
+ 1060 037d 00050000 		.4byte	0x500
+ 1061 0381 8C030000 		.4byte	0x38c
+ 1062 0385 0C       		.uleb128 0xc
+ 1063 0386 01       		.uleb128 0x1
+ 1064 0387 50       		.byte	0x50
+ 1065 0388 02       		.uleb128 0x2
+ 1066 0389 09       		.byte	0x9
+ 1067 038a FF       		.byte	0xff
+ 1068 038b 00       		.byte	0
+ 1069 038c 0B       		.uleb128 0xb
+ 1070 038d DE000000 		.4byte	.LVL9
+ 1071 0391 EF040000 		.4byte	0x4ef
+ 1072 0395 A0030000 		.4byte	0x3a0
+ 1073 0399 0C       		.uleb128 0xc
+ 1074 039a 01       		.uleb128 0x1
+ 1075 039b 50       		.byte	0x50
+ 1076 039c 02       		.uleb128 0x2
+ 1077 039d 77       		.byte	0x77
+ 1078 039e 00       		.sleb128 0
+ 1079 039f 00       		.byte	0
+ 1080 03a0 0F       		.uleb128 0xf
+ 1081 03a1 E4000000 		.4byte	.LVL10
+ 1082 03a5 00050000 		.4byte	0x500
+ 1083 03a9 0C       		.uleb128 0xc
+ 1084 03aa 01       		.uleb128 0x1
+ 1085 03ab 50       		.byte	0x50
+ 1086 03ac 02       		.uleb128 0x2
+ 1087 03ad 77       		.byte	0x77
+ 1088 03ae 00       		.sleb128 0
+ 1089 03af 00       		.byte	0
+ 1090 03b0 00       		.byte	0
+ 1091 03b1 10       		.uleb128 0x10
+ 1092 03b2 2D010000 		.4byte	.LASF57
+ 1093 03b6 05       		.byte	0x5
+ 1094 03b7 DD       		.byte	0xdd
+ 1095 03b8 8C000000 		.4byte	0x8c
+ 1096 03bc 10       		.uleb128 0x10
+ 1097 03bd 77040000 		.4byte	.LASF58
+ 1098 03c1 05       		.byte	0x5
+ 1099 03c2 DE       		.byte	0xde
+ 1100 03c3 8C000000 		.4byte	0x8c
+ 1101 03c7 10       		.uleb128 0x10
+ 1102 03c8 E6030000 		.4byte	.LASF59
+ 1103 03cc 05       		.byte	0x5
+ 1104 03cd E1       		.byte	0xe1
+ 1105 03ce 81000000 		.4byte	0x81
+ 1106 03d2 10       		.uleb128 0x10
+ 1107 03d3 5B040000 		.4byte	.LASF60
+ 1108 03d7 05       		.byte	0x5
+ 1109 03d8 E2       		.byte	0xe2
+ 1110 03d9 81000000 		.4byte	0x81
+ 1111 03dd 10       		.uleb128 0x10
+ 1112 03de 16030000 		.4byte	.LASF61
+ 1113 03e2 05       		.byte	0x5
+ 1114 03e3 E3       		.byte	0xe3
+ 1115 03e4 81000000 		.4byte	0x81
+ 1116 03e8 10       		.uleb128 0x10
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 25
+
+
+ 1117 03e9 B8040000 		.4byte	.LASF62
+ 1118 03ed 05       		.byte	0x5
+ 1119 03ee E8       		.byte	0xe8
+ 1120 03ef 8C000000 		.4byte	0x8c
+ 1121 03f3 10       		.uleb128 0x10
+ 1122 03f4 0B010000 		.4byte	.LASF63
+ 1123 03f8 05       		.byte	0x5
+ 1124 03f9 E9       		.byte	0xe9
+ 1125 03fa 8C000000 		.4byte	0x8c
+ 1126 03fe 10       		.uleb128 0x10
+ 1127 03ff D9030000 		.4byte	.LASF64
+ 1128 0403 05       		.byte	0x5
+ 1129 0404 EA       		.byte	0xea
+ 1130 0405 8C000000 		.4byte	0x8c
+ 1131 0409 10       		.uleb128 0x10
+ 1132 040a CD000000 		.4byte	.LASF65
+ 1133 040e 05       		.byte	0x5
+ 1134 040f EB       		.byte	0xeb
+ 1135 0410 81000000 		.4byte	0x81
+ 1136 0414 10       		.uleb128 0x10
+ 1137 0415 4A030000 		.4byte	.LASF66
+ 1138 0419 05       		.byte	0x5
+ 1139 041a ED       		.byte	0xed
+ 1140 041b 81000000 		.4byte	0x81
+ 1141 041f 10       		.uleb128 0x10
+ 1142 0420 C5020000 		.4byte	.LASF67
+ 1143 0424 05       		.byte	0x5
+ 1144 0425 EE       		.byte	0xee
+ 1145 0426 8C000000 		.4byte	0x8c
+ 1146 042a 10       		.uleb128 0x10
+ 1147 042b 2C020000 		.4byte	.LASF68
+ 1148 042f 05       		.byte	0x5
+ 1149 0430 F0       		.byte	0xf0
+ 1150 0431 8C000000 		.4byte	0x8c
+ 1151 0435 10       		.uleb128 0x10
+ 1152 0436 00000000 		.4byte	.LASF69
+ 1153 043a 05       		.byte	0x5
+ 1154 043b F8       		.byte	0xf8
+ 1155 043c 8C000000 		.4byte	0x8c
+ 1156 0440 10       		.uleb128 0x10
+ 1157 0441 7E030000 		.4byte	.LASF70
+ 1158 0445 05       		.byte	0x5
+ 1159 0446 F9       		.byte	0xf9
+ 1160 0447 8C000000 		.4byte	0x8c
+ 1161 044b 10       		.uleb128 0x10
+ 1162 044c 96000000 		.4byte	.LASF71
+ 1163 0450 05       		.byte	0x5
+ 1164 0451 FC       		.byte	0xfc
+ 1165 0452 8C000000 		.4byte	0x8c
+ 1166 0456 10       		.uleb128 0x10
+ 1167 0457 50040000 		.4byte	.LASF72
+ 1168 045b 05       		.byte	0x5
+ 1169 045c FD       		.byte	0xfd
+ 1170 045d 8C000000 		.4byte	0x8c
+ 1171 0461 10       		.uleb128 0x10
+ 1172 0462 7F010000 		.4byte	.LASF73
+ 1173 0466 05       		.byte	0x5
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 26
+
+
+ 1174 0467 FE       		.byte	0xfe
+ 1175 0468 8C000000 		.4byte	0x8c
+ 1176 046c 11       		.uleb128 0x11
+ 1177 046d 31010000 		.4byte	0x131
+ 1178 0471 7C040000 		.4byte	0x47c
+ 1179 0475 12       		.uleb128 0x12
+ 1180 0476 C2000000 		.4byte	0xc2
+ 1181 047a 02       		.byte	0x2
+ 1182 047b 00       		.byte	0
+ 1183 047c 13       		.uleb128 0x13
+ 1184 047d 22040000 		.4byte	.LASF74
+ 1185 0481 05       		.byte	0x5
+ 1186 0482 0501     		.2byte	0x105
+ 1187 0484 6C040000 		.4byte	0x46c
+ 1188 0488 13       		.uleb128 0x13
+ 1189 0489 CB040000 		.4byte	.LASF75
+ 1190 048d 05       		.byte	0x5
+ 1191 048e 0601     		.2byte	0x106
+ 1192 0490 D0010000 		.4byte	0x1d0
+ 1193 0494 13       		.uleb128 0x13
+ 1194 0495 4F010000 		.4byte	.LASF76
+ 1195 0499 05       		.byte	0x5
+ 1196 049a 0701     		.2byte	0x107
+ 1197 049c C8020000 		.4byte	0x2c8
+ 1198 04a0 14       		.uleb128 0x14
+ 1199 04a1 B2030000 		.4byte	.LASF77
+ 1200 04a5 06       		.byte	0x6
+ 1201 04a6 36       		.byte	0x36
+ 1202 04a7 B1040000 		.4byte	0x4b1
+ 1203 04ab 15       		.uleb128 0x15
+ 1204 04ac A2000000 		.4byte	0xa2
+ 1205 04b0 00       		.byte	0
+ 1206 04b1 16       		.uleb128 0x16
+ 1207 04b2 36020000 		.4byte	.LASF80
+ 1208 04b6 09       		.byte	0x9
+ 1209 04b7 25       		.byte	0x25
+ 1210 04b8 17       		.uleb128 0x17
+ 1211 04b9 63040000 		.4byte	.LASF87
+ 1212 04bd 07       		.byte	0x7
+ 1213 04be 5501     		.2byte	0x155
+ 1214 04c0 A2000000 		.4byte	0xa2
+ 1215 04c4 18       		.uleb128 0x18
+ 1216 04c5 09020000 		.4byte	.LASF78
+ 1217 04c9 07       		.byte	0x7
+ 1218 04ca 4601     		.2byte	0x146
+ 1219 04cc D6040000 		.4byte	0x4d6
+ 1220 04d0 15       		.uleb128 0x15
+ 1221 04d1 A2000000 		.4byte	0xa2
+ 1222 04d5 00       		.byte	0
+ 1223 04d6 18       		.uleb128 0x18
+ 1224 04d7 B7010000 		.4byte	.LASF79
+ 1225 04db 08       		.byte	0x8
+ 1226 04dc 4601     		.2byte	0x146
+ 1227 04de E8040000 		.4byte	0x4e8
+ 1228 04e2 15       		.uleb128 0x15
+ 1229 04e3 A2000000 		.4byte	0xa2
+ 1230 04e7 00       		.byte	0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 27
+
+
+ 1231 04e8 16       		.uleb128 0x16
+ 1232 04e9 61020000 		.4byte	.LASF81
+ 1233 04ed 09       		.byte	0x9
+ 1234 04ee 23       		.byte	0x23
+ 1235 04ef 14       		.uleb128 0x14
+ 1236 04f0 60010000 		.4byte	.LASF82
+ 1237 04f4 0A       		.byte	0xa
+ 1238 04f5 1D       		.byte	0x1d
+ 1239 04f6 00050000 		.4byte	0x500
+ 1240 04fa 15       		.uleb128 0x15
+ 1241 04fb 97000000 		.4byte	0x97
+ 1242 04ff 00       		.byte	0
+ 1243 0500 19       		.uleb128 0x19
+ 1244 0501 7F040000 		.4byte	.LASF88
+ 1245 0505 0B       		.byte	0xb
+ 1246 0506 1D       		.byte	0x1d
+ 1247 0507 15       		.uleb128 0x15
+ 1248 0508 97000000 		.4byte	0x97
+ 1249 050c 00       		.byte	0
+ 1250 050d 00       		.byte	0
+ 1251              		.section	.debug_abbrev,"",%progbits
+ 1252              	.Ldebug_abbrev0:
+ 1253 0000 01       		.uleb128 0x1
+ 1254 0001 11       		.uleb128 0x11
+ 1255 0002 01       		.byte	0x1
+ 1256 0003 25       		.uleb128 0x25
+ 1257 0004 0E       		.uleb128 0xe
+ 1258 0005 13       		.uleb128 0x13
+ 1259 0006 0B       		.uleb128 0xb
+ 1260 0007 03       		.uleb128 0x3
+ 1261 0008 0E       		.uleb128 0xe
+ 1262 0009 1B       		.uleb128 0x1b
+ 1263 000a 0E       		.uleb128 0xe
+ 1264 000b 55       		.uleb128 0x55
+ 1265 000c 17       		.uleb128 0x17
+ 1266 000d 11       		.uleb128 0x11
+ 1267 000e 01       		.uleb128 0x1
+ 1268 000f 10       		.uleb128 0x10
+ 1269 0010 17       		.uleb128 0x17
+ 1270 0011 00       		.byte	0
+ 1271 0012 00       		.byte	0
+ 1272 0013 02       		.uleb128 0x2
+ 1273 0014 24       		.uleb128 0x24
+ 1274 0015 00       		.byte	0
+ 1275 0016 0B       		.uleb128 0xb
+ 1276 0017 0B       		.uleb128 0xb
+ 1277 0018 3E       		.uleb128 0x3e
+ 1278 0019 0B       		.uleb128 0xb
+ 1279 001a 03       		.uleb128 0x3
+ 1280 001b 0E       		.uleb128 0xe
+ 1281 001c 00       		.byte	0
+ 1282 001d 00       		.byte	0
+ 1283 001e 03       		.uleb128 0x3
+ 1284 001f 16       		.uleb128 0x16
+ 1285 0020 00       		.byte	0
+ 1286 0021 03       		.uleb128 0x3
+ 1287 0022 0E       		.uleb128 0xe
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 28
+
+
+ 1288 0023 3A       		.uleb128 0x3a
+ 1289 0024 0B       		.uleb128 0xb
+ 1290 0025 3B       		.uleb128 0x3b
+ 1291 0026 0B       		.uleb128 0xb
+ 1292 0027 49       		.uleb128 0x49
+ 1293 0028 13       		.uleb128 0x13
+ 1294 0029 00       		.byte	0
+ 1295 002a 00       		.byte	0
+ 1296 002b 04       		.uleb128 0x4
+ 1297 002c 24       		.uleb128 0x24
+ 1298 002d 00       		.byte	0
+ 1299 002e 0B       		.uleb128 0xb
+ 1300 002f 0B       		.uleb128 0xb
+ 1301 0030 3E       		.uleb128 0x3e
+ 1302 0031 0B       		.uleb128 0xb
+ 1303 0032 03       		.uleb128 0x3
+ 1304 0033 08       		.uleb128 0x8
+ 1305 0034 00       		.byte	0
+ 1306 0035 00       		.byte	0
+ 1307 0036 05       		.uleb128 0x5
+ 1308 0037 04       		.uleb128 0x4
+ 1309 0038 01       		.byte	0x1
+ 1310 0039 03       		.uleb128 0x3
+ 1311 003a 0E       		.uleb128 0xe
+ 1312 003b 0B       		.uleb128 0xb
+ 1313 003c 0B       		.uleb128 0xb
+ 1314 003d 3A       		.uleb128 0x3a
+ 1315 003e 0B       		.uleb128 0xb
+ 1316 003f 3B       		.uleb128 0x3b
+ 1317 0040 0B       		.uleb128 0xb
+ 1318 0041 01       		.uleb128 0x1
+ 1319 0042 13       		.uleb128 0x13
+ 1320 0043 00       		.byte	0
+ 1321 0044 00       		.byte	0
+ 1322 0045 06       		.uleb128 0x6
+ 1323 0046 28       		.uleb128 0x28
+ 1324 0047 00       		.byte	0
+ 1325 0048 03       		.uleb128 0x3
+ 1326 0049 0E       		.uleb128 0xe
+ 1327 004a 1C       		.uleb128 0x1c
+ 1328 004b 0D       		.uleb128 0xd
+ 1329 004c 00       		.byte	0
+ 1330 004d 00       		.byte	0
+ 1331 004e 07       		.uleb128 0x7
+ 1332 004f 13       		.uleb128 0x13
+ 1333 0050 01       		.byte	0x1
+ 1334 0051 03       		.uleb128 0x3
+ 1335 0052 0E       		.uleb128 0xe
+ 1336 0053 0B       		.uleb128 0xb
+ 1337 0054 0B       		.uleb128 0xb
+ 1338 0055 3A       		.uleb128 0x3a
+ 1339 0056 0B       		.uleb128 0xb
+ 1340 0057 3B       		.uleb128 0x3b
+ 1341 0058 0B       		.uleb128 0xb
+ 1342 0059 01       		.uleb128 0x1
+ 1343 005a 13       		.uleb128 0x13
+ 1344 005b 00       		.byte	0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 29
+
+
+ 1345 005c 00       		.byte	0
+ 1346 005d 08       		.uleb128 0x8
+ 1347 005e 0D       		.uleb128 0xd
+ 1348 005f 00       		.byte	0
+ 1349 0060 03       		.uleb128 0x3
+ 1350 0061 0E       		.uleb128 0xe
+ 1351 0062 3A       		.uleb128 0x3a
+ 1352 0063 0B       		.uleb128 0xb
+ 1353 0064 3B       		.uleb128 0x3b
+ 1354 0065 0B       		.uleb128 0xb
+ 1355 0066 49       		.uleb128 0x49
+ 1356 0067 13       		.uleb128 0x13
+ 1357 0068 0B       		.uleb128 0xb
+ 1358 0069 0B       		.uleb128 0xb
+ 1359 006a 0D       		.uleb128 0xd
+ 1360 006b 0B       		.uleb128 0xb
+ 1361 006c 0C       		.uleb128 0xc
+ 1362 006d 0B       		.uleb128 0xb
+ 1363 006e 38       		.uleb128 0x38
+ 1364 006f 0B       		.uleb128 0xb
+ 1365 0070 00       		.byte	0
+ 1366 0071 00       		.byte	0
+ 1367 0072 09       		.uleb128 0x9
+ 1368 0073 0D       		.uleb128 0xd
+ 1369 0074 00       		.byte	0
+ 1370 0075 03       		.uleb128 0x3
+ 1371 0076 08       		.uleb128 0x8
+ 1372 0077 3A       		.uleb128 0x3a
+ 1373 0078 0B       		.uleb128 0xb
+ 1374 0079 3B       		.uleb128 0x3b
+ 1375 007a 0B       		.uleb128 0xb
+ 1376 007b 49       		.uleb128 0x49
+ 1377 007c 13       		.uleb128 0x13
+ 1378 007d 0B       		.uleb128 0xb
+ 1379 007e 0B       		.uleb128 0xb
+ 1380 007f 0D       		.uleb128 0xd
+ 1381 0080 0B       		.uleb128 0xb
+ 1382 0081 0C       		.uleb128 0xc
+ 1383 0082 0B       		.uleb128 0xb
+ 1384 0083 38       		.uleb128 0x38
+ 1385 0084 0B       		.uleb128 0xb
+ 1386 0085 00       		.byte	0
+ 1387 0086 00       		.byte	0
+ 1388 0087 0A       		.uleb128 0xa
+ 1389 0088 2E       		.uleb128 0x2e
+ 1390 0089 01       		.byte	0x1
+ 1391 008a 3F       		.uleb128 0x3f
+ 1392 008b 19       		.uleb128 0x19
+ 1393 008c 03       		.uleb128 0x3
+ 1394 008d 0E       		.uleb128 0xe
+ 1395 008e 3A       		.uleb128 0x3a
+ 1396 008f 0B       		.uleb128 0xb
+ 1397 0090 3B       		.uleb128 0x3b
+ 1398 0091 0B       		.uleb128 0xb
+ 1399 0092 27       		.uleb128 0x27
+ 1400 0093 19       		.uleb128 0x19
+ 1401 0094 11       		.uleb128 0x11
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 30
+
+
+ 1402 0095 01       		.uleb128 0x1
+ 1403 0096 12       		.uleb128 0x12
+ 1404 0097 06       		.uleb128 0x6
+ 1405 0098 40       		.uleb128 0x40
+ 1406 0099 18       		.uleb128 0x18
+ 1407 009a 9642     		.uleb128 0x2116
+ 1408 009c 19       		.uleb128 0x19
+ 1409 009d 01       		.uleb128 0x1
+ 1410 009e 13       		.uleb128 0x13
+ 1411 009f 00       		.byte	0
+ 1412 00a0 00       		.byte	0
+ 1413 00a1 0B       		.uleb128 0xb
+ 1414 00a2 898201   		.uleb128 0x4109
+ 1415 00a5 01       		.byte	0x1
+ 1416 00a6 11       		.uleb128 0x11
+ 1417 00a7 01       		.uleb128 0x1
+ 1418 00a8 31       		.uleb128 0x31
+ 1419 00a9 13       		.uleb128 0x13
+ 1420 00aa 01       		.uleb128 0x1
+ 1421 00ab 13       		.uleb128 0x13
+ 1422 00ac 00       		.byte	0
+ 1423 00ad 00       		.byte	0
+ 1424 00ae 0C       		.uleb128 0xc
+ 1425 00af 8A8201   		.uleb128 0x410a
+ 1426 00b2 00       		.byte	0
+ 1427 00b3 02       		.uleb128 0x2
+ 1428 00b4 18       		.uleb128 0x18
+ 1429 00b5 9142     		.uleb128 0x2111
+ 1430 00b7 18       		.uleb128 0x18
+ 1431 00b8 00       		.byte	0
+ 1432 00b9 00       		.byte	0
+ 1433 00ba 0D       		.uleb128 0xd
+ 1434 00bb 898201   		.uleb128 0x4109
+ 1435 00be 00       		.byte	0
+ 1436 00bf 11       		.uleb128 0x11
+ 1437 00c0 01       		.uleb128 0x1
+ 1438 00c1 31       		.uleb128 0x31
+ 1439 00c2 13       		.uleb128 0x13
+ 1440 00c3 00       		.byte	0
+ 1441 00c4 00       		.byte	0
+ 1442 00c5 0E       		.uleb128 0xe
+ 1443 00c6 2E       		.uleb128 0x2e
+ 1444 00c7 01       		.byte	0x1
+ 1445 00c8 3F       		.uleb128 0x3f
+ 1446 00c9 19       		.uleb128 0x19
+ 1447 00ca 03       		.uleb128 0x3
+ 1448 00cb 0E       		.uleb128 0xe
+ 1449 00cc 3A       		.uleb128 0x3a
+ 1450 00cd 0B       		.uleb128 0xb
+ 1451 00ce 3B       		.uleb128 0x3b
+ 1452 00cf 0B       		.uleb128 0xb
+ 1453 00d0 27       		.uleb128 0x27
+ 1454 00d1 19       		.uleb128 0x19
+ 1455 00d2 11       		.uleb128 0x11
+ 1456 00d3 01       		.uleb128 0x1
+ 1457 00d4 12       		.uleb128 0x12
+ 1458 00d5 06       		.uleb128 0x6
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 31
+
+
+ 1459 00d6 40       		.uleb128 0x40
+ 1460 00d7 18       		.uleb128 0x18
+ 1461 00d8 9742     		.uleb128 0x2117
+ 1462 00da 19       		.uleb128 0x19
+ 1463 00db 01       		.uleb128 0x1
+ 1464 00dc 13       		.uleb128 0x13
+ 1465 00dd 00       		.byte	0
+ 1466 00de 00       		.byte	0
+ 1467 00df 0F       		.uleb128 0xf
+ 1468 00e0 898201   		.uleb128 0x4109
+ 1469 00e3 01       		.byte	0x1
+ 1470 00e4 11       		.uleb128 0x11
+ 1471 00e5 01       		.uleb128 0x1
+ 1472 00e6 31       		.uleb128 0x31
+ 1473 00e7 13       		.uleb128 0x13
+ 1474 00e8 00       		.byte	0
+ 1475 00e9 00       		.byte	0
+ 1476 00ea 10       		.uleb128 0x10
+ 1477 00eb 34       		.uleb128 0x34
+ 1478 00ec 00       		.byte	0
+ 1479 00ed 03       		.uleb128 0x3
+ 1480 00ee 0E       		.uleb128 0xe
+ 1481 00ef 3A       		.uleb128 0x3a
+ 1482 00f0 0B       		.uleb128 0xb
+ 1483 00f1 3B       		.uleb128 0x3b
+ 1484 00f2 0B       		.uleb128 0xb
+ 1485 00f3 49       		.uleb128 0x49
+ 1486 00f4 13       		.uleb128 0x13
+ 1487 00f5 3F       		.uleb128 0x3f
+ 1488 00f6 19       		.uleb128 0x19
+ 1489 00f7 3C       		.uleb128 0x3c
+ 1490 00f8 19       		.uleb128 0x19
+ 1491 00f9 00       		.byte	0
+ 1492 00fa 00       		.byte	0
+ 1493 00fb 11       		.uleb128 0x11
+ 1494 00fc 01       		.uleb128 0x1
+ 1495 00fd 01       		.byte	0x1
+ 1496 00fe 49       		.uleb128 0x49
+ 1497 00ff 13       		.uleb128 0x13
+ 1498 0100 01       		.uleb128 0x1
+ 1499 0101 13       		.uleb128 0x13
+ 1500 0102 00       		.byte	0
+ 1501 0103 00       		.byte	0
+ 1502 0104 12       		.uleb128 0x12
+ 1503 0105 21       		.uleb128 0x21
+ 1504 0106 00       		.byte	0
+ 1505 0107 49       		.uleb128 0x49
+ 1506 0108 13       		.uleb128 0x13
+ 1507 0109 2F       		.uleb128 0x2f
+ 1508 010a 0B       		.uleb128 0xb
+ 1509 010b 00       		.byte	0
+ 1510 010c 00       		.byte	0
+ 1511 010d 13       		.uleb128 0x13
+ 1512 010e 34       		.uleb128 0x34
+ 1513 010f 00       		.byte	0
+ 1514 0110 03       		.uleb128 0x3
+ 1515 0111 0E       		.uleb128 0xe
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 32
+
+
+ 1516 0112 3A       		.uleb128 0x3a
+ 1517 0113 0B       		.uleb128 0xb
+ 1518 0114 3B       		.uleb128 0x3b
+ 1519 0115 05       		.uleb128 0x5
+ 1520 0116 49       		.uleb128 0x49
+ 1521 0117 13       		.uleb128 0x13
+ 1522 0118 3F       		.uleb128 0x3f
+ 1523 0119 19       		.uleb128 0x19
+ 1524 011a 3C       		.uleb128 0x3c
+ 1525 011b 19       		.uleb128 0x19
+ 1526 011c 00       		.byte	0
+ 1527 011d 00       		.byte	0
+ 1528 011e 14       		.uleb128 0x14
+ 1529 011f 2E       		.uleb128 0x2e
+ 1530 0120 01       		.byte	0x1
+ 1531 0121 3F       		.uleb128 0x3f
+ 1532 0122 19       		.uleb128 0x19
+ 1533 0123 03       		.uleb128 0x3
+ 1534 0124 0E       		.uleb128 0xe
+ 1535 0125 3A       		.uleb128 0x3a
+ 1536 0126 0B       		.uleb128 0xb
+ 1537 0127 3B       		.uleb128 0x3b
+ 1538 0128 0B       		.uleb128 0xb
+ 1539 0129 27       		.uleb128 0x27
+ 1540 012a 19       		.uleb128 0x19
+ 1541 012b 3C       		.uleb128 0x3c
+ 1542 012c 19       		.uleb128 0x19
+ 1543 012d 01       		.uleb128 0x1
+ 1544 012e 13       		.uleb128 0x13
+ 1545 012f 00       		.byte	0
+ 1546 0130 00       		.byte	0
+ 1547 0131 15       		.uleb128 0x15
+ 1548 0132 05       		.uleb128 0x5
+ 1549 0133 00       		.byte	0
+ 1550 0134 49       		.uleb128 0x49
+ 1551 0135 13       		.uleb128 0x13
+ 1552 0136 00       		.byte	0
+ 1553 0137 00       		.byte	0
+ 1554 0138 16       		.uleb128 0x16
+ 1555 0139 2E       		.uleb128 0x2e
+ 1556 013a 00       		.byte	0
+ 1557 013b 3F       		.uleb128 0x3f
+ 1558 013c 19       		.uleb128 0x19
+ 1559 013d 03       		.uleb128 0x3
+ 1560 013e 0E       		.uleb128 0xe
+ 1561 013f 3A       		.uleb128 0x3a
+ 1562 0140 0B       		.uleb128 0xb
+ 1563 0141 3B       		.uleb128 0x3b
+ 1564 0142 0B       		.uleb128 0xb
+ 1565 0143 27       		.uleb128 0x27
+ 1566 0144 19       		.uleb128 0x19
+ 1567 0145 3C       		.uleb128 0x3c
+ 1568 0146 19       		.uleb128 0x19
+ 1569 0147 00       		.byte	0
+ 1570 0148 00       		.byte	0
+ 1571 0149 17       		.uleb128 0x17
+ 1572 014a 2E       		.uleb128 0x2e
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 33
+
+
+ 1573 014b 00       		.byte	0
+ 1574 014c 3F       		.uleb128 0x3f
+ 1575 014d 19       		.uleb128 0x19
+ 1576 014e 03       		.uleb128 0x3
+ 1577 014f 0E       		.uleb128 0xe
+ 1578 0150 3A       		.uleb128 0x3a
+ 1579 0151 0B       		.uleb128 0xb
+ 1580 0152 3B       		.uleb128 0x3b
+ 1581 0153 05       		.uleb128 0x5
+ 1582 0154 27       		.uleb128 0x27
+ 1583 0155 19       		.uleb128 0x19
+ 1584 0156 49       		.uleb128 0x49
+ 1585 0157 13       		.uleb128 0x13
+ 1586 0158 3C       		.uleb128 0x3c
+ 1587 0159 19       		.uleb128 0x19
+ 1588 015a 00       		.byte	0
+ 1589 015b 00       		.byte	0
+ 1590 015c 18       		.uleb128 0x18
+ 1591 015d 2E       		.uleb128 0x2e
+ 1592 015e 01       		.byte	0x1
+ 1593 015f 3F       		.uleb128 0x3f
+ 1594 0160 19       		.uleb128 0x19
+ 1595 0161 03       		.uleb128 0x3
+ 1596 0162 0E       		.uleb128 0xe
+ 1597 0163 3A       		.uleb128 0x3a
+ 1598 0164 0B       		.uleb128 0xb
+ 1599 0165 3B       		.uleb128 0x3b
+ 1600 0166 05       		.uleb128 0x5
+ 1601 0167 27       		.uleb128 0x27
+ 1602 0168 19       		.uleb128 0x19
+ 1603 0169 3C       		.uleb128 0x3c
+ 1604 016a 19       		.uleb128 0x19
+ 1605 016b 01       		.uleb128 0x1
+ 1606 016c 13       		.uleb128 0x13
+ 1607 016d 00       		.byte	0
+ 1608 016e 00       		.byte	0
+ 1609 016f 19       		.uleb128 0x19
+ 1610 0170 2E       		.uleb128 0x2e
+ 1611 0171 01       		.byte	0x1
+ 1612 0172 3F       		.uleb128 0x3f
+ 1613 0173 19       		.uleb128 0x19
+ 1614 0174 03       		.uleb128 0x3
+ 1615 0175 0E       		.uleb128 0xe
+ 1616 0176 3A       		.uleb128 0x3a
+ 1617 0177 0B       		.uleb128 0xb
+ 1618 0178 3B       		.uleb128 0x3b
+ 1619 0179 0B       		.uleb128 0xb
+ 1620 017a 27       		.uleb128 0x27
+ 1621 017b 19       		.uleb128 0x19
+ 1622 017c 3C       		.uleb128 0x3c
+ 1623 017d 19       		.uleb128 0x19
+ 1624 017e 00       		.byte	0
+ 1625 017f 00       		.byte	0
+ 1626 0180 00       		.byte	0
+ 1627              		.section	.debug_aranges,"",%progbits
+ 1628 0000 2C000000 		.4byte	0x2c
+ 1629 0004 0200     		.2byte	0x2
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 34
+
+
+ 1630 0006 00000000 		.4byte	.Ldebug_info0
+ 1631 000a 04       		.byte	0x4
+ 1632 000b 00       		.byte	0
+ 1633 000c 0000     		.2byte	0
+ 1634 000e 0000     		.2byte	0
+ 1635 0010 00000000 		.4byte	.LFB33
+ 1636 0014 8C010000 		.4byte	.LFE33-.LFB33
+ 1637 0018 00000000 		.4byte	.LFB34
+ 1638 001c 44000000 		.4byte	.LFE34-.LFB34
+ 1639 0020 00000000 		.4byte	.LFB35
+ 1640 0024 18010000 		.4byte	.LFE35-.LFB35
+ 1641 0028 00000000 		.4byte	0
+ 1642 002c 00000000 		.4byte	0
+ 1643              		.section	.debug_ranges,"",%progbits
+ 1644              	.Ldebug_ranges0:
+ 1645 0000 00000000 		.4byte	.LFB33
+ 1646 0004 8C010000 		.4byte	.LFE33
+ 1647 0008 00000000 		.4byte	.LFB34
+ 1648 000c 44000000 		.4byte	.LFE34
+ 1649 0010 00000000 		.4byte	.LFB35
+ 1650 0014 18010000 		.4byte	.LFE35
+ 1651 0018 00000000 		.4byte	0
+ 1652 001c 00000000 		.4byte	0
+ 1653              		.section	.debug_line,"",%progbits
+ 1654              	.Ldebug_line0:
+ 1655 0000 C1020000 		.section	.debug_str,"MS",%progbits,1
+ 1655      0200B301 
+ 1655      00000201 
+ 1655      FB0E0D00 
+ 1655      01010101 
+ 1656              	.LASF69:
+ 1657 0000 50574D5F 		.ascii	"PWM_MAX\000"
+ 1657      4D415800 
+ 1658              	.LASF83:
+ 1659 0008 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 1659      4320342E 
+ 1659      392E3320 
+ 1659      32303135 
+ 1659      30333033 
+ 1660 003b 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 1660      20726576 
+ 1660      6973696F 
+ 1660      6E203232 
+ 1660      31323230 
+ 1661 006e 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 1661      66756E63 
+ 1661      74696F6E 
+ 1661      2D736563 
+ 1661      74696F6E 
+ 1662              	.LASF71:
+ 1663 0096 50574D5F 		.ascii	"PWM_MIN\000"
+ 1663      4D494E00 
+ 1664              	.LASF3:
+ 1665 009e 5F5F7569 		.ascii	"__uint8_t\000"
+ 1665      6E74385F 
+ 1665      7400
+ 1666              	.LASF53:
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 35
+
+
+ 1667 00a8 64696D6D 		.ascii	"dimmer_status\000"
+ 1667      65725F73 
+ 1667      74617475 
+ 1667      7300
+ 1668              	.LASF9:
+ 1669 00b6 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1669      206C6F6E 
+ 1669      6720756E 
+ 1669      7369676E 
+ 1669      65642069 
+ 1670              	.LASF65:
+ 1671 00cd 5449434B 		.ascii	"TICK_CNT_Display\000"
+ 1671      5F434E54 
+ 1671      5F446973 
+ 1671      706C6179 
+ 1671      00
+ 1672              	.LASF39:
+ 1673 00de 646D725F 		.ascii	"dmr_status\000"
+ 1673      73746174 
+ 1673      757300
+ 1674              	.LASF19:
+ 1675 00e9 50425F4D 		.ascii	"PB_MAIN\000"
+ 1675      41494E00 
+ 1676              	.LASF8:
+ 1677 00f1 6C6F6E67 		.ascii	"long long int\000"
+ 1677      206C6F6E 
+ 1677      6720696E 
+ 1677      7400
+ 1678              	.LASF0:
+ 1679 00ff 7369676E 		.ascii	"signed char\000"
+ 1679      65642063 
+ 1679      68617200 
+ 1680              	.LASF63:
+ 1681 010b 5449434B 		.ascii	"TICK_CNT_100mS\000"
+ 1681      5F434E54 
+ 1681      5F313030 
+ 1681      6D5300
+ 1682              	.LASF22:
+ 1683 011a 73776974 		.ascii	"switched_on\000"
+ 1683      63686564 
+ 1683      5F6F6E00 
+ 1684              	.LASF31:
+ 1685 0126 7365636F 		.ascii	"second\000"
+ 1685      6E6400
+ 1686              	.LASF57:
+ 1687 012d 55495F56 		.ascii	"UI_VAL\000"
+ 1687      414C00
+ 1688              	.LASF6:
+ 1689 0134 6C6F6E67 		.ascii	"long int\000"
+ 1689      20696E74 
+ 1689      00
+ 1690              	.LASF27:
+ 1691 013d 70757368 		.ascii	"pushbutton_status\000"
+ 1691      62757474 
+ 1691      6F6E5F73 
+ 1691      74617475 
+ 1691      7300
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 36
+
+
+ 1692              	.LASF76:
+ 1693 014f 444D525F 		.ascii	"DMR_Status\000"
+ 1693      53746174 
+ 1693      757300
+ 1694              	.LASF13:
+ 1695 015a 75696E74 		.ascii	"uint8\000"
+ 1695      3800
+ 1696              	.LASF82:
+ 1697 0160 52656C61 		.ascii	"Relay_3W_Write\000"
+ 1697      795F3357 
+ 1697      5F577269 
+ 1697      746500
+ 1698              	.LASF12:
+ 1699 016f 75696E74 		.ascii	"uint16_t\000"
+ 1699      31365F74 
+ 1699      00
+ 1700              	.LASF16:
+ 1701 0178 646F7562 		.ascii	"double\000"
+ 1701      6C6500
+ 1702              	.LASF73:
+ 1703 017f 50574D5F 		.ascii	"PWM_CAL_CNT\000"
+ 1703      43414C5F 
+ 1703      434E5400 
+ 1704              	.LASF29:
+ 1705 018b 7469636B 		.ascii	"tick\000"
+ 1705      00
+ 1706              	.LASF14:
+ 1707 0190 75696E74 		.ascii	"uint32\000"
+ 1707      333200
+ 1708              	.LASF30:
+ 1709 0197 70776D74 		.ascii	"pwmtick\000"
+ 1709      69636B00 
+ 1710              	.LASF86:
+ 1711 019f 70757368 		.ascii	"pushbuttons\000"
+ 1711      62757474 
+ 1711      6F6E7300 
+ 1712              	.LASF37:
+ 1713 01ab 6F766C64 		.ascii	"ovldend_bug\000"
+ 1713      656E645F 
+ 1713      62756700 
+ 1714              	.LASF79:
+ 1715 01b7 52656C61 		.ascii	"Relay_Offset_ClearInterrupt\000"
+ 1715      795F4F66 
+ 1715      66736574 
+ 1715      5F436C65 
+ 1715      6172496E 
+ 1716              	.LASF26:
+ 1717 01d3 70625F73 		.ascii	"pb_status_t\000"
+ 1717      74617475 
+ 1717      735F7400 
+ 1718              	.LASF54:
+ 1719 01df 7A65726F 		.ascii	"zero_cross\000"
+ 1719      5F63726F 
+ 1719      737300
+ 1720              	.LASF10:
+ 1721 01ea 756E7369 		.ascii	"unsigned int\000"
+ 1721      676E6564 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 37
+
+
+ 1721      20696E74 
+ 1721      00
+ 1722              	.LASF7:
+ 1723 01f7 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1723      20756E73 
+ 1723      69676E65 
+ 1723      6420696E 
+ 1723      7400
+ 1724              	.LASF78:
+ 1725 0209 44696D6D 		.ascii	"Dimming_ClearInterrupt\000"
+ 1725      696E675F 
+ 1725      436C6561 
+ 1725      72496E74 
+ 1725      65727275 
+ 1726              	.LASF44:
+ 1727 0220 73696E67 		.ascii	"single_pole\000"
+ 1727      6C655F70 
+ 1727      6F6C6500 
+ 1728              	.LASF68:
+ 1729 022c 52454C41 		.ascii	"RELAY_CNT\000"
+ 1729      595F434E 
+ 1729      5400
+ 1730              	.LASF80:
+ 1731 0236 5A435F49 		.ascii	"ZC_ISR_Disable\000"
+ 1731      53525F44 
+ 1731      69736162 
+ 1731      6C6500
+ 1732              	.LASF5:
+ 1733 0245 73686F72 		.ascii	"short unsigned int\000"
+ 1733      7420756E 
+ 1733      7369676E 
+ 1733      65642069 
+ 1733      6E7400
+ 1734              	.LASF35:
+ 1735 0258 706F735F 		.ascii	"pos_half\000"
+ 1735      68616C66 
+ 1735      00
+ 1736              	.LASF81:
+ 1737 0261 5A435F49 		.ascii	"ZC_ISR_Enable\000"
+ 1737      53525F45 
+ 1737      6E61626C 
+ 1737      6500
+ 1738              	.LASF50:
+ 1739 026f 6D617863 		.ascii	"maxcalibration\000"
+ 1739      616C6962 
+ 1739      72617469 
+ 1739      6F6E00
+ 1740              	.LASF38:
+ 1741 027e 746D725F 		.ascii	"tmr_status\000"
+ 1741      73746174 
+ 1741      757300
+ 1742              	.LASF25:
+ 1743 0289 68656C64 		.ascii	"held_off\000"
+ 1743      5F6F6666 
+ 1743      00
+ 1744              	.LASF21:
+ 1745 0292 50425F44 		.ascii	"PB_DOWN\000"
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 38
+
+
+ 1745      4F574E00 
+ 1746              	.LASF24:
+ 1747 029a 73776974 		.ascii	"switched_off\000"
+ 1747      63686564 
+ 1747      5F6F6666 
+ 1747      00
+ 1748              	.LASF43:
+ 1749 02a7 666C6173 		.ascii	"flash\000"
+ 1749      6800
+ 1750              	.LASF18:
+ 1751 02ad 73697A65 		.ascii	"sizetype\000"
+ 1751      74797065 
+ 1751      00
+ 1752              	.LASF51:
+ 1753 02b6 6D696E5F 		.ascii	"min_cal_adjust\000"
+ 1753      63616C5F 
+ 1753      61646A75 
+ 1753      737400
+ 1754              	.LASF67:
+ 1755 02c5 495F5345 		.ascii	"I_SENSE_ACC\000"
+ 1755      4E53455F 
+ 1755      41434300 
+ 1756              	.LASF85:
+ 1757 02d1 433A5C4C 		.ascii	"C:\\Legrand\\Dimmers\\A4W sofTap and Touch\\A4W_Sof"
+ 1757      65677261 
+ 1757      6E645C44 
+ 1757      696D6D65 
+ 1757      72735C41 
+ 1758 0300 7461702E 		.ascii	"tap.cydsn\000"
+ 1758      63796473 
+ 1758      6E00
+ 1759              	.LASF15:
+ 1760 030a 666C6F61 		.ascii	"float\000"
+ 1760      7400
+ 1761              	.LASF20:
+ 1762 0310 50425F55 		.ascii	"PB_UP\000"
+ 1762      5000
+ 1763              	.LASF61:
+ 1764 0316 5345434F 		.ascii	"SECOND_CNTR\000"
+ 1764      4E445F43 
+ 1764      4E545200 
+ 1765              	.LASF1:
+ 1766 0322 756E7369 		.ascii	"unsigned char\000"
+ 1766      676E6564 
+ 1766      20636861 
+ 1766      7200
+ 1767              	.LASF32:
+ 1768 0330 7A635F74 		.ascii	"zc_tick\000"
+ 1768      69636B00 
+ 1769              	.LASF23:
+ 1770 0338 68656C64 		.ascii	"held_on\000"
+ 1770      5F6F6E00 
+ 1771              	.LASF2:
+ 1772 0340 73686F72 		.ascii	"short int\000"
+ 1772      7420696E 
+ 1772      7400
+ 1773              	.LASF66:
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 39
+
+
+ 1774 034a 495F5345 		.ascii	"I_SENSE_CNT\000"
+ 1774      4E53455F 
+ 1774      434E5400 
+ 1775              	.LASF46:
+ 1776 0356 636F696C 		.ascii	"coilactive\000"
+ 1776      61637469 
+ 1776      766500
+ 1777              	.LASF33:
+ 1778 0361 67705F31 		.ascii	"gp_100mS_tick\000"
+ 1778      30306D53 
+ 1778      5F746963 
+ 1778      6B00
+ 1779              	.LASF52:
+ 1780 036f 6D61785F 		.ascii	"max_cal_adjust\000"
+ 1780      63616C5F 
+ 1780      61646A75 
+ 1780      737400
+ 1781              	.LASF70:
+ 1782 037e 50574D5F 		.ascii	"PWM_CHG\000"
+ 1782      43484700 
+ 1783              	.LASF40:
+ 1784 0386 66616465 		.ascii	"fade_on\000"
+ 1784      5F6F6E00 
+ 1785              	.LASF41:
+ 1786 038e 66616465 		.ascii	"fade_off\000"
+ 1786      5F6F6666 
+ 1786      00
+ 1787              	.LASF17:
+ 1788 0397 63686172 		.ascii	"char\000"
+ 1788      00
+ 1789              	.LASF4:
+ 1790 039c 5F5F7569 		.ascii	"__uint16_t\000"
+ 1790      6E743136 
+ 1790      5F7400
+ 1791              	.LASF47:
+ 1792 03a7 7468726F 		.ascii	"throwrelay\000"
+ 1792      7772656C 
+ 1792      617900
+ 1793              	.LASF77:
+ 1794 03b2 5A65726F 		.ascii	"Zero_Cross_ClearInterrupt\000"
+ 1794      5F43726F 
+ 1794      73735F43 
+ 1794      6C656172 
+ 1794      496E7465 
+ 1795              	.LASF28:
+ 1796 03cc 74696D65 		.ascii	"timer_status\000"
+ 1796      725F7374 
+ 1796      61747573 
+ 1796      00
+ 1797              	.LASF64:
+ 1798 03d9 5449434B 		.ascii	"TICK_DBL_TAP\000"
+ 1798      5F44424C 
+ 1798      5F544150 
+ 1798      00
+ 1799              	.LASF59:
+ 1800 03e6 50425F49 		.ascii	"PB_INTERVAL_TICK\000"
+ 1800      4E544552 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 40
+
+
+ 1800      56414C5F 
+ 1800      5449434B 
+ 1800      00
+ 1801              	.LASF34:
+ 1802 03f7 73696E67 		.ascii	"single_tap\000"
+ 1802      6C655F74 
+ 1802      617000
+ 1803              	.LASF56:
+ 1804 0402 52656C61 		.ascii	"Relay_Offset_timer\000"
+ 1804      795F4F66 
+ 1804      66736574 
+ 1804      5F74696D 
+ 1804      657200
+ 1805              	.LASF48:
+ 1806 0415 73746F72 		.ascii	"store_status\000"
+ 1806      655F7374 
+ 1806      61747573 
+ 1806      00
+ 1807              	.LASF74:
+ 1808 0422 50425F53 		.ascii	"PB_Status\000"
+ 1808      74617475 
+ 1808      7300
+ 1809              	.LASF55:
+ 1810 042c 70776D5F 		.ascii	"pwm_timer\000"
+ 1810      74696D65 
+ 1810      7200
+ 1811              	.LASF36:
+ 1812 0436 6E65675F 		.ascii	"neg_half\000"
+ 1812      68616C66 
+ 1812      00
+ 1813              	.LASF42:
+ 1814 043f 676F746F 		.ascii	"goto_bed\000"
+ 1814      5F626564 
+ 1814      00
+ 1815              	.LASF11:
+ 1816 0448 75696E74 		.ascii	"uint8_t\000"
+ 1816      385F7400 
+ 1817              	.LASF72:
+ 1818 0450 50574D5F 		.ascii	"PWM_TARGET\000"
+ 1818      54415247 
+ 1818      455400
+ 1819              	.LASF60:
+ 1820 045b 5A435F43 		.ascii	"ZC_CNTR\000"
+ 1820      4E545200 
+ 1821              	.LASF87:
+ 1822 0463 44696D6D 		.ascii	"Dimming_ReadCompare\000"
+ 1822      696E675F 
+ 1822      52656164 
+ 1822      436F6D70 
+ 1822      61726500 
+ 1823              	.LASF58:
+ 1824 0477 5A435F54 		.ascii	"ZC_TEST\000"
+ 1824      45535400 
+ 1825              	.LASF88:
+ 1826 047f 52656C61 		.ascii	"Relay_1P_Write\000"
+ 1826      795F3150 
+ 1826      5F577269 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccTQm5X4.s 			page 41
+
+
+ 1826      746500
+ 1827              	.LASF84:
+ 1828 048e 2E5C5573 		.ascii	".\\User_Source\\interrupts.c\000"
+ 1828      65725F53 
+ 1828      6F757263 
+ 1828      655C696E 
+ 1828      74657272 
+ 1829              	.LASF49:
+ 1830 04a9 6D696E63 		.ascii	"mincalibration\000"
+ 1830      616C6962 
+ 1830      72617469 
+ 1830      6F6E00
+ 1831              	.LASF62:
+ 1832 04b8 5449434B 		.ascii	"TICK_CNT\000"
+ 1832      5F434E54 
+ 1832      00
+ 1833              	.LASF45:
+ 1834 04c1 74687265 		.ascii	"three_way\000"
+ 1834      655F7761 
+ 1834      7900
+ 1835              	.LASF75:
+ 1836 04cb 544D525F 		.ascii	"TMR_Status\000"
+ 1836      53746174 
+ 1836      757300
+ 1837              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

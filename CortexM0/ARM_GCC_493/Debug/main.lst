@@ -1,0 +1,3822 @@
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 4
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.init_dimmer_status,"ax",%progbits
+  18              		.align	1
+  19              		.global	init_dimmer_status
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	init_dimmer_status, %function
+  23              	init_dimmer_status:
+  24              	.LFB34:
+  25              		.file 1 ".\\User_Source\\main.c"
+   1:.\User_Source/main.c **** 
+   2:.\User_Source/main.c **** /*----------------------------------------------------------------------------
+   3:.\User_Source/main.c ****  *    ADORNE SOFTAP 4-WIRE DIMMER
+   4:.\User_Source/main.c ****  *----------------------------------------------------------------------------
+   5:.\User_Source/main.c ****  *    File Name:     user_main.c
+   6:.\User_Source/main.c ****  *    Description:   Main Program File for sofTap 4-Wire Dimmer 
+   7:.\User_Source/main.c ****  *    Target:        Cypress CY8C4124LQI-443
+   8:.\User_Source/main.c ****  *    Environment:   PSoC Creator  3.1 SP3 (3.1.0.2288)
+   9:.\User_Source/main.c ****  *    Author:        Josh Haines
+  10:.\User_Source/main.c ****  *    Specification: Document #TBD
+  11:.\User_Source/main.c ****  *----------------------------------------------------------------------------
+  12:.\User_Source/main.c ****  *    Revisions:
+  13:.\User_Source/main.c ****  *    1.00  Initial revision JPH 10/20/2014
+  14:.\User_Source/main.c ****  *----------------------------------------------------------------------------
+  15:.\User_Source/main.c ****  *    Notes:
+  16:.\User_Source/main.c ****  *    1. 
+  17:.\User_Source/main.c ****  *----------------------------------------------------------------------------
+  18:.\User_Source/main.c ****  *    This code is the property of P&S Division of Legrand Corporation.
+  19:.\User_Source/main.c ****  *    Copyright (c) 2013 - 2014 Legrand Corp. All rights reserved.
+  20:.\User_Source/main.c ****  *---------------------------------------------------------------------------*/
+  21:.\User_Source/main.c **** #define _MAIN_C   // for global variable declarations in user_main.h
+  22:.\User_Source/main.c **** 
+  23:.\User_Source/main.c **** #include <user_main.h>
+  24:.\User_Source/main.c **** #include <pushbutton.h>
+  25:.\User_Source/main.c **** #include <dimming_ctrl.h>
+  26:.\User_Source/main.c **** #include <project.h>
+  27:.\User_Source/main.c **** #include <CY8C4124.h>
+  28:.\User_Source/main.c **** 
+  29:.\User_Source/main.c ****   
+  30:.\User_Source/main.c **** /*----------------------------------------------------------------------------
+  31:.\User_Source/main.c ****  *  Private Functions
+  32:.\User_Source/main.c ****  *---------------------------------------------------------------------------*/ 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 2
+
+
+  33:.\User_Source/main.c **** 
+  34:.\User_Source/main.c **** /*----------------------------------------------------------------------------
+  35:.\User_Source/main.c ****  *  Public Interface
+  36:.\User_Source/main.c ****  *---------------------------------------------------------------------------*/ 
+  37:.\User_Source/main.c **** 
+  38:.\User_Source/main.c **** /*----------------------------------------------------------------------------
+  39:.\User_Source/main.c ****  *  user_main() 
+  40:.\User_Source/main.c ****  *---------------------------------------------------------------------------*/ 
+  41:.\User_Source/main.c **** int main(void)
+  42:.\User_Source/main.c **** {
+  43:.\User_Source/main.c ****     Test_Write(0);
+  44:.\User_Source/main.c ****     
+  45:.\User_Source/main.c ****     
+  46:.\User_Source/main.c ****     read_data_flash();
+  47:.\User_Source/main.c ****     
+  48:.\User_Source/main.c ****     init_dimmer_status();
+  49:.\User_Source/main.c ****     init_pb_status();
+  50:.\User_Source/main.c ****     
+  51:.\User_Source/main.c ****     CyGlobalIntEnable;
+  52:.\User_Source/main.c ****     
+  53:.\User_Source/main.c ****     #if(SofTap == 0)
+  54:.\User_Source/main.c ****     // captouch status
+  55:.\User_Source/main.c ****     init_ct_status();               // Init CapSense pushbutton status reg
+  56:.\User_Source/main.c ****     CapSense_1_Start();	            // Start the CapSense component    
+  57:.\User_Source/main.c ****     CapSense_1_InitializeAllBaselines();  //Loads the CapSense Baseline array with initial values b
+  58:.\User_Source/main.c ****     #endif    //  CapSense Initialization
+  59:.\User_Source/main.c ****     
+  60:.\User_Source/main.c ****     while (FOREVER)
+  61:.\User_Source/main.c ****     {   
+  62:.\User_Source/main.c ****         #if(Wdog_Enable)
+  63:.\User_Source/main.c ****         SERVICE_WDT();       // strobe WDog - confirms no endless loop, action timer & interrupts r
+  64:.\User_Source/main.c ****         #endif
+  65:.\User_Source/main.c ****         Test_Write(~Test_ReadDataReg());
+  66:.\User_Source/main.c ****         PWM_CURRENT = Dimming_ReadCompare();
+  67:.\User_Source/main.c ****         
+  68:.\User_Source/main.c ****         #if(OvrldEndurance == 0)
+  69:.\User_Source/main.c ****     // Gotobed calculation and set flag
+  70:.\User_Source/main.c ****         if (SECOND_CNTR >= gotobed_interval && !DMR_Status.min_cal_adjust && !DMR_Status.max_cal_ad
+  71:.\User_Source/main.c ****         {
+  72:.\User_Source/main.c ****             DMR_Status.goto_bed = SET;
+  73:.\User_Source/main.c ****             GOTO_BED_INTERVAL = (gotobed_totaltime*gotobed_scalefactor)/((PWM_MIN-PWM_TARGET)/PWM_C
+  74:.\User_Source/main.c ****             //scaled so that is always takes about 25s to 'go to bed'
+  75:.\User_Source/main.c ****             SECOND_CNTR = 0;
+  76:.\User_Source/main.c ****         }
+  77:.\User_Source/main.c ****         #endif
+  78:.\User_Source/main.c ****     
+  79:.\User_Source/main.c ****     //Determine positve versus negative half cycle
+  80:.\User_Source/main.c ****         if (Zero_Cross_GetCompare() == 0) 
+  81:.\User_Source/main.c ****         {
+  82:.\User_Source/main.c ****             TMR_Status.pos_half = CLEAR;
+  83:.\User_Source/main.c ****             TMR_Status.neg_half = SET;
+  84:.\User_Source/main.c ****         }
+  85:.\User_Source/main.c ****         else 
+  86:.\User_Source/main.c ****         {
+  87:.\User_Source/main.c ****             TMR_Status.pos_half = SET;
+  88:.\User_Source/main.c ****             TMR_Status.neg_half = CLEAR;
+  89:.\User_Source/main.c ****         }
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 3
+
+
+  90:.\User_Source/main.c ****         
+  91:.\User_Source/main.c **** 
+  92:.\User_Source/main.c ****     //Collect Current Sense Data
+  93:.\User_Source/main.c ****         if (TMR_Status.pwmtick && I_Sense_Read() == HIGH && TMR_Status.neg_half) 
+  94:.\User_Source/main.c ****         {
+  95:.\User_Source/main.c ****             if (++I_SENSE_CNT > max_current_sense) I_SENSE_CNT = max_current_sense;
+  96:.\User_Source/main.c ****         }
+  97:.\User_Source/main.c **** 
+  98:.\User_Source/main.c ****     // Poll buttons and take the appropriate actions
+  99:.\User_Source/main.c ****         if (PB_INTERVAL_TICK >= pushbutton_interval)
+ 100:.\User_Source/main.c ****         {
+ 101:.\User_Source/main.c ****             
+ 102:.\User_Source/main.c ****         #if(SofTap == 0)
+ 103:.\User_Source/main.c ****             // captouch status
+ 104:.\User_Source/main.c ****             CapTouch_Scan();      
+ 105:.\User_Source/main.c ****         #endif
+ 106:.\User_Source/main.c ****             
+ 107:.\User_Source/main.c ****             read_pushbutton(PB_MAIN);
+ 108:.\User_Source/main.c ****             read_pushbutton(PB_UP);
+ 109:.\User_Source/main.c ****             read_pushbutton(PB_DOWN);
+ 110:.\User_Source/main.c ****             
+ 111:.\User_Source/main.c ****             button_response();
+ 112:.\User_Source/main.c ****             
+ 113:.\User_Source/main.c ****             PB_INTERVAL_TICK = 0;
+ 114:.\User_Source/main.c ****         }  
+ 115:.\User_Source/main.c ****         
+ 116:.\User_Source/main.c ****         #if(OvrldEndurance == 0)
+ 117:.\User_Source/main.c ****     // EEPROM Write if requested; checked and performed once per second
+ 118:.\User_Source/main.c ****         if (DMR_Status.store_status && TMR_Status.second)
+ 119:.\User_Source/main.c ****         {
+ 120:.\User_Source/main.c ****             NON_VOL_A[PWM_Max_High] = (PWM_MAX>>8); 
+ 121:.\User_Source/main.c ****             NON_VOL_A[PWM_Max_Low] = PWM_MAX & 0xFF; 
+ 122:.\User_Source/main.c ****             NON_VOL_A[PWM_Min_High] = (PWM_MIN>>8); 
+ 123:.\User_Source/main.c ****             NON_VOL_A[PWM_Min_Low] = PWM_MIN & 0xFF; 
+ 124:.\User_Source/main.c ****             NON_VOL_A[PWM_Trgt_High] = (PWM_TARGET>>8); 
+ 125:.\User_Source/main.c ****             NON_VOL_A[PWM_Trgt_Low] = PWM_TARGET & 0xFF;
+ 126:.\User_Source/main.c ****             // store key so that future cal updates
+ 127:.\User_Source/main.c ****             // won't be overwritten after power cycle   
+ 128:.\User_Source/main.c ****             NON_VOL_A[Cal_Key] = cal_key_value;
+ 129:.\User_Source/main.c ****             write_data_flash();
+ 130:.\User_Source/main.c ****             DMR_Status.store_status = CLEAR;
+ 131:.\User_Source/main.c ****         }
+ 132:.\User_Source/main.c ****         #endif
+ 133:.\User_Source/main.c ****         
+ 134:.\User_Source/main.c ****     // Drive Display to current value; also manages the dimming component
+ 135:.\User_Source/main.c ****         if (TICK_CNT_Display >= PWM_display_interval) 
+ 136:.\User_Source/main.c ****         {
+ 137:.\User_Source/main.c ****             TICK_CNT_Display = 0;
+ 138:.\User_Source/main.c ****             if ((DMR_Status.on || DMR_Status.fade_off || DMR_Status.fade_on) && !DMR_Status.throwre
+ 139:.\User_Source/main.c ****             {
+ 140:.\User_Source/main.c ****                 user_interface(UI_VAL);
+ 141:.\User_Source/main.c ****                 LED_Main_Write(0xFF);
+ 142:.\User_Source/main.c ****                 LED_Plus_Write(0);
+ 143:.\User_Source/main.c ****                 LED_Minus_Write(0);
+ 144:.\User_Source/main.c ****             }
+ 145:.\User_Source/main.c ****             else 
+ 146:.\User_Source/main.c ****             {
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 4
+
+
+ 147:.\User_Source/main.c ****                 user_interface(0);
+ 148:.\User_Source/main.c ****                 LED_Main_Write(0);
+ 149:.\User_Source/main.c ****                 LED_Plus_Write(0xFF);
+ 150:.\User_Source/main.c ****                 LED_Minus_Write(0xFF);
+ 151:.\User_Source/main.c ****             }
+ 152:.\User_Source/main.c ****         }
+ 153:.\User_Source/main.c ****         if (TICK_CNT_Display >= PWM_display_on_off) LED_Main_Write(0xFF);
+ 154:.\User_Source/main.c ****         if (TICK_CNT_Display >= PWM_display_bargraph) user_interface(0);
+ 155:.\User_Source/main.c ****         if (TICK_CNT_Display >= PWM_display_plusminus)
+ 156:.\User_Source/main.c ****         {
+ 157:.\User_Source/main.c ****             LED_Plus_Write(0xFF);
+ 158:.\User_Source/main.c ****             LED_Minus_Write(0xFF);
+ 159:.\User_Source/main.c ****         }
+ 160:.\User_Source/main.c ****         
+ 161:.\User_Source/main.c ****     // Perform 100mS increment tasks
+ 162:.\User_Source/main.c ****         if (TICK_CNT_100mS >= pwm_100mS_count)
+ 163:.\User_Source/main.c ****         {
+ 164:.\User_Source/main.c ****         TICK_CNT_100mS = 0;
+ 165:.\User_Source/main.c ****         TMR_Status.gp_100mS_tick = SET;
+ 166:.\User_Source/main.c ****         gp_100mS_timer();
+ 167:.\User_Source/main.c ****         }
+ 168:.\User_Source/main.c ****         
+ 169:.\User_Source/main.c ****     // Reset timer flags
+ 170:.\User_Source/main.c ****         TMR_Status.pwmtick = CLEAR;         //TMR_Status.pwmtick set in the PWM interrupt
+ 171:.\User_Source/main.c ****         TMR_Status.second = CLEAR;          //clear the second flag
+ 172:.\User_Source/main.c ****         
+ 173:.\User_Source/main.c ****         
+ 174:.\User_Source/main.c ****         CySysPmSleep();
+ 175:.\User_Source/main.c ****     }
+ 176:.\User_Source/main.c **** }
+ 177:.\User_Source/main.c ****  //end of user_main()
+ 178:.\User_Source/main.c **** 
+ 179:.\User_Source/main.c **** 
+ 180:.\User_Source/main.c **** /*----------------------------------------------------------------------------
+ 181:.\User_Source/main.c ****  *  Initialize Dimmer
+ 182:.\User_Source/main.c ****  *---------------------------------------------------------------------------*/ 
+ 183:.\User_Source/main.c **** void init_dimmer_status(void)
+ 184:.\User_Source/main.c **** {
+  26              		.loc 1 184 0
+  27              		.cfi_startproc
+  28 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  29              		.cfi_def_cfa_offset 24
+  30              		.cfi_offset 3, -24
+  31              		.cfi_offset 4, -20
+  32              		.cfi_offset 5, -16
+  33              		.cfi_offset 6, -12
+  34              		.cfi_offset 7, -8
+  35              		.cfi_offset 14, -4
+ 185:.\User_Source/main.c ****     if (NON_VOL_A[Cal_Key] != cal_key_value)
+  36              		.loc 1 185 0
+  37 0002 3E4C     		ldr	r4, .L7
+  38 0004 2378     		ldrb	r3, [r4]
+  39 0006 1B2B     		cmp	r3, #27
+  40 0008 0DD0     		beq	.L2
+ 186:.\User_Source/main.c ****     // calibration not valid, load eeprom with defaults  
+ 187:.\User_Source/main.c ****     {
+ 188:.\User_Source/main.c ****         NON_VOL_A[PWM_Max_High] = (PWM_max_default>>8); 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 5
+
+
+  41              		.loc 1 188 0
+  42 000a 0023     		mov	r3, #0
+ 189:.\User_Source/main.c ****         NON_VOL_A[PWM_Max_Low] = PWM_max_default & 0xFF; 
+ 190:.\User_Source/main.c ****         NON_VOL_A[PWM_Min_High] = (PWM_min_default>>8); 
+  43              		.loc 1 190 0
+  44 000c 0222     		mov	r2, #2
+ 188:.\User_Source/main.c ****         NON_VOL_A[PWM_Max_Low] = PWM_max_default & 0xFF; 
+  45              		.loc 1 188 0
+  46 000e 2371     		strb	r3, [r4, #4]
+ 189:.\User_Source/main.c ****         NON_VOL_A[PWM_Max_Low] = PWM_max_default & 0xFF; 
+  47              		.loc 1 189 0
+  48 0010 0133     		add	r3, r3, #1
+  49 0012 E370     		strb	r3, [r4, #3]
+ 191:.\User_Source/main.c ****         NON_VOL_A[PWM_Min_Low] = PWM_min_default & 0xFF; 
+  50              		.loc 1 191 0
+  51 0014 2033     		add	r3, r3, #32
+ 190:.\User_Source/main.c ****         NON_VOL_A[PWM_Min_Low] = PWM_min_default & 0xFF; 
+  52              		.loc 1 190 0
+  53 0016 A270     		strb	r2, [r4, #2]
+  54              		.loc 1 191 0
+  55 0018 6370     		strb	r3, [r4, #1]
+ 192:.\User_Source/main.c ****         NON_VOL_A[PWM_Trgt_High] = (PWM_min_default>>8); 
+  56              		.loc 1 192 0
+  57 001a A271     		strb	r2, [r4, #6]
+ 193:.\User_Source/main.c ****         NON_VOL_A[PWM_Trgt_Low] = PWM_min_default & 0xFF;
+  58              		.loc 1 193 0
+  59 001c 6371     		strb	r3, [r4, #5]
+ 194:.\User_Source/main.c ****         //NON_VOL_A[I_Thresh_Saved] = I_THRESH_DEF;
+ 195:.\User_Source/main.c ****         // store key so that future cal updates
+ 196:.\User_Source/main.c ****         // won't be overwritten after power cycle   
+ 197:.\User_Source/main.c ****         NON_VOL_A[Cal_Key] = cal_key_value;
+  60              		.loc 1 197 0
+  61 001e 063B     		sub	r3, r3, #6
+  62 0020 2370     		strb	r3, [r4]
+ 198:.\User_Source/main.c ****         write_data_flash();
+  63              		.loc 1 198 0
+  64 0022 FFF7FEFF 		bl	write_data_flash
+  65              	.LVL0:
+  66              	.L2:
+ 199:.\User_Source/main.c ****     }  
+ 200:.\User_Source/main.c **** 
+ 201:.\User_Source/main.c ****     // load ram with cal values from eeprom
+ 202:.\User_Source/main.c ****     PWM_MIN = (uint16_t)(NON_VOL_A[PWM_Min_High]<<8);
+  67              		.loc 1 202 0
+  68 0026 A378     		ldrb	r3, [r4, #2]
+ 203:.\User_Source/main.c ****     PWM_MIN += (uint16_t)NON_VOL_A[PWM_Min_Low];
+  69              		.loc 1 203 0
+  70 0028 6178     		ldrb	r1, [r4, #1]
+ 202:.\User_Source/main.c ****     PWM_MIN += (uint16_t)NON_VOL_A[PWM_Min_Low];
+  71              		.loc 1 202 0
+  72 002a 1B02     		lsl	r3, r3, #8
+  73              		.loc 1 203 0
+  74 002c 344E     		ldr	r6, .L7+4
+  75 002e 5B18     		add	r3, r3, r1
+  76 0030 9AB2     		uxth	r2, r3
+  77 0032 3280     		strh	r2, [r6]
+ 204:.\User_Source/main.c ****     PWM_MAX = (uint16_t)(NON_VOL_A[PWM_Max_High]<<8);
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 6
+
+
+  78              		.loc 1 204 0
+  79 0034 2379     		ldrb	r3, [r4, #4]
+ 205:.\User_Source/main.c ****     PWM_MAX += (uint16_t)NON_VOL_A[PWM_Max_Low];
+  80              		.loc 1 205 0
+  81 0036 E178     		ldrb	r1, [r4, #3]
+ 204:.\User_Source/main.c ****     PWM_MAX = (uint16_t)(NON_VOL_A[PWM_Max_High]<<8);
+  82              		.loc 1 204 0
+  83 0038 1B02     		lsl	r3, r3, #8
+  84              		.loc 1 205 0
+  85 003a 5B18     		add	r3, r3, r1
+  86 003c 3149     		ldr	r1, .L7+8
+  87 003e 9BB2     		uxth	r3, r3
+  88 0040 0B80     		strh	r3, [r1]
+ 206:.\User_Source/main.c ****     PWM_TARGET = (uint16_t)(NON_VOL_A[PWM_Trgt_High]<<8);
+  89              		.loc 1 206 0
+  90 0042 A179     		ldrb	r1, [r4, #6]
+ 207:.\User_Source/main.c ****     PWM_TARGET += (uint16_t)NON_VOL_A[PWM_Trgt_Low];
+  91              		.loc 1 207 0
+  92 0044 6079     		ldrb	r0, [r4, #5]
+ 206:.\User_Source/main.c ****     PWM_TARGET = (uint16_t)(NON_VOL_A[PWM_Trgt_High]<<8);
+  93              		.loc 1 206 0
+  94 0046 0902     		lsl	r1, r1, #8
+ 208:.\User_Source/main.c **** 
+ 209:.\User_Source/main.c ****     //Calculate the amount of up and down incremental change based on the min and max stored values
+ 210:.\User_Source/main.c ****     PWM_CHG = ((PWM_MIN-PWM_MAX)/desired_dim_levels);
+ 211:.\User_Source/main.c ****     
+ 212:.\User_Source/main.c ****     
+ 213:.\User_Source/main.c ****     
+ 214:.\User_Source/main.c ****     DMR_Status.on = CLEAR;
+  95              		.loc 1 214 0
+  96 0048 0124     		mov	r4, #1
+ 207:.\User_Source/main.c ****     PWM_TARGET += (uint16_t)NON_VOL_A[PWM_Trgt_Low];
+  97              		.loc 1 207 0
+  98 004a 0918     		add	r1, r1, r0
+  99 004c 2E48     		ldr	r0, .L7+12
+ 215:.\User_Source/main.c ****     DMR_Status.off = SET;
+ 100              		.loc 1 215 0
+ 101 004e 0225     		mov	r5, #2
+ 207:.\User_Source/main.c ****     PWM_TARGET += (uint16_t)NON_VOL_A[PWM_Trgt_Low];
+ 102              		.loc 1 207 0
+ 103 0050 0180     		strh	r1, [r0]
+ 216:.\User_Source/main.c ****     DMR_Status.fade_on = CLEAR;
+ 104              		.loc 1 216 0
+ 105 0052 0420     		mov	r0, #4
+ 217:.\User_Source/main.c ****     DMR_Status.fade_off = CLEAR;
+ 106              		.loc 1 217 0
+ 107 0054 0827     		mov	r7, #8
+ 218:.\User_Source/main.c ****     DMR_Status.goto_bed = CLEAR;
+ 219:.\User_Source/main.c ****     DMR_Status.single_pole = SET;
+ 108              		.loc 1 219 0
+ 109 0056 1021     		mov	r1, #16
+ 210:.\User_Source/main.c ****     
+ 110              		.loc 1 210 0
+ 111 0058 D31A     		sub	r3, r2, r3
+ 112 005a DA17     		asr	r2, r3, #31
+ 113 005c D20E     		lsr	r2, r2, #27
+ 114 005e D318     		add	r3, r2, r3
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 7
+
+
+ 115 0060 2A4A     		ldr	r2, .L7+16
+ 116 0062 5B11     		asr	r3, r3, #5
+ 117 0064 1380     		strh	r3, [r2]
+ 214:.\User_Source/main.c ****     DMR_Status.off = SET;
+ 118              		.loc 1 214 0
+ 119 0066 2A4A     		ldr	r2, .L7+20
+ 220:.\User_Source/main.c ****     DMR_Status.three_way = CLEAR;
+ 221:.\User_Source/main.c ****     DMR_Status.store_status = CLEAR;
+ 222:.\User_Source/main.c ****     DMR_Status.mincalibration = CLEAR;
+ 223:.\User_Source/main.c ****     DMR_Status.maxcalibration = CLEAR;
+ 224:.\User_Source/main.c ****     TMR_Status.single_tap = CLEAR;
+ 225:.\User_Source/main.c ****     
+ 226:.\User_Source/main.c ****     ZC_ISR_Start();                 // Enable, Set Priority and Start the ZC ISR
+ 227:.\User_Source/main.c ****     Zero_Cross_Start();             // Setup and Enable the Analog Comparator
+ 228:.\User_Source/main.c ****     
+ 229:.\User_Source/main.c ****     #if(OvrldEndurance == 0)
+ 230:.\User_Source/main.c ****     PWM_ISR_Start();                // PWM Interupt Service Routine
+ 231:.\User_Source/main.c ****     Dimming_Start();                // PWM Timer; 1000 counts * 1uS source = 1mS Timer
+ 232:.\User_Source/main.c ****     Opto_PWM_Start();               // Constant Current Control OpAmp
+ 233:.\User_Source/main.c ****     #endif
+ 234:.\User_Source/main.c ****     
+ 235:.\User_Source/main.c ****     Relay_Fire_ISR_Start();         // Relay first ISR timer is used to zero cross closes for the r
+ 236:.\User_Source/main.c ****     Relay_Offset_Start();           // 50µS Timer
+ 237:.\User_Source/main.c ****     
+ 238:.\User_Source/main.c ****     /*
+ 239:.\User_Source/main.c ****     2016-09-22: there appears to be a hang-up issue where at Rocom, on the test fixture, when
+ 240:.\User_Source/main.c ****     the unit is changed from 1P to 3W, the unit appears to dim beyond the boundaries established
+ 241:.\User_Source/main.c ****     by PWM_MIN and PWM_MAX and consequently, while fading on (when it comes into range, the bargrap
+ 242:.\User_Source/main.c ****     increases from min to max, thus fade_on) none of the other buttons work because it is in an 
+ 243:.\User_Source/main.c ****     endless loop.
+ 244:.\User_Source/main.c ****     Change 1: A change was made to the default values in the "Dimming" pwm timer block in the 
+ 245:.\User_Source/main.c ****     schematic where the default compare value is changed to PWM_min_default (545); the original 
+ 246:.\User_Source/main.c ****     was 250, which is not a conducive value to the prescribed values allowed
+ 247:.\User_Source/main.c ****     Change 2: Immediately following this description is a PWM Write command that initializes 
+ 248:.\User_Source/main.c ****     the starting point of the PWM value at any given POR
+ 249:.\User_Source/main.c ****     */
+ 250:.\User_Source/main.c ****     Dimming_WriteCompare(PWM_MIN);
+ 251:.\User_Source/main.c ****     
+ 252:.\User_Source/main.c ****     #ifdef Wdog_Enable
+ 253:.\User_Source/main.c ****     // Enable Watchdog
+ 254:.\User_Source/main.c ****     /* WDT is clocked by LFCLK which for the CY84125 is the 32kHz ILO */
+ 255:.\User_Source/main.c ****     /* Note: ILO accuracy is +/- 60% over voltage & temperature range */
+ 256:.\User_Source/main.c ****     /* The WDT counters should be cleared by calling the CySysWdtResetCounters() */
+ 257:.\User_Source/main.c ****     /* Set WDT counter 0 to generate interrupt on match */
+ 258:.\User_Source/main.c ****     /* Cntr 0 = 0x7FFF (32767 * 1/32000) = 1 second & Cntr 1 = 0x08 gives 8 second Wdog window */
+ 259:.\User_Source/main.c **** 
+ 260:.\User_Source/main.c ****     /* Update from Carl Finke - 08182015
+ 261:.\User_Source/main.c ****     Cntr0 is a prescaler when Cntr0 & Cntr1 are cascaded
+ 262:.\User_Source/main.c ****     Cntr0 = 2 then 32khz = 16khz and Cntr1 = 65535 then 4(5) second Timeout
+ 263:.\User_Source/main.c ****     */
+ 264:.\User_Source/main.c ****     /* NOTE: Wdog can only be checked w/o emulator - appears to just hangup & does not respond if
+ 265:.\User_Source/main.c ****             Wdog trips.  Verify using programmed part.
+ 266:.\User_Source/main.c ****     */
+ 267:.\User_Source/main.c **** 
+ 268:.\User_Source/main.c ****     // Set Cntr0 as Free Running - No action on match for cntr 0
+ 269:.\User_Source/main.c ****     CySysWdtWriteMode(CY_SYS_WDT_COUNTER0, CY_SYS_WDT_MODE_NONE);
+ 270:.\User_Source/main.c ****     CySysWdtWriteMatch(CY_SYS_WDT_COUNTER0, WDT_COUNT0_MATCH);
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 8
+
+
+ 271:.\User_Source/main.c ****     CySysWdtWriteClearOnMatch(CY_SYS_WDT_COUNTER0, 1u);
+ 272:.\User_Source/main.c ****     
+ 273:.\User_Source/main.c ****     /* Enable WDT counters 0 and 1 cascade */
+ 274:.\User_Source/main.c ****     CySysWdtWriteCascade(CY_SYS_WDT_CASCADE_01);
+ 275:.\User_Source/main.c ****     
+ 276:.\User_Source/main.c ****     /* Set WDT counter 1 to generate reset on match */
+ 277:.\User_Source/main.c ****     CySysWdtWriteMode(CY_SYS_WDT_COUNTER1, CY_SYS_WDT_MODE_RESET);
+ 278:.\User_Source/main.c ****     CySysWdtWriteMatch(CY_SYS_WDT_COUNTER1, WDT_COUNT1_MATCH);
+ 279:.\User_Source/main.c ****     CySysWdtWriteClearOnMatch(CY_SYS_WDT_COUNTER1, 1u);
+ 280:.\User_Source/main.c **** 
+ 281:.\User_Source/main.c ****     /* Enable WDT counters 0 and 1 */
+ 282:.\User_Source/main.c ****     CySysWdtEnable(CY_SYS_WDT_COUNTER0_MASK | CY_SYS_WDT_COUNTER1_MASK);
+ 283:.\User_Source/main.c **** 
+ 284:.\User_Source/main.c ****     /* Lock WDT registers and try to disable WDT counters 0 and 1 */
+ 285:.\User_Source/main.c ****     /* If not commented out, the counters can not be reset & Reset occurs */
+ 286:.\User_Source/main.c ****     CySysWdtLock();
+ 287:.\User_Source/main.c ****     //End of WatchDog Initialization & Setup
+ 288:.\User_Source/main.c ****     #endif
+ 289:.\User_Source/main.c **** }
+ 120              		.loc 1 289 0
+ 121              		@ sp needed
+ 214:.\User_Source/main.c ****     DMR_Status.off = SET;
+ 122              		.loc 1 214 0
+ 123 0068 1378     		ldrb	r3, [r2]
+ 215:.\User_Source/main.c ****     DMR_Status.fade_on = CLEAR;
+ 124              		.loc 1 215 0
+ 125 006a A343     		bic	r3, r4
+ 216:.\User_Source/main.c ****     DMR_Status.fade_off = CLEAR;
+ 126              		.loc 1 216 0
+ 127 006c 2B43     		orr	r3, r5
+ 217:.\User_Source/main.c ****     DMR_Status.goto_bed = CLEAR;
+ 128              		.loc 1 217 0
+ 129 006e 8343     		bic	r3, r0
+ 218:.\User_Source/main.c ****     DMR_Status.single_pole = SET;
+ 130              		.loc 1 218 0
+ 131 0070 BB43     		bic	r3, r7
+ 219:.\User_Source/main.c ****     DMR_Status.three_way = CLEAR;
+ 132              		.loc 1 219 0
+ 133 0072 8B43     		bic	r3, r1
+ 220:.\User_Source/main.c ****     DMR_Status.store_status = CLEAR;
+ 134              		.loc 1 220 0
+ 135 0074 3031     		add	r1, r1, #48
+ 136 0076 0B43     		orr	r3, r1
+ 137 0078 3F31     		add	r1, r1, #63
+ 138 007a 0B40     		and	r3, r1
+ 139 007c 1370     		strb	r3, [r2]
+ 221:.\User_Source/main.c ****     DMR_Status.mincalibration = CLEAR;
+ 140              		.loc 1 221 0
+ 141 007e 5378     		ldrb	r3, [r2, #1]
+ 223:.\User_Source/main.c ****     TMR_Status.single_tap = CLEAR;
+ 142              		.loc 1 223 0
+ 143 0080 6F39     		sub	r1, r1, #111
+ 222:.\User_Source/main.c ****     DMR_Status.maxcalibration = CLEAR;
+ 144              		.loc 1 222 0
+ 145 0082 8343     		bic	r3, r0
+ 223:.\User_Source/main.c ****     TMR_Status.single_tap = CLEAR;
+ 146              		.loc 1 223 0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 9
+
+
+ 147 0084 BB43     		bic	r3, r7
+ 148 0086 8B43     		bic	r3, r1
+ 149 0088 5370     		strb	r3, [r2, #1]
+ 224:.\User_Source/main.c ****     
+ 150              		.loc 1 224 0
+ 151 008a 224A     		ldr	r2, .L7+24
+ 152 008c 1031     		add	r1, r1, #16
+ 153 008e 1378     		ldrb	r3, [r2]
+ 154 0090 8B43     		bic	r3, r1
+ 155 0092 1370     		strb	r3, [r2]
+ 226:.\User_Source/main.c ****     Zero_Cross_Start();             // Setup and Enable the Analog Comparator
+ 156              		.loc 1 226 0
+ 157 0094 FFF7FEFF 		bl	ZC_ISR_Start
+ 158              	.LVL1:
+ 227:.\User_Source/main.c ****     
+ 159              		.loc 1 227 0
+ 160 0098 FFF7FEFF 		bl	Zero_Cross_Start
+ 161              	.LVL2:
+ 230:.\User_Source/main.c ****     Dimming_Start();                // PWM Timer; 1000 counts * 1uS source = 1mS Timer
+ 162              		.loc 1 230 0
+ 163 009c FFF7FEFF 		bl	PWM_ISR_Start
+ 164              	.LVL3:
+ 231:.\User_Source/main.c ****     Opto_PWM_Start();               // Constant Current Control OpAmp
+ 165              		.loc 1 231 0
+ 166 00a0 FFF7FEFF 		bl	Dimming_Start
+ 167              	.LVL4:
+ 232:.\User_Source/main.c ****     #endif
+ 168              		.loc 1 232 0
+ 169 00a4 FFF7FEFF 		bl	Opto_PWM_Start
+ 170              	.LVL5:
+ 235:.\User_Source/main.c ****     Relay_Offset_Start();           // 50µS Timer
+ 171              		.loc 1 235 0
+ 172 00a8 FFF7FEFF 		bl	Relay_Fire_ISR_Start
+ 173              	.LVL6:
+ 236:.\User_Source/main.c ****     
+ 174              		.loc 1 236 0
+ 175 00ac FFF7FEFF 		bl	Relay_Offset_Start
+ 176              	.LVL7:
+ 250:.\User_Source/main.c ****     
+ 177              		.loc 1 250 0
+ 178 00b0 3088     		ldrh	r0, [r6]
+ 179 00b2 FFF7FEFF 		bl	Dimming_WriteCompare
+ 180              	.LVL8:
+ 269:.\User_Source/main.c ****     CySysWdtWriteMatch(CY_SYS_WDT_COUNTER0, WDT_COUNT0_MATCH);
+ 181              		.loc 1 269 0
+ 182 00b6 0020     		mov	r0, #0
+ 183 00b8 011C     		mov	r1, r0
+ 184 00ba FFF7FEFF 		bl	CySysWdtWriteMode
+ 185              	.LVL9:
+ 270:.\User_Source/main.c ****     CySysWdtWriteClearOnMatch(CY_SYS_WDT_COUNTER0, 1u);
+ 186              		.loc 1 270 0
+ 187 00be 291C     		mov	r1, r5
+ 188 00c0 0020     		mov	r0, #0
+ 189 00c2 FFF7FEFF 		bl	CySysWdtWriteMatch
+ 190              	.LVL10:
+ 271:.\User_Source/main.c ****     
+ 191              		.loc 1 271 0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 10
+
+
+ 192 00c6 211C     		mov	r1, r4
+ 193 00c8 0020     		mov	r0, #0
+ 194 00ca FFF7FEFF 		bl	CySysWdtWriteClearOnMatch
+ 195              	.LVL11:
+ 274:.\User_Source/main.c ****     
+ 196              		.loc 1 274 0
+ 197 00ce 381C     		mov	r0, r7
+ 198 00d0 FFF7FEFF 		bl	CySysWdtWriteCascade
+ 199              	.LVL12:
+ 277:.\User_Source/main.c ****     CySysWdtWriteMatch(CY_SYS_WDT_COUNTER1, WDT_COUNT1_MATCH);
+ 200              		.loc 1 277 0
+ 201 00d4 291C     		mov	r1, r5
+ 202 00d6 201C     		mov	r0, r4
+ 203 00d8 FFF7FEFF 		bl	CySysWdtWriteMode
+ 204              	.LVL13:
+ 278:.\User_Source/main.c ****     CySysWdtWriteClearOnMatch(CY_SYS_WDT_COUNTER1, 1u);
+ 205              		.loc 1 278 0
+ 206 00dc 8021     		mov	r1, #128
+ 207 00de 201C     		mov	r0, r4
+ 208 00e0 C901     		lsl	r1, r1, #7
+ 209 00e2 FFF7FEFF 		bl	CySysWdtWriteMatch
+ 210              	.LVL14:
+ 279:.\User_Source/main.c **** 
+ 211              		.loc 1 279 0
+ 212 00e6 211C     		mov	r1, r4
+ 213 00e8 201C     		mov	r0, r4
+ 214 00ea FFF7FEFF 		bl	CySysWdtWriteClearOnMatch
+ 215              	.LVL15:
+ 282:.\User_Source/main.c **** 
+ 216              		.loc 1 282 0
+ 217 00ee 0220     		mov	r0, #2
+ 218 00f0 FF30     		add	r0, r0, #255
+ 219 00f2 FFF7FEFF 		bl	CySysWdtEnable
+ 220              	.LVL16:
+ 286:.\User_Source/main.c ****     //End of WatchDog Initialization & Setup
+ 221              		.loc 1 286 0
+ 222 00f6 FFF7FEFF 		bl	CySysWdtLock
+ 223              	.LVL17:
+ 224              		.loc 1 289 0
+ 225 00fa F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 226              	.L8:
+ 227              		.align	2
+ 228              	.L7:
+ 229 00fc 00000000 		.word	NON_VOL_A
+ 230 0100 00000000 		.word	PWM_MIN
+ 231 0104 00000000 		.word	PWM_MAX
+ 232 0108 00000000 		.word	PWM_TARGET
+ 233 010c 00000000 		.word	PWM_CHG
+ 234 0110 00000000 		.word	DMR_Status
+ 235 0114 00000000 		.word	TMR_Status
+ 236              		.cfi_endproc
+ 237              	.LFE34:
+ 238              		.size	init_dimmer_status, .-init_dimmer_status
+ 239              		.global	__aeabi_uidiv
+ 240              		.section	.text.gp_100mS_timer,"ax",%progbits
+ 241              		.align	1
+ 242              		.global	gp_100mS_timer
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 11
+
+
+ 243              		.code	16
+ 244              		.thumb_func
+ 245              		.type	gp_100mS_timer, %function
+ 246              	gp_100mS_timer:
+ 247              	.LFB35:
+ 290:.\User_Source/main.c **** 
+ 291:.\User_Source/main.c **** /*----------------------------------------------------------------------------
+ 292:.\User_Source/main.c ****  *  General Purpose 100mS
+ 293:.\User_Source/main.c ****  *---------------------------------------------------------------------------*/
+ 294:.\User_Source/main.c **** void gp_100mS_timer(void)  //called from the PWM Timer
+ 295:.\User_Source/main.c **** { 
+ 248              		.loc 1 295 0
+ 249              		.cfi_startproc
+ 250 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 251              		.cfi_def_cfa_offset 24
+ 252              		.cfi_offset 3, -24
+ 253              		.cfi_offset 4, -20
+ 254              		.cfi_offset 5, -16
+ 255              		.cfi_offset 6, -12
+ 256              		.cfi_offset 7, -8
+ 257              		.cfi_offset 14, -4
+ 296:.\User_Source/main.c ****     if (DMR_Status.goto_bed || DMR_Status.maxcalibration || DMR_Status.mincalibration)
+ 258              		.loc 1 296 0
+ 259 0002 2B4C     		ldr	r4, .L20
+ 260 0004 2B4B     		ldr	r3, .L20+4
+ 261 0006 2288     		ldrh	r2, [r4]
+ 262 0008 1A42     		tst	r2, r3
+ 263 000a 2FD0     		beq	.L10
+ 297:.\User_Source/main.c ****     {    
+ 298:.\User_Source/main.c ****         if (++FLASH_CNT >= flash_threshold)
+ 264              		.loc 1 298 0
+ 265 000c 2A49     		ldr	r1, .L20+8
+ 266 000e 0B78     		ldrb	r3, [r1]
+ 267 0010 0133     		add	r3, r3, #1
+ 268 0012 DBB2     		uxtb	r3, r3
+ 269 0014 0B70     		strb	r3, [r1]
+ 270 0016 022B     		cmp	r3, #2
+ 271 0018 0BD9     		bls	.L11
+ 299:.\User_Source/main.c ****         {
+ 300:.\User_Source/main.c ****             DMR_Status.flash = ~DMR_Status.flash;
+ 272              		.loc 1 300 0
+ 273 001a 0122     		mov	r2, #1
+ 274 001c 2378     		ldrb	r3, [r4]
+ 275 001e 9806     		lsl	r0, r3, #26
+ 276 0020 C00F     		lsr	r0, r0, #31
+ 277 0022 8243     		bic	r2, r0
+ 278 0024 2020     		mov	r0, #32
+ 279 0026 5201     		lsl	r2, r2, #5
+ 280 0028 8343     		bic	r3, r0
+ 281 002a 1343     		orr	r3, r2
+ 282 002c 2370     		strb	r3, [r4]
+ 301:.\User_Source/main.c ****             FLASH_CNT = 0;
+ 283              		.loc 1 301 0
+ 284 002e 0023     		mov	r3, #0
+ 285 0030 0B70     		strb	r3, [r1]
+ 286              	.L11:
+ 302:.\User_Source/main.c ****         }
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 12
+
+
+ 303:.\User_Source/main.c ****     
+ 304:.\User_Source/main.c ****         if (DMR_Status.flash) UI_VAL = (user_interface_levels-((Dimming_ReadCompare()-PWM_MAX)/(PWM
+ 287              		.loc 1 304 0
+ 288 0032 2378     		ldrb	r3, [r4]
+ 289 0034 214D     		ldr	r5, .L20+12
+ 290 0036 224F     		ldr	r7, .L20+16
+ 291 0038 224E     		ldr	r6, .L20+20
+ 292 003a 9B06     		lsl	r3, r3, #26
+ 293 003c 0AD5     		bpl	.L12
+ 294              		.loc 1 304 0 is_stmt 0 discriminator 1
+ 295 003e FFF7FEFF 		bl	Dimming_ReadCompare
+ 296              	.LVL18:
+ 297 0042 3B88     		ldrh	r3, [r7]
+ 298 0044 3188     		ldrh	r1, [r6]
+ 299 0046 C01A     		sub	r0, r0, r3
+ 300 0048 0523     		mov	r3, #5
+ 301 004a 5943     		mul	r1, r3
+ 302 004c FFF7FEFF 		bl	__aeabi_uidiv
+ 303              	.LVL19:
+ 304 0050 0623     		mov	r3, #6
+ 305 0052 09E0     		b	.L19
+ 306              	.L12:
+ 305:.\User_Source/main.c ****         else UI_VAL = (user_interface_levels-((Dimming_ReadCompare()-PWM_MAX)/(PWM_CHG*translation_
+ 307              		.loc 1 305 0 is_stmt 1
+ 308 0054 FFF7FEFF 		bl	Dimming_ReadCompare
+ 309              	.LVL20:
+ 310 0058 3B88     		ldrh	r3, [r7]
+ 311 005a 3188     		ldrh	r1, [r6]
+ 312 005c C01A     		sub	r0, r0, r3
+ 313 005e 0523     		mov	r3, #5
+ 314 0060 5943     		mul	r1, r3
+ 315 0062 FFF7FEFF 		bl	__aeabi_uidiv
+ 316              	.LVL21:
+ 317 0066 0723     		mov	r3, #7
+ 318              	.L19:
+ 319 0068 181A     		sub	r0, r3, r0
+ 320 006a 2880     		strh	r0, [r5]
+ 321              	.L10:
+ 306:.\User_Source/main.c ****     }
+ 307:.\User_Source/main.c **** 
+ 308:.\User_Source/main.c ****     if (TMR_Status.ovldend_bug) 
+ 322              		.loc 1 308 0
+ 323 006c 0122     		mov	r2, #1
+ 324 006e 164D     		ldr	r5, .L20+24
+ 325 0070 164E     		ldr	r6, .L20+28
+ 326 0072 6B78     		ldrb	r3, [r5, #1]
+ 327 0074 1340     		and	r3, r2
+ 328 0076 12D0     		beq	.L13
+ 309:.\User_Source/main.c ****     {
+ 310:.\User_Source/main.c ****         ++Nuisance_Trigger;  
+ 329              		.loc 1 310 0
+ 330 0078 3378     		ldrb	r3, [r6]
+ 311:.\User_Source/main.c ****         DMR_Status.coilactive = CLEAR;
+ 312:.\User_Source/main.c ****         DMR_Status.throwrelay = CLEAR;
+ 313:.\User_Source/main.c ****         TMR_Status.zc_tick = CLEAR;
+ 314:.\User_Source/main.c ****         Relay_3W_Write(0);
+ 331              		.loc 1 314 0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 13
+
+
+ 332 007a 0020     		mov	r0, #0
+ 310:.\User_Source/main.c ****         DMR_Status.coilactive = CLEAR;
+ 333              		.loc 1 310 0
+ 334 007c 9B18     		add	r3, r3, r2
+ 335 007e 3370     		strb	r3, [r6]
+ 311:.\User_Source/main.c ****         DMR_Status.coilactive = CLEAR;
+ 336              		.loc 1 311 0
+ 337 0080 6378     		ldrb	r3, [r4, #1]
+ 312:.\User_Source/main.c ****         TMR_Status.zc_tick = CLEAR;
+ 338              		.loc 1 312 0
+ 339 0082 9343     		bic	r3, r2
+ 340 0084 9218     		add	r2, r2, r2
+ 341 0086 9343     		bic	r3, r2
+ 342 0088 6370     		strb	r3, [r4, #1]
+ 313:.\User_Source/main.c ****         Relay_3W_Write(0);
+ 343              		.loc 1 313 0
+ 344 008a 2B78     		ldrb	r3, [r5]
+ 345 008c 0632     		add	r2, r2, #6
+ 346 008e 9343     		bic	r3, r2
+ 347 0090 2B70     		strb	r3, [r5]
+ 348              		.loc 1 314 0
+ 349 0092 FFF7FEFF 		bl	Relay_3W_Write
+ 350              	.LVL22:
+ 315:.\User_Source/main.c ****         Relay_1P_Write(0);
+ 351              		.loc 1 315 0
+ 352 0096 0020     		mov	r0, #0
+ 353 0098 FFF7FEFF 		bl	Relay_1P_Write
+ 354              	.LVL23:
+ 355 009c 00E0     		b	.L14
+ 356              	.L13:
+ 316:.\User_Source/main.c ****     }
+ 317:.\User_Source/main.c ****     else Nuisance_Trigger = 0;
+ 357              		.loc 1 317 0
+ 358 009e 3370     		strb	r3, [r6]
+ 359              	.L14:
+ 318:.\User_Source/main.c ****     
+ 319:.\User_Source/main.c ****     if (Nuisance_Trigger >= dead_zone) 
+ 360              		.loc 1 319 0
+ 361 00a0 3378     		ldrb	r3, [r6]
+ 362 00a2 022B     		cmp	r3, #2
+ 363 00a4 03D9     		bls	.L9
+ 320:.\User_Source/main.c ****     {
+ 321:.\User_Source/main.c ****         TMR_Status.ovldend_bug = CLEAR;
+ 364              		.loc 1 321 0
+ 365 00a6 0122     		mov	r2, #1
+ 366 00a8 6B78     		ldrb	r3, [r5, #1]
+ 367 00aa 9343     		bic	r3, r2
+ 368 00ac 6B70     		strb	r3, [r5, #1]
+ 369              	.L9:
+ 322:.\User_Source/main.c ****     }
+ 323:.\User_Source/main.c **** 
+ 324:.\User_Source/main.c **** }
+ 370              		.loc 1 324 0
+ 371              		@ sp needed
+ 372 00ae F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 373              	.L21:
+ 374              		.align	2
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 14
+
+
+ 375              	.L20:
+ 376 00b0 00000000 		.word	DMR_Status
+ 377 00b4 10180000 		.word	6160
+ 378 00b8 00000000 		.word	FLASH_CNT
+ 379 00bc 00000000 		.word	UI_VAL
+ 380 00c0 00000000 		.word	PWM_MAX
+ 381 00c4 00000000 		.word	PWM_CHG
+ 382 00c8 00000000 		.word	TMR_Status
+ 383 00cc 00000000 		.word	Nuisance_Trigger
+ 384              		.cfi_endproc
+ 385              	.LFE35:
+ 386              		.size	gp_100mS_timer, .-gp_100mS_timer
+ 387              		.global	__aeabi_idiv
+ 388              		.section	.text.startup.main,"ax",%progbits
+ 389              		.align	1
+ 390              		.global	main
+ 391              		.code	16
+ 392              		.thumb_func
+ 393              		.type	main, %function
+ 394              	main:
+ 395              	.LFB33:
+  42:.\User_Source/main.c ****     Test_Write(0);
+ 396              		.loc 1 42 0
+ 397              		.cfi_startproc
+ 398 0000 70B5     		push	{r4, r5, r6, lr}
+ 399              		.cfi_def_cfa_offset 16
+ 400              		.cfi_offset 4, -16
+ 401              		.cfi_offset 5, -12
+ 402              		.cfi_offset 6, -8
+ 403              		.cfi_offset 14, -4
+  43:.\User_Source/main.c ****     
+ 404              		.loc 1 43 0
+ 405 0002 0020     		mov	r0, #0
+ 406 0004 FFF7FEFF 		bl	Test_Write
+ 407              	.LVL24:
+  46:.\User_Source/main.c ****     
+ 408              		.loc 1 46 0
+ 409 0008 FFF7FEFF 		bl	read_data_flash
+ 410              	.LVL25:
+  48:.\User_Source/main.c ****     init_pb_status();
+ 411              		.loc 1 48 0
+ 412 000c FFF7FEFF 		bl	init_dimmer_status
+ 413              	.LVL26:
+  49:.\User_Source/main.c ****     
+ 414              		.loc 1 49 0
+ 415 0010 FFF7FEFF 		bl	init_pb_status
+ 416              	.LVL27:
+  51:.\User_Source/main.c ****     
+ 417              		.loc 1 51 0
+ 418              	@ 51 ".\User_Source\main.c" 1
+ 419 0014 62B6     		CPSIE   i
+ 420              	@ 0 "" 2
+ 421              		.code	16
+ 422              	.L38:
+  63:.\User_Source/main.c ****         #endif
+ 423              		.loc 1 63 0
+ 424 0016 FFF7FEFF 		bl	CySysWdtUnlock
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 15
+
+
+ 425              	.LVL28:
+ 426 001a 8020     		mov	r0, #128
+ 427 001c 0001     		lsl	r0, r0, #4
+ 428 001e FFF7FEFF 		bl	CySysWdtResetCounters
+ 429              	.LVL29:
+ 430 0022 FFF7FEFF 		bl	CySysWdtLock
+ 431              	.LVL30:
+  65:.\User_Source/main.c ****         PWM_CURRENT = Dimming_ReadCompare();
+ 432              		.loc 1 65 0
+ 433 0026 FFF7FEFF 		bl	Test_ReadDataReg
+ 434              	.LVL31:
+ 435 002a C043     		mvn	r0, r0
+ 436 002c C0B2     		uxtb	r0, r0
+ 437 002e FFF7FEFF 		bl	Test_Write
+ 438              	.LVL32:
+  66:.\User_Source/main.c ****         
+ 439              		.loc 1 66 0
+ 440 0032 FFF7FEFF 		bl	Dimming_ReadCompare
+ 441              	.LVL33:
+ 442 0036 604B     		ldr	r3, .L54
+  70:.\User_Source/main.c ****         {
+ 443              		.loc 1 70 0
+ 444 0038 604E     		ldr	r6, .L54+4
+  66:.\User_Source/main.c ****         
+ 445              		.loc 1 66 0
+ 446 003a 1880     		strh	r0, [r3]
+  70:.\User_Source/main.c ****         {
+ 447              		.loc 1 70 0
+ 448 003c 3378     		ldrb	r3, [r6]
+ 449 003e 604D     		ldr	r5, .L54+8
+ 450 0040 012B     		cmp	r3, #1
+ 451 0042 17D9     		bls	.L23
+  70:.\User_Source/main.c ****         {
+ 452              		.loc 1 70 0 is_stmt 0 discriminator 1
+ 453 0044 6023     		mov	r3, #96
+ 454 0046 6C78     		ldrb	r4, [r5, #1]
+ 455 0048 1C40     		and	r4, r3
+ 456 004a 13D1     		bne	.L23
+  72:.\User_Source/main.c ****             GOTO_BED_INTERVAL = (gotobed_totaltime*gotobed_scalefactor)/((PWM_MIN-PWM_TARGET)/PWM_C
+ 457              		.loc 1 72 0 is_stmt 1
+ 458 004c 1022     		mov	r2, #16
+ 459 004e 2B78     		ldrb	r3, [r5]
+ 460 0050 1343     		orr	r3, r2
+ 461 0052 2B70     		strb	r3, [r5]
+  73:.\User_Source/main.c ****             //scaled so that is always takes about 25s to 'go to bed'
+ 462              		.loc 1 73 0
+ 463 0054 5B4A     		ldr	r2, .L54+12
+ 464 0056 5C4B     		ldr	r3, .L54+16
+ 465 0058 1088     		ldrh	r0, [r2]
+ 466 005a 1B88     		ldrh	r3, [r3]
+ 467 005c 181A     		sub	r0, r3, r0
+ 468 005e 5B4B     		ldr	r3, .L54+20
+ 469 0060 1988     		ldrh	r1, [r3]
+ 470 0062 FFF7FEFF 		bl	__aeabi_idiv
+ 471              	.LVL34:
+ 472 0066 011C     		mov	r1, r0
+ 473 0068 FA20     		mov	r0, #250
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 16
+
+
+ 474 006a FFF7FEFF 		bl	__aeabi_idiv
+ 475              	.LVL35:
+ 476 006e 584B     		ldr	r3, .L54+24
+  75:.\User_Source/main.c ****         }
+ 477              		.loc 1 75 0
+ 478 0070 3470     		strb	r4, [r6]
+  73:.\User_Source/main.c ****             //scaled so that is always takes about 25s to 'go to bed'
+ 479              		.loc 1 73 0
+ 480 0072 1870     		strb	r0, [r3]
+ 481              	.L23:
+  80:.\User_Source/main.c ****         {
+ 482              		.loc 1 80 0
+ 483 0074 FFF7FEFF 		bl	Zero_Cross_GetCompare
+ 484              	.LVL36:
+ 485 0078 564C     		ldr	r4, .L54+28
+ 486 007a 4022     		mov	r2, #64
+  82:.\User_Source/main.c ****             TMR_Status.neg_half = SET;
+ 487              		.loc 1 82 0
+ 488 007c 2378     		ldrb	r3, [r4]
+  80:.\User_Source/main.c ****         {
+ 489              		.loc 1 80 0
+ 490 007e 0028     		cmp	r0, #0
+ 491 0080 03D1     		bne	.L24
+  83:.\User_Source/main.c ****         }
+ 492              		.loc 1 83 0
+ 493 0082 9343     		bic	r3, r2
+ 494 0084 C03A     		sub	r2, r2, #192
+ 495 0086 1343     		orr	r3, r2
+ 496 0088 02E0     		b	.L51
+ 497              	.L24:
+  88:.\User_Source/main.c ****         }
+ 498              		.loc 1 88 0
+ 499 008a 1343     		orr	r3, r2
+ 500 008c 7F22     		mov	r2, #127
+ 501 008e 1340     		and	r3, r2
+ 502              	.L51:
+ 503 0090 2370     		strb	r3, [r4]
+  93:.\User_Source/main.c ****         {
+ 504              		.loc 1 93 0
+ 505 0092 2378     		ldrb	r3, [r4]
+ 506 0094 9B07     		lsl	r3, r3, #30
+ 507 0096 0ED5     		bpl	.L27
+  93:.\User_Source/main.c ****         {
+ 508              		.loc 1 93 0 is_stmt 0 discriminator 1
+ 509 0098 FFF7FEFF 		bl	I_Sense_Read
+ 510              	.LVL37:
+ 511 009c 0128     		cmp	r0, #1
+ 512 009e 0AD1     		bne	.L27
+  93:.\User_Source/main.c ****         {
+ 513              		.loc 1 93 0 discriminator 2
+ 514 00a0 2378     		ldrb	r3, [r4]
+ 515 00a2 DB09     		lsr	r3, r3, #7
+ 516 00a4 07D0     		beq	.L27
+  95:.\User_Source/main.c ****         }
+ 517              		.loc 1 95 0 is_stmt 1
+ 518 00a6 4C4A     		ldr	r2, .L54+32
+ 519 00a8 1378     		ldrb	r3, [r2]
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 17
+
+
+ 520 00aa 0133     		add	r3, r3, #1
+ 521 00ac DBB2     		uxtb	r3, r3
+ 522 00ae 082B     		cmp	r3, #8
+ 523 00b0 00D9     		bls	.L52
+  95:.\User_Source/main.c ****         }
+ 524              		.loc 1 95 0 is_stmt 0 discriminator 1
+ 525 00b2 0823     		mov	r3, #8
+ 526              	.L52:
+ 527 00b4 1370     		strb	r3, [r2]
+ 528              	.L27:
+  99:.\User_Source/main.c ****         {
+ 529              		.loc 1 99 0 is_stmt 1
+ 530 00b6 494E     		ldr	r6, .L54+36
+ 531 00b8 3378     		ldrb	r3, [r6]
+ 532 00ba C72B     		cmp	r3, #199
+ 533 00bc 0CD9     		bls	.L30
+ 107:.\User_Source/main.c ****             read_pushbutton(PB_UP);
+ 534              		.loc 1 107 0
+ 535 00be 0020     		mov	r0, #0
+ 536 00c0 FFF7FEFF 		bl	read_pushbutton
+ 537              	.LVL38:
+ 108:.\User_Source/main.c ****             read_pushbutton(PB_DOWN);
+ 538              		.loc 1 108 0
+ 539 00c4 0120     		mov	r0, #1
+ 540 00c6 FFF7FEFF 		bl	read_pushbutton
+ 541              	.LVL39:
+ 109:.\User_Source/main.c ****             
+ 542              		.loc 1 109 0
+ 543 00ca 0220     		mov	r0, #2
+ 544 00cc FFF7FEFF 		bl	read_pushbutton
+ 545              	.LVL40:
+ 111:.\User_Source/main.c ****             
+ 546              		.loc 1 111 0
+ 547 00d0 FFF7FEFF 		bl	button_response
+ 548              	.LVL41:
+ 113:.\User_Source/main.c ****         }  
+ 549              		.loc 1 113 0
+ 550 00d4 0023     		mov	r3, #0
+ 551 00d6 3370     		strb	r3, [r6]
+ 552              	.L30:
+ 118:.\User_Source/main.c ****         {
+ 553              		.loc 1 118 0
+ 554 00d8 0426     		mov	r6, #4
+ 555 00da 6B78     		ldrb	r3, [r5, #1]
+ 556 00dc 3342     		tst	r3, r6
+ 557 00de 1CD0     		beq	.L31
+ 118:.\User_Source/main.c ****         {
+ 558              		.loc 1 118 0 is_stmt 0 discriminator 1
+ 559 00e0 2378     		ldrb	r3, [r4]
+ 560 00e2 3342     		tst	r3, r6
+ 561 00e4 19D0     		beq	.L31
+ 120:.\User_Source/main.c ****             NON_VOL_A[PWM_Max_Low] = PWM_MAX & 0xFF; 
+ 562              		.loc 1 120 0 is_stmt 1
+ 563 00e6 3E4B     		ldr	r3, .L54+40
+ 564 00e8 1A88     		ldrh	r2, [r3]
+ 565 00ea 3E4B     		ldr	r3, .L54+44
+ 566 00ec 110A     		lsr	r1, r2, #8
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 18
+
+
+ 121:.\User_Source/main.c ****             NON_VOL_A[PWM_Min_High] = (PWM_MIN>>8); 
+ 567              		.loc 1 121 0
+ 568 00ee D2B2     		uxtb	r2, r2
+ 120:.\User_Source/main.c ****             NON_VOL_A[PWM_Max_Low] = PWM_MAX & 0xFF; 
+ 569              		.loc 1 120 0
+ 570 00f0 1971     		strb	r1, [r3, #4]
+ 121:.\User_Source/main.c ****             NON_VOL_A[PWM_Min_High] = (PWM_MIN>>8); 
+ 571              		.loc 1 121 0
+ 572 00f2 DA70     		strb	r2, [r3, #3]
+ 122:.\User_Source/main.c ****             NON_VOL_A[PWM_Min_Low] = PWM_MIN & 0xFF; 
+ 573              		.loc 1 122 0
+ 574 00f4 344A     		ldr	r2, .L54+16
+ 575 00f6 1288     		ldrh	r2, [r2]
+ 576 00f8 110A     		lsr	r1, r2, #8
+ 123:.\User_Source/main.c ****             NON_VOL_A[PWM_Trgt_High] = (PWM_TARGET>>8); 
+ 577              		.loc 1 123 0
+ 578 00fa D2B2     		uxtb	r2, r2
+ 122:.\User_Source/main.c ****             NON_VOL_A[PWM_Min_Low] = PWM_MIN & 0xFF; 
+ 579              		.loc 1 122 0
+ 580 00fc 9970     		strb	r1, [r3, #2]
+ 123:.\User_Source/main.c ****             NON_VOL_A[PWM_Trgt_High] = (PWM_TARGET>>8); 
+ 581              		.loc 1 123 0
+ 582 00fe 5A70     		strb	r2, [r3, #1]
+ 124:.\User_Source/main.c ****             NON_VOL_A[PWM_Trgt_Low] = PWM_TARGET & 0xFF;
+ 583              		.loc 1 124 0
+ 584 0100 304A     		ldr	r2, .L54+12
+ 585 0102 1288     		ldrh	r2, [r2]
+ 586 0104 110A     		lsr	r1, r2, #8
+ 125:.\User_Source/main.c ****             // store key so that future cal updates
+ 587              		.loc 1 125 0
+ 588 0106 D2B2     		uxtb	r2, r2
+ 124:.\User_Source/main.c ****             NON_VOL_A[PWM_Trgt_Low] = PWM_TARGET & 0xFF;
+ 589              		.loc 1 124 0
+ 590 0108 9971     		strb	r1, [r3, #6]
+ 125:.\User_Source/main.c ****             // store key so that future cal updates
+ 591              		.loc 1 125 0
+ 592 010a 5A71     		strb	r2, [r3, #5]
+ 128:.\User_Source/main.c ****             write_data_flash();
+ 593              		.loc 1 128 0
+ 594 010c 1B22     		mov	r2, #27
+ 595 010e 1A70     		strb	r2, [r3]
+ 129:.\User_Source/main.c ****             DMR_Status.store_status = CLEAR;
+ 596              		.loc 1 129 0
+ 597 0110 FFF7FEFF 		bl	write_data_flash
+ 598              	.LVL42:
+ 130:.\User_Source/main.c ****         }
+ 599              		.loc 1 130 0
+ 600 0114 6B78     		ldrb	r3, [r5, #1]
+ 601 0116 B343     		bic	r3, r6
+ 602 0118 6B70     		strb	r3, [r5, #1]
+ 603              	.L31:
+ 135:.\User_Source/main.c ****         {
+ 604              		.loc 1 135 0
+ 605 011a 334E     		ldr	r6, .L54+48
+ 606 011c 3378     		ldrb	r3, [r6]
+ 607 011e 632B     		cmp	r3, #99
+ 608 0120 21D9     		bls	.L32
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 19
+
+
+ 137:.\User_Source/main.c ****             if ((DMR_Status.on || DMR_Status.fade_off || DMR_Status.fade_on) && !DMR_Status.throwre
+ 609              		.loc 1 137 0
+ 610 0122 0023     		mov	r3, #0
+ 138:.\User_Source/main.c ****             {
+ 611              		.loc 1 138 0
+ 612 0124 2A78     		ldrb	r2, [r5]
+ 137:.\User_Source/main.c ****             if ((DMR_Status.on || DMR_Status.fade_off || DMR_Status.fade_on) && !DMR_Status.throwre
+ 613              		.loc 1 137 0
+ 614 0126 3370     		strb	r3, [r6]
+ 138:.\User_Source/main.c ****             {
+ 615              		.loc 1 138 0
+ 616 0128 0D33     		add	r3, r3, #13
+ 617 012a 1A42     		tst	r2, r3
+ 618 012c 0FD0     		beq	.L33
+ 138:.\User_Source/main.c ****             {
+ 619              		.loc 1 138 0 is_stmt 0 discriminator 1
+ 620 012e 6D78     		ldrb	r5, [r5, #1]
+ 621 0130 0B3B     		sub	r3, r3, #11
+ 622 0132 1D40     		and	r5, r3
+ 623 0134 0BD1     		bne	.L33
+ 140:.\User_Source/main.c ****                 LED_Main_Write(0xFF);
+ 624              		.loc 1 140 0 is_stmt 1
+ 625 0136 2D4B     		ldr	r3, .L54+52
+ 626 0138 1878     		ldrb	r0, [r3]
+ 627 013a FFF7FEFF 		bl	user_interface
+ 628              	.LVL43:
+ 141:.\User_Source/main.c ****                 LED_Plus_Write(0);
+ 629              		.loc 1 141 0
+ 630 013e FF20     		mov	r0, #255
+ 631 0140 FFF7FEFF 		bl	LED_Main_Write
+ 632              	.LVL44:
+ 142:.\User_Source/main.c ****                 LED_Minus_Write(0);
+ 633              		.loc 1 142 0
+ 634 0144 281C     		mov	r0, r5
+ 635 0146 FFF7FEFF 		bl	LED_Plus_Write
+ 636              	.LVL45:
+ 143:.\User_Source/main.c ****             }
+ 637              		.loc 1 143 0
+ 638 014a 281C     		mov	r0, r5
+ 639 014c 09E0     		b	.L53
+ 640              	.L33:
+ 147:.\User_Source/main.c ****                 LED_Main_Write(0);
+ 641              		.loc 1 147 0
+ 642 014e 0020     		mov	r0, #0
+ 643 0150 FFF7FEFF 		bl	user_interface
+ 644              	.LVL46:
+ 148:.\User_Source/main.c ****                 LED_Plus_Write(0xFF);
+ 645              		.loc 1 148 0
+ 646 0154 0020     		mov	r0, #0
+ 647 0156 FFF7FEFF 		bl	LED_Main_Write
+ 648              	.LVL47:
+ 149:.\User_Source/main.c ****                 LED_Minus_Write(0xFF);
+ 649              		.loc 1 149 0
+ 650 015a FF20     		mov	r0, #255
+ 651 015c FFF7FEFF 		bl	LED_Plus_Write
+ 652              	.LVL48:
+ 150:.\User_Source/main.c ****             }
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 20
+
+
+ 653              		.loc 1 150 0
+ 654 0160 FF20     		mov	r0, #255
+ 655              	.L53:
+ 656 0162 FFF7FEFF 		bl	LED_Minus_Write
+ 657              	.LVL49:
+ 658              	.L32:
+ 153:.\User_Source/main.c ****         if (TICK_CNT_Display >= PWM_display_bargraph) user_interface(0);
+ 659              		.loc 1 153 0
+ 660 0166 3378     		ldrb	r3, [r6]
+ 661 0168 042B     		cmp	r3, #4
+ 662 016a 02D9     		bls	.L34
+ 153:.\User_Source/main.c ****         if (TICK_CNT_Display >= PWM_display_bargraph) user_interface(0);
+ 663              		.loc 1 153 0 is_stmt 0 discriminator 1
+ 664 016c FF20     		mov	r0, #255
+ 665 016e FFF7FEFF 		bl	LED_Main_Write
+ 666              	.LVL50:
+ 667              	.L34:
+ 154:.\User_Source/main.c ****         if (TICK_CNT_Display >= PWM_display_plusminus)
+ 668              		.loc 1 154 0 is_stmt 1
+ 669 0172 3378     		ldrb	r3, [r6]
+ 670 0174 272B     		cmp	r3, #39
+ 671 0176 02D9     		bls	.L35
+ 154:.\User_Source/main.c ****         if (TICK_CNT_Display >= PWM_display_plusminus)
+ 672              		.loc 1 154 0 is_stmt 0 discriminator 1
+ 673 0178 0020     		mov	r0, #0
+ 674 017a FFF7FEFF 		bl	user_interface
+ 675              	.LVL51:
+ 676              	.L35:
+ 155:.\User_Source/main.c ****         {
+ 677              		.loc 1 155 0 is_stmt 1
+ 678 017e 3378     		ldrb	r3, [r6]
+ 679 0180 272B     		cmp	r3, #39
+ 680 0182 05D9     		bls	.L36
+ 157:.\User_Source/main.c ****             LED_Minus_Write(0xFF);
+ 681              		.loc 1 157 0
+ 682 0184 FF20     		mov	r0, #255
+ 683 0186 FFF7FEFF 		bl	LED_Plus_Write
+ 684              	.LVL52:
+ 158:.\User_Source/main.c ****         }
+ 685              		.loc 1 158 0
+ 686 018a FF20     		mov	r0, #255
+ 687 018c FFF7FEFF 		bl	LED_Minus_Write
+ 688              	.LVL53:
+ 689              	.L36:
+ 162:.\User_Source/main.c ****         {
+ 690              		.loc 1 162 0
+ 691 0190 174B     		ldr	r3, .L54+56
+ 692 0192 184A     		ldr	r2, .L54+60
+ 693 0194 1988     		ldrh	r1, [r3]
+ 694 0196 9142     		cmp	r1, r2
+ 695 0198 07D9     		bls	.L37
+ 164:.\User_Source/main.c ****         TMR_Status.gp_100mS_tick = SET;
+ 696              		.loc 1 164 0
+ 697 019a 0022     		mov	r2, #0
+ 698 019c 1A80     		strh	r2, [r3]
+ 165:.\User_Source/main.c ****         gp_100mS_timer();
+ 699              		.loc 1 165 0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 21
+
+
+ 700 019e 2378     		ldrb	r3, [r4]
+ 701 01a0 1032     		add	r2, r2, #16
+ 702 01a2 1343     		orr	r3, r2
+ 703 01a4 2370     		strb	r3, [r4]
+ 166:.\User_Source/main.c ****         }
+ 704              		.loc 1 166 0
+ 705 01a6 FFF7FEFF 		bl	gp_100mS_timer
+ 706              	.LVL54:
+ 707              	.L37:
+ 171:.\User_Source/main.c ****         
+ 708              		.loc 1 171 0
+ 709 01aa F923     		mov	r3, #249
+ 170:.\User_Source/main.c ****         TMR_Status.second = CLEAR;          //clear the second flag
+ 710              		.loc 1 170 0
+ 711 01ac 2278     		ldrb	r2, [r4]
+ 171:.\User_Source/main.c ****         
+ 712              		.loc 1 171 0
+ 713 01ae 1340     		and	r3, r2
+ 714 01b0 2370     		strb	r3, [r4]
+ 174:.\User_Source/main.c ****     }
+ 715              		.loc 1 174 0
+ 716 01b2 FFF7FEFF 		bl	CySysPmSleep
+ 717              	.LVL55:
+ 175:.\User_Source/main.c **** }
+ 718              		.loc 1 175 0
+ 719 01b6 2EE7     		b	.L38
+ 720              	.L55:
+ 721              		.align	2
+ 722              	.L54:
+ 723 01b8 00000000 		.word	PWM_CURRENT
+ 724 01bc 00000000 		.word	SECOND_CNTR
+ 725 01c0 00000000 		.word	DMR_Status
+ 726 01c4 00000000 		.word	PWM_TARGET
+ 727 01c8 00000000 		.word	PWM_MIN
+ 728 01cc 00000000 		.word	PWM_CHG
+ 729 01d0 00000000 		.word	GOTO_BED_INTERVAL
+ 730 01d4 00000000 		.word	TMR_Status
+ 731 01d8 00000000 		.word	I_SENSE_CNT
+ 732 01dc 00000000 		.word	PB_INTERVAL_TICK
+ 733 01e0 00000000 		.word	PWM_MAX
+ 734 01e4 00000000 		.word	NON_VOL_A
+ 735 01e8 00000000 		.word	TICK_CNT_Display
+ 736 01ec 00000000 		.word	UI_VAL
+ 737 01f0 00000000 		.word	TICK_CNT_100mS
+ 738 01f4 CF070000 		.word	1999
+ 739              		.cfi_endproc
+ 740              	.LFE33:
+ 741              		.size	main, .-main
+ 742              		.comm	DMR_Status,2,2
+ 743              		.comm	TMR_Status,2,1
+ 744              		.comm	PB_Status,3,1
+ 745              		.comm	RELAY_STATE,1,1
+ 746              		.comm	NON_VOL_A,8,1
+ 747              		.comm	PWM_CAL_CNT,2,2
+ 748              		.comm	PWM_TARGET,2,2
+ 749              		.comm	PWM_MIN,2,2
+ 750              		.comm	PWM_CHG,2,2
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 22
+
+
+ 751              		.comm	PWM_MAX,2,2
+ 752              		.comm	PWM_CURRENT,2,2
+ 753              		.comm	FLASH_CNT,1,1
+ 754              		.comm	GOTO_BED_INTERVAL,1,1
+ 755              		.comm	Nuisance_Trigger,1,1
+ 756              		.comm	RELAY_OFFSET,1,1
+ 757              		.comm	RELAY_CNT,2,2
+ 758              		.comm	I_SENSE_ACC,2,2
+ 759              		.comm	I_SENSE_CNT,1,1
+ 760              		.comm	TICK_CNT_Display,1,1
+ 761              		.comm	TICK_DBL_TAP,2,2
+ 762              		.comm	TICK_CNT_100mS,2,2
+ 763              		.comm	TICK_CNT,2,2
+ 764              		.comm	DMR_ADJ_CNT,1,1
+ 765              		.comm	FADE_CNT,1,1
+ 766              		.comm	UI_TICK_CNT,1,1
+ 767              		.comm	SECOND_CNTR,1,1
+ 768              		.comm	ZC_CNTR,1,1
+ 769              		.comm	PB_INTERVAL_TICK,1,1
+ 770              		.comm	MCU_OSC_ACC,1,1
+ 771              		.comm	ZC_TEST,2,2
+ 772              		.comm	UI_VAL,2,2
+ 773              		.comm	UI_CNTR,1,1
+ 774              		.text
+ 775              	.Letext0:
+ 776              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 777              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 778              		.file 4 "Generated_Source\\PSoC4/cytypes.h"
+ 779              		.file 5 ".\\User_Source/user_main.h"
+ 780              		.file 6 ".\\User_Source/CY8C4124.h"
+ 781              		.file 7 "Generated_Source\\PSoC4/ZC_ISR.h"
+ 782              		.file 8 "Generated_Source\\PSoC4/Zero_Cross.h"
+ 783              		.file 9 "Generated_Source\\PSoC4/PWM_ISR.h"
+ 784              		.file 10 "Generated_Source\\PSoC4/Dimming.h"
+ 785              		.file 11 "Generated_Source\\PSoC4/Opto_PWM.h"
+ 786              		.file 12 "Generated_Source\\PSoC4/Relay_Fire_ISR.h"
+ 787              		.file 13 "Generated_Source\\PSoC4/Relay_Offset.h"
+ 788              		.file 14 "Generated_Source\\PSoC4/CyLib.h"
+ 789              		.file 15 "Generated_Source\\PSoC4/Relay_3W.h"
+ 790              		.file 16 "Generated_Source\\PSoC4/Relay_1P.h"
+ 791              		.file 17 "Generated_Source\\PSoC4/Test.h"
+ 792              		.file 18 ".\\User_Source/pushbutton.h"
+ 793              		.file 19 "Generated_Source\\PSoC4/I_Sense.h"
+ 794              		.file 20 ".\\User_Source/dimming_ctrl.h"
+ 795              		.file 21 "Generated_Source\\PSoC4/LED_Main.h"
+ 796              		.file 22 "Generated_Source\\PSoC4/LED_Plus.h"
+ 797              		.file 23 "Generated_Source\\PSoC4/LED_Minus.h"
+ 798              		.file 24 "Generated_Source\\PSoC4/cyPm.h"
+ 799              		.section	.debug_info,"",%progbits
+ 800              	.Ldebug_info0:
+ 801 0000 290A0000 		.4byte	0xa29
+ 802 0004 0400     		.2byte	0x4
+ 803 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 804 000a 04       		.byte	0x4
+ 805 000b 01       		.uleb128 0x1
+ 806 000c 1A000000 		.4byte	.LASF130
+ 807 0010 01       		.byte	0x1
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 23
+
+
+ 808 0011 0B040000 		.4byte	.LASF131
+ 809 0015 53040000 		.4byte	.LASF132
+ 810 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 811 001d 00000000 		.4byte	0
+ 812 0021 00000000 		.4byte	.Ldebug_line0
+ 813 0025 02       		.uleb128 0x2
+ 814 0026 01       		.byte	0x1
+ 815 0027 06       		.byte	0x6
+ 816 0028 78010000 		.4byte	.LASF0
+ 817 002c 03       		.uleb128 0x3
+ 818 002d BF000000 		.4byte	.LASF3
+ 819 0031 02       		.byte	0x2
+ 820 0032 1D       		.byte	0x1d
+ 821 0033 37000000 		.4byte	0x37
+ 822 0037 02       		.uleb128 0x2
+ 823 0038 01       		.byte	0x1
+ 824 0039 08       		.byte	0x8
+ 825 003a D6040000 		.4byte	.LASF1
+ 826 003e 02       		.uleb128 0x2
+ 827 003f 02       		.byte	0x2
+ 828 0040 05       		.byte	0x5
+ 829 0041 13050000 		.4byte	.LASF2
+ 830 0045 03       		.uleb128 0x3
+ 831 0046 EE050000 		.4byte	.LASF4
+ 832 004a 02       		.byte	0x2
+ 833 004b 2B       		.byte	0x2b
+ 834 004c 50000000 		.4byte	0x50
+ 835 0050 02       		.uleb128 0x2
+ 836 0051 02       		.byte	0x2
+ 837 0052 07       		.byte	0x7
+ 838 0053 58030000 		.4byte	.LASF5
+ 839 0057 02       		.uleb128 0x2
+ 840 0058 04       		.byte	0x4
+ 841 0059 05       		.byte	0x5
+ 842 005a EA010000 		.4byte	.LASF6
+ 843 005e 02       		.uleb128 0x2
+ 844 005f 04       		.byte	0x4
+ 845 0060 07       		.byte	0x7
+ 846 0061 0D030000 		.4byte	.LASF7
+ 847 0065 02       		.uleb128 0x2
+ 848 0066 08       		.byte	0x8
+ 849 0067 05       		.byte	0x5
+ 850 0068 6A010000 		.4byte	.LASF8
+ 851 006c 02       		.uleb128 0x2
+ 852 006d 08       		.byte	0x8
+ 853 006e 07       		.byte	0x7
+ 854 006f FB000000 		.4byte	.LASF9
+ 855 0073 04       		.uleb128 0x4
+ 856 0074 04       		.byte	0x4
+ 857 0075 05       		.byte	0x5
+ 858 0076 696E7400 		.ascii	"int\000"
+ 859 007a 02       		.uleb128 0x2
+ 860 007b 04       		.byte	0x4
+ 861 007c 07       		.byte	0x7
+ 862 007d F1020000 		.4byte	.LASF10
+ 863 0081 03       		.uleb128 0x3
+ 864 0082 A6060000 		.4byte	.LASF11
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 24
+
+
+ 865 0086 03       		.byte	0x3
+ 866 0087 15       		.byte	0x15
+ 867 0088 2C000000 		.4byte	0x2c
+ 868 008c 03       		.uleb128 0x3
+ 869 008d 4C020000 		.4byte	.LASF12
+ 870 0091 03       		.byte	0x3
+ 871 0092 21       		.byte	0x21
+ 872 0093 45000000 		.4byte	0x45
+ 873 0097 03       		.uleb128 0x3
+ 874 0098 1A020000 		.4byte	.LASF13
+ 875 009c 04       		.byte	0x4
+ 876 009d A1       		.byte	0xa1
+ 877 009e 37000000 		.4byte	0x37
+ 878 00a2 03       		.uleb128 0x3
+ 879 00a3 82020000 		.4byte	.LASF14
+ 880 00a7 04       		.byte	0x4
+ 881 00a8 A3       		.byte	0xa3
+ 882 00a9 5E000000 		.4byte	0x5e
+ 883 00ad 02       		.uleb128 0x2
+ 884 00ae 04       		.byte	0x4
+ 885 00af 04       		.byte	0x4
+ 886 00b0 A2040000 		.4byte	.LASF15
+ 887 00b4 02       		.uleb128 0x2
+ 888 00b5 08       		.byte	0x8
+ 889 00b6 04       		.byte	0x4
+ 890 00b7 55020000 		.4byte	.LASF16
+ 891 00bb 02       		.uleb128 0x2
+ 892 00bc 01       		.byte	0x1
+ 893 00bd 08       		.byte	0x8
+ 894 00be D9050000 		.4byte	.LASF17
+ 895 00c2 02       		.uleb128 0x2
+ 896 00c3 04       		.byte	0x4
+ 897 00c4 07       		.byte	0x7
+ 898 00c5 20040000 		.4byte	.LASF18
+ 899 00c9 05       		.uleb128 0x5
+ 900 00ca 20020000 		.4byte	.LASF26
+ 901 00ce 01       		.byte	0x1
+ 902 00cf 05       		.byte	0x5
+ 903 00d0 95       		.byte	0x95
+ 904 00d1 00010000 		.4byte	0x100
+ 905 00d5 06       		.uleb128 0x6
+ 906 00d6 12010000 		.4byte	.LASF19
+ 907 00da 00       		.sleb128 0
+ 908 00db 06       		.uleb128 0x6
+ 909 00dc 36050000 		.4byte	.LASF20
+ 910 00e0 01       		.sleb128 1
+ 911 00e1 06       		.uleb128 0x6
+ 912 00e2 1D050000 		.4byte	.LASF21
+ 913 00e6 02       		.sleb128 2
+ 914 00e7 06       		.uleb128 0x6
+ 915 00e8 EF000000 		.4byte	.LASF22
+ 916 00ec 03       		.sleb128 3
+ 917 00ed 06       		.uleb128 0x6
+ 918 00ee 42050000 		.4byte	.LASF23
+ 919 00f2 04       		.sleb128 4
+ 920 00f3 06       		.uleb128 0x6
+ 921 00f4 3F070000 		.4byte	.LASF24
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 25
+
+
+ 922 00f8 05       		.sleb128 5
+ 923 00f9 06       		.uleb128 0x6
+ 924 00fa D5010000 		.4byte	.LASF25
+ 925 00fe 06       		.sleb128 6
+ 926 00ff 00       		.byte	0
+ 927 0100 05       		.uleb128 0x5
+ 928 0101 A6020000 		.4byte	.LASF27
+ 929 0105 01       		.byte	0x1
+ 930 0106 05       		.byte	0x5
+ 931 0107 9F       		.byte	0x9f
+ 932 0108 1F010000 		.4byte	0x11f
+ 933 010c 06       		.uleb128 0x6
+ 934 010d 52010000 		.4byte	.LASF28
+ 935 0111 00       		.sleb128 0
+ 936 0112 06       		.uleb128 0x6
+ 937 0113 A8040000 		.4byte	.LASF29
+ 938 0117 01       		.sleb128 1
+ 939 0118 06       		.uleb128 0x6
+ 940 0119 97030000 		.4byte	.LASF30
+ 941 011d 02       		.sleb128 2
+ 942 011e 00       		.byte	0
+ 943 011f 07       		.uleb128 0x7
+ 944 0120 F3010000 		.4byte	.LASF36
+ 945 0124 01       		.byte	0x1
+ 946 0125 05       		.byte	0x5
+ 947 0126 A5       		.byte	0xa5
+ 948 0127 68010000 		.4byte	0x168
+ 949 012b 08       		.uleb128 0x8
+ 950 012c B1010000 		.4byte	.LASF31
+ 951 0130 05       		.byte	0x5
+ 952 0131 A6       		.byte	0xa6
+ 953 0132 81000000 		.4byte	0x81
+ 954 0136 01       		.byte	0x1
+ 955 0137 01       		.byte	0x1
+ 956 0138 07       		.byte	0x7
+ 957 0139 00       		.byte	0
+ 958 013a 08       		.uleb128 0x8
+ 959 013b 0B050000 		.4byte	.LASF32
+ 960 013f 05       		.byte	0x5
+ 961 0140 A7       		.byte	0xa7
+ 962 0141 81000000 		.4byte	0x81
+ 963 0145 01       		.byte	0x1
+ 964 0146 01       		.byte	0x1
+ 965 0147 06       		.byte	0x6
+ 966 0148 00       		.byte	0
+ 967 0149 08       		.uleb128 0x8
+ 968 014a CB030000 		.4byte	.LASF33
+ 969 014e 05       		.byte	0x5
+ 970 014f A8       		.byte	0xa8
+ 971 0150 81000000 		.4byte	0x81
+ 972 0154 01       		.byte	0x1
+ 973 0155 01       		.byte	0x1
+ 974 0156 05       		.byte	0x5
+ 975 0157 00       		.byte	0
+ 976 0158 08       		.uleb128 0x8
+ 977 0159 8E030000 		.4byte	.LASF34
+ 978 015d 05       		.byte	0x5
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 26
+
+
+ 979 015e A9       		.byte	0xa9
+ 980 015f 81000000 		.4byte	0x81
+ 981 0163 01       		.byte	0x1
+ 982 0164 01       		.byte	0x1
+ 983 0165 04       		.byte	0x4
+ 984 0166 00       		.byte	0
+ 985 0167 00       		.byte	0
+ 986 0168 03       		.uleb128 0x3
+ 987 0169 C9020000 		.4byte	.LASF35
+ 988 016d 05       		.byte	0x5
+ 989 016e AA       		.byte	0xaa
+ 990 016f 1F010000 		.4byte	0x11f
+ 991 0173 07       		.uleb128 0x7
+ 992 0174 1A060000 		.4byte	.LASF37
+ 993 0178 02       		.byte	0x2
+ 994 0179 05       		.byte	0x5
+ 995 017a AC       		.byte	0xac
+ 996 017b 07020000 		.4byte	0x207
+ 997 017f 08       		.uleb128 0x8
+ 998 0180 7D020000 		.4byte	.LASF38
+ 999 0184 05       		.byte	0x5
+ 1000 0185 AD       		.byte	0xad
+ 1001 0186 81000000 		.4byte	0x81
+ 1002 018a 01       		.byte	0x1
+ 1003 018b 01       		.byte	0x1
+ 1004 018c 07       		.byte	0x7
+ 1005 018d 00       		.byte	0
+ 1006 018e 08       		.uleb128 0x8
+ 1007 018f 89020000 		.4byte	.LASF39
+ 1008 0193 05       		.byte	0x5
+ 1009 0194 AE       		.byte	0xae
+ 1010 0195 81000000 		.4byte	0x81
+ 1011 0199 01       		.byte	0x1
+ 1012 019a 01       		.byte	0x1
+ 1013 019b 06       		.byte	0x6
+ 1014 019c 00       		.byte	0
+ 1015 019d 08       		.uleb128 0x8
+ 1016 019e CE010000 		.4byte	.LASF40
+ 1017 01a2 05       		.byte	0x5
+ 1018 01a3 AF       		.byte	0xaf
+ 1019 01a4 81000000 		.4byte	0x81
+ 1020 01a8 01       		.byte	0x1
+ 1021 01a9 01       		.byte	0x1
+ 1022 01aa 05       		.byte	0x5
+ 1023 01ab 00       		.byte	0
+ 1024 01ac 08       		.uleb128 0x8
+ 1025 01ad 03050000 		.4byte	.LASF41
+ 1026 01b1 05       		.byte	0x5
+ 1027 01b2 B0       		.byte	0xb0
+ 1028 01b3 81000000 		.4byte	0x81
+ 1029 01b7 01       		.byte	0x1
+ 1030 01b8 01       		.byte	0x1
+ 1031 01b9 04       		.byte	0x4
+ 1032 01ba 00       		.byte	0
+ 1033 01bb 08       		.uleb128 0x8
+ 1034 01bc 5A050000 		.4byte	.LASF42
+ 1035 01c0 05       		.byte	0x5
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 27
+
+
+ 1036 01c1 B1       		.byte	0xb1
+ 1037 01c2 81000000 		.4byte	0x81
+ 1038 01c6 01       		.byte	0x1
+ 1039 01c7 01       		.byte	0x1
+ 1040 01c8 03       		.byte	0x3
+ 1041 01c9 00       		.byte	0
+ 1042 01ca 08       		.uleb128 0x8
+ 1043 01cb 4E060000 		.4byte	.LASF43
+ 1044 01cf 05       		.byte	0x5
+ 1045 01d0 B2       		.byte	0xb2
+ 1046 01d1 81000000 		.4byte	0x81
+ 1047 01d5 01       		.byte	0x1
+ 1048 01d6 01       		.byte	0x1
+ 1049 01d7 02       		.byte	0x2
+ 1050 01d8 00       		.byte	0
+ 1051 01d9 08       		.uleb128 0x8
+ 1052 01da 6B030000 		.4byte	.LASF44
+ 1053 01de 05       		.byte	0x5
+ 1054 01df B3       		.byte	0xb3
+ 1055 01e0 81000000 		.4byte	0x81
+ 1056 01e4 01       		.byte	0x1
+ 1057 01e5 01       		.byte	0x1
+ 1058 01e6 01       		.byte	0x1
+ 1059 01e7 00       		.byte	0
+ 1060 01e8 08       		.uleb128 0x8
+ 1061 01e9 94060000 		.4byte	.LASF45
+ 1062 01ed 05       		.byte	0x5
+ 1063 01ee B4       		.byte	0xb4
+ 1064 01ef 81000000 		.4byte	0x81
+ 1065 01f3 01       		.byte	0x1
+ 1066 01f4 01       		.byte	0x1
+ 1067 01f5 00       		.byte	0
+ 1068 01f6 00       		.byte	0
+ 1069 01f7 08       		.uleb128 0x8
+ 1070 01f8 B2020000 		.4byte	.LASF46
+ 1071 01fc 05       		.byte	0x5
+ 1072 01fd B5       		.byte	0xb5
+ 1073 01fe 81000000 		.4byte	0x81
+ 1074 0202 01       		.byte	0x1
+ 1075 0203 01       		.byte	0x1
+ 1076 0204 07       		.byte	0x7
+ 1077 0205 01       		.byte	0x1
+ 1078 0206 00       		.byte	0
+ 1079 0207 03       		.uleb128 0x3
+ 1080 0208 83030000 		.4byte	.LASF47
+ 1081 020c 05       		.byte	0x5
+ 1082 020d B6       		.byte	0xb6
+ 1083 020e 73010000 		.4byte	0x173
+ 1084 0212 07       		.uleb128 0x7
+ 1085 0213 2B010000 		.4byte	.LASF48
+ 1086 0217 02       		.byte	0x2
+ 1087 0218 05       		.byte	0x5
+ 1088 0219 B8       		.byte	0xb8
+ 1089 021a FF020000 		.4byte	0x2ff
+ 1090 021e 09       		.uleb128 0x9
+ 1091 021f 6F6E00   		.ascii	"on\000"
+ 1092 0222 05       		.byte	0x5
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 28
+
+
+ 1093 0223 B9       		.byte	0xb9
+ 1094 0224 8C000000 		.4byte	0x8c
+ 1095 0228 02       		.byte	0x2
+ 1096 0229 01       		.byte	0x1
+ 1097 022a 0F       		.byte	0xf
+ 1098 022b 00       		.byte	0
+ 1099 022c 09       		.uleb128 0x9
+ 1100 022d 6F666600 		.ascii	"off\000"
+ 1101 0231 05       		.byte	0x5
+ 1102 0232 BA       		.byte	0xba
+ 1103 0233 8C000000 		.4byte	0x8c
+ 1104 0237 02       		.byte	0x2
+ 1105 0238 01       		.byte	0x1
+ 1106 0239 0E       		.byte	0xe
+ 1107 023a 00       		.byte	0
+ 1108 023b 08       		.uleb128 0x8
+ 1109 023c 90050000 		.4byte	.LASF49
+ 1110 0240 05       		.byte	0x5
+ 1111 0241 BB       		.byte	0xbb
+ 1112 0242 8C000000 		.4byte	0x8c
+ 1113 0246 02       		.byte	0x2
+ 1114 0247 01       		.byte	0x1
+ 1115 0248 0D       		.byte	0xd
+ 1116 0249 00       		.byte	0
+ 1117 024a 08       		.uleb128 0x8
+ 1118 024b 98050000 		.4byte	.LASF50
+ 1119 024f 05       		.byte	0x5
+ 1120 0250 BC       		.byte	0xbc
+ 1121 0251 8C000000 		.4byte	0x8c
+ 1122 0255 02       		.byte	0x2
+ 1123 0256 01       		.byte	0x1
+ 1124 0257 0C       		.byte	0xc
+ 1125 0258 00       		.byte	0
+ 1126 0259 08       		.uleb128 0x8
+ 1127 025a 9D060000 		.4byte	.LASF51
+ 1128 025e 05       		.byte	0x5
+ 1129 025f BD       		.byte	0xbd
+ 1130 0260 8C000000 		.4byte	0x8c
+ 1131 0264 02       		.byte	0x2
+ 1132 0265 01       		.byte	0x1
+ 1133 0266 0B       		.byte	0xb
+ 1134 0267 00       		.byte	0
+ 1135 0268 08       		.uleb128 0x8
+ 1136 0269 D8030000 		.4byte	.LASF52
+ 1137 026d 05       		.byte	0x5
+ 1138 026e BE       		.byte	0xbe
+ 1139 026f 8C000000 		.4byte	0x8c
+ 1140 0273 02       		.byte	0x2
+ 1141 0274 01       		.byte	0x1
+ 1142 0275 0A       		.byte	0xa
+ 1143 0276 00       		.byte	0
+ 1144 0277 08       		.uleb128 0x8
+ 1145 0278 1F030000 		.4byte	.LASF53
+ 1146 027c 05       		.byte	0x5
+ 1147 027d BF       		.byte	0xbf
+ 1148 027e 8C000000 		.4byte	0x8c
+ 1149 0282 02       		.byte	0x2
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 29
+
+
+ 1150 0283 01       		.byte	0x1
+ 1151 0284 09       		.byte	0x9
+ 1152 0285 00       		.byte	0
+ 1153 0286 08       		.uleb128 0x8
+ 1154 0287 1A070000 		.4byte	.LASF54
+ 1155 028b 05       		.byte	0x5
+ 1156 028c C0       		.byte	0xc0
+ 1157 028d 8C000000 		.4byte	0x8c
+ 1158 0291 02       		.byte	0x2
+ 1159 0292 01       		.byte	0x1
+ 1160 0293 08       		.byte	0x8
+ 1161 0294 00       		.byte	0
+ 1162 0295 08       		.uleb128 0x8
+ 1163 0296 4F050000 		.4byte	.LASF55
+ 1164 029a 05       		.byte	0x5
+ 1165 029b C1       		.byte	0xc1
+ 1166 029c 8C000000 		.4byte	0x8c
+ 1167 02a0 02       		.byte	0x2
+ 1168 02a1 01       		.byte	0x1
+ 1169 02a2 07       		.byte	0x7
+ 1170 02a3 00       		.byte	0
+ 1171 02a4 08       		.uleb128 0x8
+ 1172 02a5 F9050000 		.4byte	.LASF56
+ 1173 02a9 05       		.byte	0x5
+ 1174 02aa C2       		.byte	0xc2
+ 1175 02ab 8C000000 		.4byte	0x8c
+ 1176 02af 02       		.byte	0x2
+ 1177 02b0 01       		.byte	0x1
+ 1178 02b1 06       		.byte	0x6
+ 1179 02b2 00       		.byte	0
+ 1180 02b3 08       		.uleb128 0x8
+ 1181 02b4 59060000 		.4byte	.LASF57
+ 1182 02b8 05       		.byte	0x5
+ 1183 02b9 C3       		.byte	0xc3
+ 1184 02ba 8C000000 		.4byte	0x8c
+ 1185 02be 02       		.byte	0x2
+ 1186 02bf 01       		.byte	0x1
+ 1187 02c0 05       		.byte	0x5
+ 1188 02c1 00       		.byte	0
+ 1189 02c2 08       		.uleb128 0x8
+ 1190 02c3 FD060000 		.4byte	.LASF58
+ 1191 02c7 05       		.byte	0x5
+ 1192 02c8 C4       		.byte	0xc4
+ 1193 02c9 8C000000 		.4byte	0x8c
+ 1194 02cd 02       		.byte	0x2
+ 1195 02ce 01       		.byte	0x1
+ 1196 02cf 04       		.byte	0x4
+ 1197 02d0 00       		.byte	0
+ 1198 02d1 08       		.uleb128 0x8
+ 1199 02d2 74030000 		.4byte	.LASF59
+ 1200 02d6 05       		.byte	0x5
+ 1201 02d7 C5       		.byte	0xc5
+ 1202 02d8 8C000000 		.4byte	0x8c
+ 1203 02dc 02       		.byte	0x2
+ 1204 02dd 01       		.byte	0x1
+ 1205 02de 03       		.byte	0x3
+ 1206 02df 00       		.byte	0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 30
+
+
+ 1207 02e0 08       		.uleb128 0x8
+ 1208 02e1 38040000 		.4byte	.LASF60
+ 1209 02e5 05       		.byte	0x5
+ 1210 02e6 C6       		.byte	0xc6
+ 1211 02e7 8C000000 		.4byte	0x8c
+ 1212 02eb 02       		.byte	0x2
+ 1213 02ec 01       		.byte	0x1
+ 1214 02ed 02       		.byte	0x2
+ 1215 02ee 00       		.byte	0
+ 1216 02ef 08       		.uleb128 0x8
+ 1217 02f0 79050000 		.4byte	.LASF61
+ 1218 02f4 05       		.byte	0x5
+ 1219 02f5 C7       		.byte	0xc7
+ 1220 02f6 8C000000 		.4byte	0x8c
+ 1221 02fa 02       		.byte	0x2
+ 1222 02fb 01       		.byte	0x1
+ 1223 02fc 01       		.byte	0x1
+ 1224 02fd 00       		.byte	0
+ 1225 02fe 00       		.byte	0
+ 1226 02ff 03       		.uleb128 0x3
+ 1227 0300 C9000000 		.4byte	.LASF62
+ 1228 0304 05       		.byte	0x5
+ 1229 0305 C8       		.byte	0xc8
+ 1230 0306 12020000 		.4byte	0x212
+ 1231 030a 0A       		.uleb128 0xa
+ 1232 030b BA050000 		.4byte	.LASF63
+ 1233 030f 01       		.byte	0x1
+ 1234 0310 B7       		.byte	0xb7
+ 1235 0311 00000000 		.4byte	.LFB34
+ 1236 0315 18010000 		.4byte	.LFE34-.LFB34
+ 1237 0319 01       		.uleb128 0x1
+ 1238 031a 9C       		.byte	0x9c
+ 1239 031b 3C040000 		.4byte	0x43c
+ 1240 031f 0B       		.uleb128 0xb
+ 1241 0320 26000000 		.4byte	.LVL0
+ 1242 0324 8C080000 		.4byte	0x88c
+ 1243 0328 0B       		.uleb128 0xb
+ 1244 0329 98000000 		.4byte	.LVL1
+ 1245 032d 93080000 		.4byte	0x893
+ 1246 0331 0B       		.uleb128 0xb
+ 1247 0332 9C000000 		.4byte	.LVL2
+ 1248 0336 9A080000 		.4byte	0x89a
+ 1249 033a 0B       		.uleb128 0xb
+ 1250 033b A0000000 		.4byte	.LVL3
+ 1251 033f A1080000 		.4byte	0x8a1
+ 1252 0343 0B       		.uleb128 0xb
+ 1253 0344 A4000000 		.4byte	.LVL4
+ 1254 0348 A8080000 		.4byte	0x8a8
+ 1255 034c 0B       		.uleb128 0xb
+ 1256 034d A8000000 		.4byte	.LVL5
+ 1257 0351 B0080000 		.4byte	0x8b0
+ 1258 0355 0B       		.uleb128 0xb
+ 1259 0356 AC000000 		.4byte	.LVL6
+ 1260 035a B7080000 		.4byte	0x8b7
+ 1261 035e 0B       		.uleb128 0xb
+ 1262 035f B0000000 		.4byte	.LVL7
+ 1263 0363 BE080000 		.4byte	0x8be
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 31
+
+
+ 1264 0367 0B       		.uleb128 0xb
+ 1265 0368 B6000000 		.4byte	.LVL8
+ 1266 036c C6080000 		.4byte	0x8c6
+ 1267 0370 0C       		.uleb128 0xc
+ 1268 0371 BE000000 		.4byte	.LVL9
+ 1269 0375 D8080000 		.4byte	0x8d8
+ 1270 0379 88030000 		.4byte	0x388
+ 1271 037d 0D       		.uleb128 0xd
+ 1272 037e 01       		.uleb128 0x1
+ 1273 037f 51       		.byte	0x51
+ 1274 0380 01       		.uleb128 0x1
+ 1275 0381 30       		.byte	0x30
+ 1276 0382 0D       		.uleb128 0xd
+ 1277 0383 01       		.uleb128 0x1
+ 1278 0384 50       		.byte	0x50
+ 1279 0385 01       		.uleb128 0x1
+ 1280 0386 30       		.byte	0x30
+ 1281 0387 00       		.byte	0
+ 1282 0388 0C       		.uleb128 0xc
+ 1283 0389 C6000000 		.4byte	.LVL10
+ 1284 038d EE080000 		.4byte	0x8ee
+ 1285 0391 A1030000 		.4byte	0x3a1
+ 1286 0395 0D       		.uleb128 0xd
+ 1287 0396 01       		.uleb128 0x1
+ 1288 0397 51       		.byte	0x51
+ 1289 0398 02       		.uleb128 0x2
+ 1290 0399 75       		.byte	0x75
+ 1291 039a 00       		.sleb128 0
+ 1292 039b 0D       		.uleb128 0xd
+ 1293 039c 01       		.uleb128 0x1
+ 1294 039d 50       		.byte	0x50
+ 1295 039e 01       		.uleb128 0x1
+ 1296 039f 30       		.byte	0x30
+ 1297 03a0 00       		.byte	0
+ 1298 03a1 0C       		.uleb128 0xc
+ 1299 03a2 CE000000 		.4byte	.LVL11
+ 1300 03a6 04090000 		.4byte	0x904
+ 1301 03aa BA030000 		.4byte	0x3ba
+ 1302 03ae 0D       		.uleb128 0xd
+ 1303 03af 01       		.uleb128 0x1
+ 1304 03b0 51       		.byte	0x51
+ 1305 03b1 02       		.uleb128 0x2
+ 1306 03b2 74       		.byte	0x74
+ 1307 03b3 00       		.sleb128 0
+ 1308 03b4 0D       		.uleb128 0xd
+ 1309 03b5 01       		.uleb128 0x1
+ 1310 03b6 50       		.byte	0x50
+ 1311 03b7 01       		.uleb128 0x1
+ 1312 03b8 30       		.byte	0x30
+ 1313 03b9 00       		.byte	0
+ 1314 03ba 0C       		.uleb128 0xc
+ 1315 03bb D4000000 		.4byte	.LVL12
+ 1316 03bf 1A090000 		.4byte	0x91a
+ 1317 03c3 CE030000 		.4byte	0x3ce
+ 1318 03c7 0D       		.uleb128 0xd
+ 1319 03c8 01       		.uleb128 0x1
+ 1320 03c9 50       		.byte	0x50
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 32
+
+
+ 1321 03ca 02       		.uleb128 0x2
+ 1322 03cb 77       		.byte	0x77
+ 1323 03cc 00       		.sleb128 0
+ 1324 03cd 00       		.byte	0
+ 1325 03ce 0C       		.uleb128 0xc
+ 1326 03cf DC000000 		.4byte	.LVL13
+ 1327 03d3 D8080000 		.4byte	0x8d8
+ 1328 03d7 E8030000 		.4byte	0x3e8
+ 1329 03db 0D       		.uleb128 0xd
+ 1330 03dc 01       		.uleb128 0x1
+ 1331 03dd 51       		.byte	0x51
+ 1332 03de 02       		.uleb128 0x2
+ 1333 03df 75       		.byte	0x75
+ 1334 03e0 00       		.sleb128 0
+ 1335 03e1 0D       		.uleb128 0xd
+ 1336 03e2 01       		.uleb128 0x1
+ 1337 03e3 50       		.byte	0x50
+ 1338 03e4 02       		.uleb128 0x2
+ 1339 03e5 74       		.byte	0x74
+ 1340 03e6 00       		.sleb128 0
+ 1341 03e7 00       		.byte	0
+ 1342 03e8 0C       		.uleb128 0xc
+ 1343 03e9 E6000000 		.4byte	.LVL14
+ 1344 03ed EE080000 		.4byte	0x8ee
+ 1345 03f1 03040000 		.4byte	0x403
+ 1346 03f5 0D       		.uleb128 0xd
+ 1347 03f6 01       		.uleb128 0x1
+ 1348 03f7 51       		.byte	0x51
+ 1349 03f8 03       		.uleb128 0x3
+ 1350 03f9 0A       		.byte	0xa
+ 1351 03fa 0040     		.2byte	0x4000
+ 1352 03fc 0D       		.uleb128 0xd
+ 1353 03fd 01       		.uleb128 0x1
+ 1354 03fe 50       		.byte	0x50
+ 1355 03ff 02       		.uleb128 0x2
+ 1356 0400 74       		.byte	0x74
+ 1357 0401 00       		.sleb128 0
+ 1358 0402 00       		.byte	0
+ 1359 0403 0C       		.uleb128 0xc
+ 1360 0404 EE000000 		.4byte	.LVL15
+ 1361 0408 04090000 		.4byte	0x904
+ 1362 040c 1D040000 		.4byte	0x41d
+ 1363 0410 0D       		.uleb128 0xd
+ 1364 0411 01       		.uleb128 0x1
+ 1365 0412 51       		.byte	0x51
+ 1366 0413 02       		.uleb128 0x2
+ 1367 0414 74       		.byte	0x74
+ 1368 0415 00       		.sleb128 0
+ 1369 0416 0D       		.uleb128 0xd
+ 1370 0417 01       		.uleb128 0x1
+ 1371 0418 50       		.byte	0x50
+ 1372 0419 02       		.uleb128 0x2
+ 1373 041a 74       		.byte	0x74
+ 1374 041b 00       		.sleb128 0
+ 1375 041c 00       		.byte	0
+ 1376 041d 0C       		.uleb128 0xc
+ 1377 041e F6000000 		.4byte	.LVL16
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 33
+
+
+ 1378 0422 2B090000 		.4byte	0x92b
+ 1379 0426 32040000 		.4byte	0x432
+ 1380 042a 0D       		.uleb128 0xd
+ 1381 042b 01       		.uleb128 0x1
+ 1382 042c 50       		.byte	0x50
+ 1383 042d 03       		.uleb128 0x3
+ 1384 042e 75       		.byte	0x75
+ 1385 042f FF01     		.sleb128 255
+ 1386 0431 00       		.byte	0
+ 1387 0432 0B       		.uleb128 0xb
+ 1388 0433 FA000000 		.4byte	.LVL17
+ 1389 0437 3C090000 		.4byte	0x93c
+ 1390 043b 00       		.byte	0
+ 1391 043c 0E       		.uleb128 0xe
+ 1392 043d FE020000 		.4byte	.LASF64
+ 1393 0441 01       		.byte	0x1
+ 1394 0442 2601     		.2byte	0x126
+ 1395 0444 00000000 		.4byte	.LFB35
+ 1396 0448 D0000000 		.4byte	.LFE35-.LFB35
+ 1397 044c 01       		.uleb128 0x1
+ 1398 044d 9C       		.byte	0x9c
+ 1399 044e 87040000 		.4byte	0x487
+ 1400 0452 0B       		.uleb128 0xb
+ 1401 0453 42000000 		.4byte	.LVL18
+ 1402 0457 43090000 		.4byte	0x943
+ 1403 045b 0B       		.uleb128 0xb
+ 1404 045c 58000000 		.4byte	.LVL20
+ 1405 0460 43090000 		.4byte	0x943
+ 1406 0464 0C       		.uleb128 0xc
+ 1407 0465 96000000 		.4byte	.LVL22
+ 1408 0469 4F090000 		.4byte	0x94f
+ 1409 046d 77040000 		.4byte	0x477
+ 1410 0471 0D       		.uleb128 0xd
+ 1411 0472 01       		.uleb128 0x1
+ 1412 0473 50       		.byte	0x50
+ 1413 0474 01       		.uleb128 0x1
+ 1414 0475 30       		.byte	0x30
+ 1415 0476 00       		.byte	0
+ 1416 0477 0F       		.uleb128 0xf
+ 1417 0478 9C000000 		.4byte	.LVL23
+ 1418 047c 60090000 		.4byte	0x960
+ 1419 0480 0D       		.uleb128 0xd
+ 1420 0481 01       		.uleb128 0x1
+ 1421 0482 50       		.byte	0x50
+ 1422 0483 01       		.uleb128 0x1
+ 1423 0484 30       		.byte	0x30
+ 1424 0485 00       		.byte	0
+ 1425 0486 00       		.byte	0
+ 1426 0487 10       		.uleb128 0x10
+ 1427 0488 15070000 		.4byte	.LASF133
+ 1428 048c 01       		.byte	0x1
+ 1429 048d 29       		.byte	0x29
+ 1430 048e 73000000 		.4byte	0x73
+ 1431 0492 00000000 		.4byte	.LFB33
+ 1432 0496 F8010000 		.4byte	.LFE33-.LFB33
+ 1433 049a 01       		.uleb128 0x1
+ 1434 049b 9C       		.byte	0x9c
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 34
+
+
+ 1435 049c 43060000 		.4byte	0x643
+ 1436 04a0 0C       		.uleb128 0xc
+ 1437 04a1 08000000 		.4byte	.LVL24
+ 1438 04a5 71090000 		.4byte	0x971
+ 1439 04a9 B3040000 		.4byte	0x4b3
+ 1440 04ad 0D       		.uleb128 0xd
+ 1441 04ae 01       		.uleb128 0x1
+ 1442 04af 50       		.byte	0x50
+ 1443 04b0 01       		.uleb128 0x1
+ 1444 04b1 30       		.byte	0x30
+ 1445 04b2 00       		.byte	0
+ 1446 04b3 0B       		.uleb128 0xb
+ 1447 04b4 0C000000 		.4byte	.LVL25
+ 1448 04b8 82090000 		.4byte	0x982
+ 1449 04bc 0B       		.uleb128 0xb
+ 1450 04bd 10000000 		.4byte	.LVL26
+ 1451 04c1 0A030000 		.4byte	0x30a
+ 1452 04c5 0B       		.uleb128 0xb
+ 1453 04c6 14000000 		.4byte	.LVL27
+ 1454 04ca 89090000 		.4byte	0x989
+ 1455 04ce 0B       		.uleb128 0xb
+ 1456 04cf 1A000000 		.4byte	.LVL28
+ 1457 04d3 90090000 		.4byte	0x990
+ 1458 04d7 0C       		.uleb128 0xc
+ 1459 04d8 22000000 		.4byte	.LVL29
+ 1460 04dc 97090000 		.4byte	0x997
+ 1461 04e0 EC040000 		.4byte	0x4ec
+ 1462 04e4 0D       		.uleb128 0xd
+ 1463 04e5 01       		.uleb128 0x1
+ 1464 04e6 50       		.byte	0x50
+ 1465 04e7 03       		.uleb128 0x3
+ 1466 04e8 0A       		.byte	0xa
+ 1467 04e9 0008     		.2byte	0x800
+ 1468 04eb 00       		.byte	0
+ 1469 04ec 0B       		.uleb128 0xb
+ 1470 04ed 26000000 		.4byte	.LVL30
+ 1471 04f1 3C090000 		.4byte	0x93c
+ 1472 04f5 0B       		.uleb128 0xb
+ 1473 04f6 2A000000 		.4byte	.LVL31
+ 1474 04fa A8090000 		.4byte	0x9a8
+ 1475 04fe 0B       		.uleb128 0xb
+ 1476 04ff 32000000 		.4byte	.LVL32
+ 1477 0503 71090000 		.4byte	0x971
+ 1478 0507 0B       		.uleb128 0xb
+ 1479 0508 36000000 		.4byte	.LVL33
+ 1480 050c 43090000 		.4byte	0x943
+ 1481 0510 0B       		.uleb128 0xb
+ 1482 0511 78000000 		.4byte	.LVL36
+ 1483 0515 B3090000 		.4byte	0x9b3
+ 1484 0519 0B       		.uleb128 0xb
+ 1485 051a 9C000000 		.4byte	.LVL37
+ 1486 051e BE090000 		.4byte	0x9be
+ 1487 0522 0C       		.uleb128 0xc
+ 1488 0523 C4000000 		.4byte	.LVL38
+ 1489 0527 C9090000 		.4byte	0x9c9
+ 1490 052b 35050000 		.4byte	0x535
+ 1491 052f 0D       		.uleb128 0xd
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 35
+
+
+ 1492 0530 01       		.uleb128 0x1
+ 1493 0531 50       		.byte	0x50
+ 1494 0532 01       		.uleb128 0x1
+ 1495 0533 30       		.byte	0x30
+ 1496 0534 00       		.byte	0
+ 1497 0535 0C       		.uleb128 0xc
+ 1498 0536 CA000000 		.4byte	.LVL39
+ 1499 053a C9090000 		.4byte	0x9c9
+ 1500 053e 48050000 		.4byte	0x548
+ 1501 0542 0D       		.uleb128 0xd
+ 1502 0543 01       		.uleb128 0x1
+ 1503 0544 50       		.byte	0x50
+ 1504 0545 01       		.uleb128 0x1
+ 1505 0546 31       		.byte	0x31
+ 1506 0547 00       		.byte	0
+ 1507 0548 0C       		.uleb128 0xc
+ 1508 0549 D0000000 		.4byte	.LVL40
+ 1509 054d C9090000 		.4byte	0x9c9
+ 1510 0551 5B050000 		.4byte	0x55b
+ 1511 0555 0D       		.uleb128 0xd
+ 1512 0556 01       		.uleb128 0x1
+ 1513 0557 50       		.byte	0x50
+ 1514 0558 01       		.uleb128 0x1
+ 1515 0559 32       		.byte	0x32
+ 1516 055a 00       		.byte	0
+ 1517 055b 0B       		.uleb128 0xb
+ 1518 055c D4000000 		.4byte	.LVL41
+ 1519 0560 DA090000 		.4byte	0x9da
+ 1520 0564 0B       		.uleb128 0xb
+ 1521 0565 14010000 		.4byte	.LVL42
+ 1522 0569 8C080000 		.4byte	0x88c
+ 1523 056d 0B       		.uleb128 0xb
+ 1524 056e 3E010000 		.4byte	.LVL43
+ 1525 0572 E1090000 		.4byte	0x9e1
+ 1526 0576 0C       		.uleb128 0xc
+ 1527 0577 44010000 		.4byte	.LVL44
+ 1528 057b F2090000 		.4byte	0x9f2
+ 1529 057f 8A050000 		.4byte	0x58a
+ 1530 0583 0D       		.uleb128 0xd
+ 1531 0584 01       		.uleb128 0x1
+ 1532 0585 50       		.byte	0x50
+ 1533 0586 02       		.uleb128 0x2
+ 1534 0587 09       		.byte	0x9
+ 1535 0588 FF       		.byte	0xff
+ 1536 0589 00       		.byte	0
+ 1537 058a 0C       		.uleb128 0xc
+ 1538 058b 4A010000 		.4byte	.LVL45
+ 1539 058f 030A0000 		.4byte	0xa03
+ 1540 0593 9E050000 		.4byte	0x59e
+ 1541 0597 0D       		.uleb128 0xd
+ 1542 0598 01       		.uleb128 0x1
+ 1543 0599 50       		.byte	0x50
+ 1544 059a 02       		.uleb128 0x2
+ 1545 059b 75       		.byte	0x75
+ 1546 059c 00       		.sleb128 0
+ 1547 059d 00       		.byte	0
+ 1548 059e 0C       		.uleb128 0xc
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 36
+
+
+ 1549 059f 54010000 		.4byte	.LVL46
+ 1550 05a3 E1090000 		.4byte	0x9e1
+ 1551 05a7 B1050000 		.4byte	0x5b1
+ 1552 05ab 0D       		.uleb128 0xd
+ 1553 05ac 01       		.uleb128 0x1
+ 1554 05ad 50       		.byte	0x50
+ 1555 05ae 01       		.uleb128 0x1
+ 1556 05af 30       		.byte	0x30
+ 1557 05b0 00       		.byte	0
+ 1558 05b1 0C       		.uleb128 0xc
+ 1559 05b2 5A010000 		.4byte	.LVL47
+ 1560 05b6 F2090000 		.4byte	0x9f2
+ 1561 05ba C4050000 		.4byte	0x5c4
+ 1562 05be 0D       		.uleb128 0xd
+ 1563 05bf 01       		.uleb128 0x1
+ 1564 05c0 50       		.byte	0x50
+ 1565 05c1 01       		.uleb128 0x1
+ 1566 05c2 30       		.byte	0x30
+ 1567 05c3 00       		.byte	0
+ 1568 05c4 0C       		.uleb128 0xc
+ 1569 05c5 60010000 		.4byte	.LVL48
+ 1570 05c9 030A0000 		.4byte	0xa03
+ 1571 05cd D8050000 		.4byte	0x5d8
+ 1572 05d1 0D       		.uleb128 0xd
+ 1573 05d2 01       		.uleb128 0x1
+ 1574 05d3 50       		.byte	0x50
+ 1575 05d4 02       		.uleb128 0x2
+ 1576 05d5 09       		.byte	0x9
+ 1577 05d6 FF       		.byte	0xff
+ 1578 05d7 00       		.byte	0
+ 1579 05d8 0B       		.uleb128 0xb
+ 1580 05d9 66010000 		.4byte	.LVL49
+ 1581 05dd 140A0000 		.4byte	0xa14
+ 1582 05e1 0C       		.uleb128 0xc
+ 1583 05e2 72010000 		.4byte	.LVL50
+ 1584 05e6 F2090000 		.4byte	0x9f2
+ 1585 05ea F5050000 		.4byte	0x5f5
+ 1586 05ee 0D       		.uleb128 0xd
+ 1587 05ef 01       		.uleb128 0x1
+ 1588 05f0 50       		.byte	0x50
+ 1589 05f1 02       		.uleb128 0x2
+ 1590 05f2 09       		.byte	0x9
+ 1591 05f3 FF       		.byte	0xff
+ 1592 05f4 00       		.byte	0
+ 1593 05f5 0C       		.uleb128 0xc
+ 1594 05f6 7E010000 		.4byte	.LVL51
+ 1595 05fa E1090000 		.4byte	0x9e1
+ 1596 05fe 08060000 		.4byte	0x608
+ 1597 0602 0D       		.uleb128 0xd
+ 1598 0603 01       		.uleb128 0x1
+ 1599 0604 50       		.byte	0x50
+ 1600 0605 01       		.uleb128 0x1
+ 1601 0606 30       		.byte	0x30
+ 1602 0607 00       		.byte	0
+ 1603 0608 0C       		.uleb128 0xc
+ 1604 0609 8A010000 		.4byte	.LVL52
+ 1605 060d 030A0000 		.4byte	0xa03
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 37
+
+
+ 1606 0611 1C060000 		.4byte	0x61c
+ 1607 0615 0D       		.uleb128 0xd
+ 1608 0616 01       		.uleb128 0x1
+ 1609 0617 50       		.byte	0x50
+ 1610 0618 02       		.uleb128 0x2
+ 1611 0619 09       		.byte	0x9
+ 1612 061a FF       		.byte	0xff
+ 1613 061b 00       		.byte	0
+ 1614 061c 0C       		.uleb128 0xc
+ 1615 061d 90010000 		.4byte	.LVL53
+ 1616 0621 140A0000 		.4byte	0xa14
+ 1617 0625 30060000 		.4byte	0x630
+ 1618 0629 0D       		.uleb128 0xd
+ 1619 062a 01       		.uleb128 0x1
+ 1620 062b 50       		.byte	0x50
+ 1621 062c 02       		.uleb128 0x2
+ 1622 062d 09       		.byte	0x9
+ 1623 062e FF       		.byte	0xff
+ 1624 062f 00       		.byte	0
+ 1625 0630 0B       		.uleb128 0xb
+ 1626 0631 AA010000 		.4byte	.LVL54
+ 1627 0635 3C040000 		.4byte	0x43c
+ 1628 0639 0B       		.uleb128 0xb
+ 1629 063a B6010000 		.4byte	.LVL55
+ 1630 063e 250A0000 		.4byte	0xa25
+ 1631 0642 00       		.byte	0
+ 1632 0643 11       		.uleb128 0x11
+ 1633 0644 81000000 		.4byte	0x81
+ 1634 0648 53060000 		.4byte	0x653
+ 1635 064c 12       		.uleb128 0x12
+ 1636 064d C2000000 		.4byte	0xc2
+ 1637 0651 07       		.byte	0x7
+ 1638 0652 00       		.byte	0
+ 1639 0653 13       		.uleb128 0x13
+ 1640 0654 05020000 		.4byte	.LASF65
+ 1641 0658 06       		.byte	0x6
+ 1642 0659 39       		.byte	0x39
+ 1643 065a 64060000 		.4byte	0x664
+ 1644 065e 05       		.uleb128 0x5
+ 1645 065f 03       		.byte	0x3
+ 1646 0660 00000000 		.4byte	NON_VOL_A
+ 1647 0664 14       		.uleb128 0x14
+ 1648 0665 43060000 		.4byte	0x643
+ 1649 0669 13       		.uleb128 0x13
+ 1650 066a 2B030000 		.4byte	.LASF66
+ 1651 066e 05       		.byte	0x5
+ 1652 066f DC       		.byte	0xdc
+ 1653 0670 81000000 		.4byte	0x81
+ 1654 0674 05       		.uleb128 0x5
+ 1655 0675 03       		.byte	0x3
+ 1656 0676 00000000 		.4byte	UI_CNTR
+ 1657 067a 13       		.uleb128 0x13
+ 1658 067b E3010000 		.4byte	.LASF67
+ 1659 067f 05       		.byte	0x5
+ 1660 0680 DD       		.byte	0xdd
+ 1661 0681 8C000000 		.4byte	0x8c
+ 1662 0685 05       		.uleb128 0x5
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 38
+
+
+ 1663 0686 03       		.byte	0x3
+ 1664 0687 00000000 		.4byte	UI_VAL
+ 1665 068b 13       		.uleb128 0x13
+ 1666 068c D5060000 		.4byte	.LASF68
+ 1667 0690 05       		.byte	0x5
+ 1668 0691 DE       		.byte	0xde
+ 1669 0692 8C000000 		.4byte	0x8c
+ 1670 0696 05       		.uleb128 0x5
+ 1671 0697 03       		.byte	0x3
+ 1672 0698 00000000 		.4byte	ZC_TEST
+ 1673 069c 13       		.uleb128 0x13
+ 1674 069d AE050000 		.4byte	.LASF69
+ 1675 06a1 05       		.byte	0x5
+ 1676 06a2 DF       		.byte	0xdf
+ 1677 06a3 81000000 		.4byte	0x81
+ 1678 06a7 05       		.uleb128 0x5
+ 1679 06a8 03       		.byte	0x3
+ 1680 06a9 00000000 		.4byte	MCU_OSC_ACC
+ 1681 06ad 13       		.uleb128 0x13
+ 1682 06ae 34060000 		.4byte	.LASF70
+ 1683 06b2 05       		.byte	0x5
+ 1684 06b3 E1       		.byte	0xe1
+ 1685 06b4 81000000 		.4byte	0x81
+ 1686 06b8 05       		.uleb128 0x5
+ 1687 06b9 03       		.byte	0x3
+ 1688 06ba 00000000 		.4byte	PB_INTERVAL_TICK
+ 1689 06be 13       		.uleb128 0x13
+ 1690 06bf B9060000 		.4byte	.LASF71
+ 1691 06c3 05       		.byte	0x5
+ 1692 06c4 E2       		.byte	0xe2
+ 1693 06c5 81000000 		.4byte	0x81
+ 1694 06c9 05       		.uleb128 0x5
+ 1695 06ca 03       		.byte	0x3
+ 1696 06cb 00000000 		.4byte	ZC_CNTR
+ 1697 06cf 13       		.uleb128 0x13
+ 1698 06d0 BD040000 		.4byte	.LASF72
+ 1699 06d4 05       		.byte	0x5
+ 1700 06d5 E3       		.byte	0xe3
+ 1701 06d6 81000000 		.4byte	0x81
+ 1702 06da 05       		.uleb128 0x5
+ 1703 06db 03       		.byte	0x3
+ 1704 06dc 00000000 		.4byte	SECOND_CNTR
+ 1705 06e0 13       		.uleb128 0x13
+ 1706 06e1 E3000000 		.4byte	.LASF73
+ 1707 06e5 05       		.byte	0x5
+ 1708 06e6 E4       		.byte	0xe4
+ 1709 06e7 81000000 		.4byte	0x81
+ 1710 06eb 05       		.uleb128 0x5
+ 1711 06ec 03       		.byte	0x3
+ 1712 06ed 00000000 		.4byte	UI_TICK_CNT
+ 1713 06f1 13       		.uleb128 0x13
+ 1714 06f2 45060000 		.4byte	.LASF74
+ 1715 06f6 05       		.byte	0x5
+ 1716 06f7 E5       		.byte	0xe5
+ 1717 06f8 81000000 		.4byte	0x81
+ 1718 06fc 05       		.uleb128 0x5
+ 1719 06fd 03       		.byte	0x3
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 39
+
+
+ 1720 06fe 00000000 		.4byte	FADE_CNT
+ 1721 0702 13       		.uleb128 0x13
+ 1722 0703 D7000000 		.4byte	.LASF75
+ 1723 0707 05       		.byte	0x5
+ 1724 0708 E6       		.byte	0xe6
+ 1725 0709 81000000 		.4byte	0x81
+ 1726 070d 05       		.uleb128 0x5
+ 1727 070e 03       		.byte	0x3
+ 1728 070f 00000000 		.4byte	DMR_ADJ_CNT
+ 1729 0713 13       		.uleb128 0x13
+ 1730 0714 0C070000 		.4byte	.LASF76
+ 1731 0718 05       		.byte	0x5
+ 1732 0719 E8       		.byte	0xe8
+ 1733 071a 8C000000 		.4byte	0x8c
+ 1734 071e 05       		.uleb128 0x5
+ 1735 071f 03       		.byte	0x3
+ 1736 0720 00000000 		.4byte	TICK_CNT
+ 1737 0724 13       		.uleb128 0x13
+ 1738 0725 95010000 		.4byte	.LASF77
+ 1739 0729 05       		.byte	0x5
+ 1740 072a E9       		.byte	0xe9
+ 1741 072b 8C000000 		.4byte	0x8c
+ 1742 072f 05       		.uleb128 0x5
+ 1743 0730 03       		.byte	0x3
+ 1744 0731 00000000 		.4byte	TICK_CNT_100mS
+ 1745 0735 13       		.uleb128 0x13
+ 1746 0736 27060000 		.4byte	.LASF78
+ 1747 073a 05       		.byte	0x5
+ 1748 073b EA       		.byte	0xea
+ 1749 073c 8C000000 		.4byte	0x8c
+ 1750 0740 05       		.uleb128 0x5
+ 1751 0741 03       		.byte	0x3
+ 1752 0742 00000000 		.4byte	TICK_DBL_TAP
+ 1753 0746 13       		.uleb128 0x13
+ 1754 0747 1A010000 		.4byte	.LASF79
+ 1755 074b 05       		.byte	0x5
+ 1756 074c EB       		.byte	0xeb
+ 1757 074d 81000000 		.4byte	0x81
+ 1758 0751 05       		.uleb128 0x5
+ 1759 0752 03       		.byte	0x3
+ 1760 0753 00000000 		.4byte	TICK_CNT_Display
+ 1761 0757 13       		.uleb128 0x13
+ 1762 0758 2A050000 		.4byte	.LASF80
+ 1763 075c 05       		.byte	0x5
+ 1764 075d ED       		.byte	0xed
+ 1765 075e 81000000 		.4byte	0x81
+ 1766 0762 05       		.uleb128 0x5
+ 1767 0763 03       		.byte	0x3
+ 1768 0764 00000000 		.4byte	I_SENSE_CNT
+ 1769 0768 13       		.uleb128 0x13
+ 1770 0769 47040000 		.4byte	.LASF81
+ 1771 076d 05       		.byte	0x5
+ 1772 076e EE       		.byte	0xee
+ 1773 076f 8C000000 		.4byte	0x8c
+ 1774 0773 05       		.uleb128 0x5
+ 1775 0774 03       		.byte	0x3
+ 1776 0775 00000000 		.4byte	I_SENSE_ACC
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 40
+
+
+ 1777 0779 13       		.uleb128 0x13
+ 1778 077a 33030000 		.4byte	.LASF82
+ 1779 077e 05       		.byte	0x5
+ 1780 077f F0       		.byte	0xf0
+ 1781 0780 8C000000 		.4byte	0x8c
+ 1782 0784 05       		.uleb128 0x5
+ 1783 0785 03       		.byte	0x3
+ 1784 0786 00000000 		.4byte	RELAY_CNT
+ 1785 078a 13       		.uleb128 0x13
+ 1786 078b A1050000 		.4byte	.LASF83
+ 1787 078f 05       		.byte	0x5
+ 1788 0790 F1       		.byte	0xf1
+ 1789 0791 81000000 		.4byte	0x81
+ 1790 0795 05       		.uleb128 0x5
+ 1791 0796 03       		.byte	0x3
+ 1792 0797 00000000 		.4byte	RELAY_OFFSET
+ 1793 079b 13       		.uleb128 0x13
+ 1794 079c BD010000 		.4byte	.LASF84
+ 1795 07a0 05       		.byte	0x5
+ 1796 07a1 F2       		.byte	0xf2
+ 1797 07a2 81000000 		.4byte	0x81
+ 1798 07a6 05       		.uleb128 0x5
+ 1799 07a7 03       		.byte	0x3
+ 1800 07a8 00000000 		.4byte	Nuisance_Trigger
+ 1801 07ac 13       		.uleb128 0x13
+ 1802 07ad 36010000 		.4byte	.LASF85
+ 1803 07b1 05       		.byte	0x5
+ 1804 07b2 F4       		.byte	0xf4
+ 1805 07b3 81000000 		.4byte	0x81
+ 1806 07b7 05       		.uleb128 0x5
+ 1807 07b8 03       		.byte	0x3
+ 1808 07b9 00000000 		.4byte	GOTO_BED_INTERVAL
+ 1809 07bd 13       		.uleb128 0x13
+ 1810 07be 48010000 		.4byte	.LASF86
+ 1811 07c2 05       		.byte	0x5
+ 1812 07c3 F5       		.byte	0xf5
+ 1813 07c4 81000000 		.4byte	0x81
+ 1814 07c8 05       		.uleb128 0x5
+ 1815 07c9 03       		.byte	0x3
+ 1816 07ca 00000000 		.4byte	FLASH_CNT
+ 1817 07ce 13       		.uleb128 0x13
+ 1818 07cf E4040000 		.4byte	.LASF87
+ 1819 07d3 05       		.byte	0x5
+ 1820 07d4 F7       		.byte	0xf7
+ 1821 07d5 8C000000 		.4byte	0x8c
+ 1822 07d9 05       		.uleb128 0x5
+ 1823 07da 03       		.byte	0x3
+ 1824 07db 00000000 		.4byte	PWM_CURRENT
+ 1825 07df 13       		.uleb128 0x13
+ 1826 07e0 12000000 		.4byte	.LASF88
+ 1827 07e4 05       		.byte	0x5
+ 1828 07e5 F8       		.byte	0xf8
+ 1829 07e6 8C000000 		.4byte	0x8c
+ 1830 07ea 05       		.uleb128 0x5
+ 1831 07eb 03       		.byte	0x3
+ 1832 07ec 00000000 		.4byte	PWM_MAX
+ 1833 07f0 13       		.uleb128 0x13
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 41
+
+
+ 1834 07f1 88050000 		.4byte	.LASF89
+ 1835 07f5 05       		.byte	0x5
+ 1836 07f6 F9       		.byte	0xf9
+ 1837 07f7 8C000000 		.4byte	0x8c
+ 1838 07fb 05       		.uleb128 0x5
+ 1839 07fc 03       		.byte	0x3
+ 1840 07fd 00000000 		.4byte	PWM_CHG
+ 1841 0801 13       		.uleb128 0x13
+ 1842 0802 A8000000 		.4byte	.LASF90
+ 1843 0806 05       		.byte	0x5
+ 1844 0807 FC       		.byte	0xfc
+ 1845 0808 8C000000 		.4byte	0x8c
+ 1846 080c 05       		.uleb128 0x5
+ 1847 080d 03       		.byte	0x3
+ 1848 080e 00000000 		.4byte	PWM_MIN
+ 1849 0812 13       		.uleb128 0x13
+ 1850 0813 AE060000 		.4byte	.LASF91
+ 1851 0817 05       		.byte	0x5
+ 1852 0818 FD       		.byte	0xfd
+ 1853 0819 8C000000 		.4byte	0x8c
+ 1854 081d 05       		.uleb128 0x5
+ 1855 081e 03       		.byte	0x3
+ 1856 081f 00000000 		.4byte	PWM_TARGET
+ 1857 0823 13       		.uleb128 0x13
+ 1858 0824 71020000 		.4byte	.LASF92
+ 1859 0828 05       		.byte	0x5
+ 1860 0829 FE       		.byte	0xfe
+ 1861 082a 8C000000 		.4byte	0x8c
+ 1862 082e 05       		.uleb128 0x5
+ 1863 082f 03       		.byte	0x3
+ 1864 0830 00000000 		.4byte	PWM_CAL_CNT
+ 1865 0834 15       		.uleb128 0x15
+ 1866 0835 CD050000 		.4byte	.LASF93
+ 1867 0839 05       		.byte	0x5
+ 1868 083a 0101     		.2byte	0x101
+ 1869 083c 81000000 		.4byte	0x81
+ 1870 0840 05       		.uleb128 0x5
+ 1871 0841 03       		.byte	0x3
+ 1872 0842 00000000 		.4byte	RELAY_STATE
+ 1873 0846 11       		.uleb128 0x11
+ 1874 0847 68010000 		.4byte	0x168
+ 1875 084b 56080000 		.4byte	0x856
+ 1876 084f 12       		.uleb128 0x12
+ 1877 0850 C2000000 		.4byte	0xc2
+ 1878 0854 02       		.byte	0x2
+ 1879 0855 00       		.byte	0
+ 1880 0856 15       		.uleb128 0x15
+ 1881 0857 66060000 		.4byte	.LASF94
+ 1882 085b 05       		.byte	0x5
+ 1883 085c 0501     		.2byte	0x105
+ 1884 085e 46080000 		.4byte	0x846
+ 1885 0862 05       		.uleb128 0x5
+ 1886 0863 03       		.byte	0x3
+ 1887 0864 00000000 		.4byte	PB_Status
+ 1888 0868 15       		.uleb128 0x15
+ 1889 0869 24070000 		.4byte	.LASF95
+ 1890 086d 05       		.byte	0x5
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 42
+
+
+ 1891 086e 0601     		.2byte	0x106
+ 1892 0870 07020000 		.4byte	0x207
+ 1893 0874 05       		.uleb128 0x5
+ 1894 0875 03       		.byte	0x3
+ 1895 0876 00000000 		.4byte	TMR_Status
+ 1896 087a 15       		.uleb128 0x15
+ 1897 087b 0F020000 		.4byte	.LASF96
+ 1898 087f 05       		.byte	0x5
+ 1899 0880 0701     		.2byte	0x107
+ 1900 0882 FF020000 		.4byte	0x2ff
+ 1901 0886 05       		.uleb128 0x5
+ 1902 0887 03       		.byte	0x3
+ 1903 0888 00000000 		.4byte	DMR_Status
+ 1904 088c 16       		.uleb128 0x16
+ 1905 088d EC060000 		.4byte	.LASF97
+ 1906 0891 06       		.byte	0x6
+ 1907 0892 40       		.byte	0x40
+ 1908 0893 16       		.uleb128 0x16
+ 1909 0894 C9040000 		.4byte	.LASF98
+ 1910 0898 07       		.byte	0x7
+ 1911 0899 17       		.byte	0x17
+ 1912 089a 16       		.uleb128 0x16
+ 1913 089b 84010000 		.4byte	.LASF99
+ 1914 089f 08       		.byte	0x8
+ 1915 08a0 2B       		.byte	0x2b
+ 1916 08a1 16       		.uleb128 0x16
+ 1917 08a2 BD030000 		.4byte	.LASF100
+ 1918 08a6 09       		.byte	0x9
+ 1919 08a7 17       		.byte	0x17
+ 1920 08a8 17       		.uleb128 0x17
+ 1921 08a9 4A030000 		.4byte	.LASF101
+ 1922 08ad 0A       		.byte	0xa
+ 1923 08ae 3101     		.2byte	0x131
+ 1924 08b0 16       		.uleb128 0x16
+ 1925 08b1 AE040000 		.4byte	.LASF102
+ 1926 08b5 0B       		.byte	0xb
+ 1927 08b6 29       		.byte	0x29
+ 1928 08b7 16       		.uleb128 0x16
+ 1929 08b8 91020000 		.4byte	.LASF103
+ 1930 08bc 0C       		.byte	0xc
+ 1931 08bd 17       		.byte	0x17
+ 1932 08be 17       		.uleb128 0x17
+ 1933 08bf DE030000 		.4byte	.LASF104
+ 1934 08c3 0D       		.byte	0xd
+ 1935 08c4 3101     		.2byte	0x131
+ 1936 08c6 18       		.uleb128 0x18
+ 1937 08c7 7F060000 		.4byte	.LASF105
+ 1938 08cb 0A       		.byte	0xa
+ 1939 08cc 5401     		.2byte	0x154
+ 1940 08ce D8080000 		.4byte	0x8d8
+ 1941 08d2 19       		.uleb128 0x19
+ 1942 08d3 A2000000 		.4byte	0xa2
+ 1943 08d7 00       		.byte	0
+ 1944 08d8 1A       		.uleb128 0x1a
+ 1945 08d9 00000000 		.4byte	.LASF106
+ 1946 08dd 0E       		.byte	0xe
+ 1947 08de 3C       		.byte	0x3c
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 43
+
+
+ 1948 08df EE080000 		.4byte	0x8ee
+ 1949 08e3 19       		.uleb128 0x19
+ 1950 08e4 A2000000 		.4byte	0xa2
+ 1951 08e8 19       		.uleb128 0x19
+ 1952 08e9 A2000000 		.4byte	0xa2
+ 1953 08ed 00       		.byte	0
+ 1954 08ee 1A       		.uleb128 0x1a
+ 1955 08ef F0040000 		.4byte	.LASF107
+ 1956 08f3 0E       		.byte	0xe
+ 1957 08f4 45       		.byte	0x45
+ 1958 08f5 04090000 		.4byte	0x904
+ 1959 08f9 19       		.uleb128 0x19
+ 1960 08fa A2000000 		.4byte	0xa2
+ 1961 08fe 19       		.uleb128 0x19
+ 1962 08ff A2000000 		.4byte	0xa2
+ 1963 0903 00       		.byte	0
+ 1964 0904 1A       		.uleb128 0x1a
+ 1965 0905 F1030000 		.4byte	.LASF108
+ 1966 0909 0E       		.byte	0xe
+ 1967 090a 3F       		.byte	0x3f
+ 1968 090b 1A090000 		.4byte	0x91a
+ 1969 090f 19       		.uleb128 0x19
+ 1970 0910 A2000000 		.4byte	0xa2
+ 1971 0914 19       		.uleb128 0x19
+ 1972 0915 A2000000 		.4byte	0xa2
+ 1973 0919 00       		.byte	0
+ 1974 091a 1A       		.uleb128 0x1a
+ 1975 091b 5C020000 		.4byte	.LASF109
+ 1976 091f 0E       		.byte	0xe
+ 1977 0920 43       		.byte	0x43
+ 1978 0921 2B090000 		.4byte	0x92b
+ 1979 0925 19       		.uleb128 0x19
+ 1980 0926 A2000000 		.4byte	0xa2
+ 1981 092a 00       		.byte	0
+ 1982 092b 1A       		.uleb128 0x1a
+ 1983 092c D5020000 		.4byte	.LASF110
+ 1984 0930 0E       		.byte	0xe
+ 1985 0931 41       		.byte	0x41
+ 1986 0932 3C090000 		.4byte	0x93c
+ 1987 0936 19       		.uleb128 0x19
+ 1988 0937 A2000000 		.4byte	0xa2
+ 1989 093b 00       		.byte	0
+ 1990 093c 16       		.uleb128 0x16
+ 1991 093d A4010000 		.4byte	.LASF111
+ 1992 0941 0E       		.byte	0xe
+ 1993 0942 3A       		.byte	0x3a
+ 1994 0943 1B       		.uleb128 0x1b
+ 1995 0944 C1060000 		.4byte	.LASF119
+ 1996 0948 0A       		.byte	0xa
+ 1997 0949 5501     		.2byte	0x155
+ 1998 094b A2000000 		.4byte	0xa2
+ 1999 094f 1A       		.uleb128 0x1a
+ 2000 0950 2D020000 		.4byte	.LASF112
+ 2001 0954 0F       		.byte	0xf
+ 2002 0955 1D       		.byte	0x1d
+ 2003 0956 60090000 		.4byte	0x960
+ 2004 095a 19       		.uleb128 0x19
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 44
+
+
+ 2005 095b 97000000 		.4byte	0x97
+ 2006 095f 00       		.byte	0
+ 2007 0960 1A       		.uleb128 0x1a
+ 2008 0961 DD060000 		.4byte	.LASF113
+ 2009 0965 10       		.byte	0x10
+ 2010 0966 1D       		.byte	0x1d
+ 2011 0967 71090000 		.4byte	0x971
+ 2012 096b 19       		.uleb128 0x19
+ 2013 096c 97000000 		.4byte	0x97
+ 2014 0970 00       		.byte	0
+ 2015 0971 1A       		.uleb128 0x1a
+ 2016 0972 BE020000 		.4byte	.LASF114
+ 2017 0976 11       		.byte	0x11
+ 2018 0977 1D       		.byte	0x1d
+ 2019 0978 82090000 		.4byte	0x982
+ 2020 097c 19       		.uleb128 0x19
+ 2021 097d 97000000 		.4byte	0x97
+ 2022 0981 00       		.byte	0
+ 2023 0982 16       		.uleb128 0x16
+ 2024 0983 3C020000 		.4byte	.LASF115
+ 2025 0987 06       		.byte	0x6
+ 2026 0988 41       		.byte	0x41
+ 2027 0989 16       		.uleb128 0x16
+ 2028 098a 9F030000 		.4byte	.LASF116
+ 2029 098e 12       		.byte	0x12
+ 2030 098f 12       		.byte	0x12
+ 2031 0990 16       		.uleb128 0x16
+ 2032 0991 AE030000 		.4byte	.LASF117
+ 2033 0995 0E       		.byte	0xe
+ 2034 0996 3B       		.byte	0x3b
+ 2035 0997 1A       		.uleb128 0x1a
+ 2036 0998 8C040000 		.4byte	.LASF118
+ 2037 099c 0E       		.byte	0xe
+ 2038 099d 4C       		.byte	0x4c
+ 2039 099e A8090000 		.4byte	0x9a8
+ 2040 09a2 19       		.uleb128 0x19
+ 2041 09a3 A2000000 		.4byte	0xa2
+ 2042 09a7 00       		.byte	0
+ 2043 09a8 1C       		.uleb128 0x1c
+ 2044 09a9 68050000 		.4byte	.LASF120
+ 2045 09ad 11       		.byte	0x11
+ 2046 09ae 1F       		.byte	0x1f
+ 2047 09af 97000000 		.4byte	0x97
+ 2048 09b3 1C       		.uleb128 0x1c
+ 2049 09b4 04060000 		.4byte	.LASF121
+ 2050 09b8 08       		.byte	0x8
+ 2051 09b9 34       		.byte	0x34
+ 2052 09ba A2000000 		.4byte	0xa2
+ 2053 09be 1C       		.uleb128 0x1c
+ 2054 09bf E4020000 		.4byte	.LASF122
+ 2055 09c3 13       		.byte	0x13
+ 2056 09c4 20       		.byte	0x20
+ 2057 09c5 97000000 		.4byte	0x97
+ 2058 09c9 1A       		.uleb128 0x1a
+ 2059 09ca 5A010000 		.4byte	.LASF123
+ 2060 09ce 12       		.byte	0x12
+ 2061 09cf 13       		.byte	0x13
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 45
+
+
+ 2062 09d0 DA090000 		.4byte	0x9da
+ 2063 09d4 19       		.uleb128 0x19
+ 2064 09d5 81000000 		.4byte	0x81
+ 2065 09d9 00       		.byte	0
+ 2066 09da 16       		.uleb128 0x16
+ 2067 09db 2F070000 		.4byte	.LASF124
+ 2068 09df 14       		.byte	0x14
+ 2069 09e0 14       		.byte	0x14
+ 2070 09e1 1A       		.uleb128 0x1a
+ 2071 09e2 29040000 		.4byte	.LASF125
+ 2072 09e6 14       		.byte	0x14
+ 2073 09e7 19       		.byte	0x19
+ 2074 09e8 F2090000 		.4byte	0x9f2
+ 2075 09ec 19       		.uleb128 0x19
+ 2076 09ed 81000000 		.4byte	0x81
+ 2077 09f1 00       		.byte	0
+ 2078 09f2 1A       		.uleb128 0x1a
+ 2079 09f3 B0000000 		.4byte	.LASF126
+ 2080 09f7 15       		.byte	0x15
+ 2081 09f8 1D       		.byte	0x1d
+ 2082 09f9 030A0000 		.4byte	0xa03
+ 2083 09fd 19       		.uleb128 0x19
+ 2084 09fe 97000000 		.4byte	0x97
+ 2085 0a02 00       		.byte	0
+ 2086 0a03 1A       		.uleb128 0x1a
+ 2087 0a04 70060000 		.4byte	.LASF127
+ 2088 0a08 16       		.byte	0x16
+ 2089 0a09 1D       		.byte	0x1d
+ 2090 0a0a 140A0000 		.4byte	0xa14
+ 2091 0a0e 19       		.uleb128 0x19
+ 2092 0a0f 97000000 		.4byte	0x97
+ 2093 0a13 00       		.byte	0
+ 2094 0a14 1A       		.uleb128 0x1a
+ 2095 0a15 DE050000 		.4byte	.LASF128
+ 2096 0a19 17       		.byte	0x17
+ 2097 0a1a 1D       		.byte	0x1d
+ 2098 0a1b 250A0000 		.4byte	0xa25
+ 2099 0a1f 19       		.uleb128 0x19
+ 2100 0a20 97000000 		.4byte	0x97
+ 2101 0a24 00       		.byte	0
+ 2102 0a25 16       		.uleb128 0x16
+ 2103 0a26 3D030000 		.4byte	.LASF129
+ 2104 0a2a 18       		.byte	0x18
+ 2105 0a2b 1C       		.byte	0x1c
+ 2106 0a2c 00       		.byte	0
+ 2107              		.section	.debug_abbrev,"",%progbits
+ 2108              	.Ldebug_abbrev0:
+ 2109 0000 01       		.uleb128 0x1
+ 2110 0001 11       		.uleb128 0x11
+ 2111 0002 01       		.byte	0x1
+ 2112 0003 25       		.uleb128 0x25
+ 2113 0004 0E       		.uleb128 0xe
+ 2114 0005 13       		.uleb128 0x13
+ 2115 0006 0B       		.uleb128 0xb
+ 2116 0007 03       		.uleb128 0x3
+ 2117 0008 0E       		.uleb128 0xe
+ 2118 0009 1B       		.uleb128 0x1b
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 46
+
+
+ 2119 000a 0E       		.uleb128 0xe
+ 2120 000b 55       		.uleb128 0x55
+ 2121 000c 17       		.uleb128 0x17
+ 2122 000d 11       		.uleb128 0x11
+ 2123 000e 01       		.uleb128 0x1
+ 2124 000f 10       		.uleb128 0x10
+ 2125 0010 17       		.uleb128 0x17
+ 2126 0011 00       		.byte	0
+ 2127 0012 00       		.byte	0
+ 2128 0013 02       		.uleb128 0x2
+ 2129 0014 24       		.uleb128 0x24
+ 2130 0015 00       		.byte	0
+ 2131 0016 0B       		.uleb128 0xb
+ 2132 0017 0B       		.uleb128 0xb
+ 2133 0018 3E       		.uleb128 0x3e
+ 2134 0019 0B       		.uleb128 0xb
+ 2135 001a 03       		.uleb128 0x3
+ 2136 001b 0E       		.uleb128 0xe
+ 2137 001c 00       		.byte	0
+ 2138 001d 00       		.byte	0
+ 2139 001e 03       		.uleb128 0x3
+ 2140 001f 16       		.uleb128 0x16
+ 2141 0020 00       		.byte	0
+ 2142 0021 03       		.uleb128 0x3
+ 2143 0022 0E       		.uleb128 0xe
+ 2144 0023 3A       		.uleb128 0x3a
+ 2145 0024 0B       		.uleb128 0xb
+ 2146 0025 3B       		.uleb128 0x3b
+ 2147 0026 0B       		.uleb128 0xb
+ 2148 0027 49       		.uleb128 0x49
+ 2149 0028 13       		.uleb128 0x13
+ 2150 0029 00       		.byte	0
+ 2151 002a 00       		.byte	0
+ 2152 002b 04       		.uleb128 0x4
+ 2153 002c 24       		.uleb128 0x24
+ 2154 002d 00       		.byte	0
+ 2155 002e 0B       		.uleb128 0xb
+ 2156 002f 0B       		.uleb128 0xb
+ 2157 0030 3E       		.uleb128 0x3e
+ 2158 0031 0B       		.uleb128 0xb
+ 2159 0032 03       		.uleb128 0x3
+ 2160 0033 08       		.uleb128 0x8
+ 2161 0034 00       		.byte	0
+ 2162 0035 00       		.byte	0
+ 2163 0036 05       		.uleb128 0x5
+ 2164 0037 04       		.uleb128 0x4
+ 2165 0038 01       		.byte	0x1
+ 2166 0039 03       		.uleb128 0x3
+ 2167 003a 0E       		.uleb128 0xe
+ 2168 003b 0B       		.uleb128 0xb
+ 2169 003c 0B       		.uleb128 0xb
+ 2170 003d 3A       		.uleb128 0x3a
+ 2171 003e 0B       		.uleb128 0xb
+ 2172 003f 3B       		.uleb128 0x3b
+ 2173 0040 0B       		.uleb128 0xb
+ 2174 0041 01       		.uleb128 0x1
+ 2175 0042 13       		.uleb128 0x13
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 47
+
+
+ 2176 0043 00       		.byte	0
+ 2177 0044 00       		.byte	0
+ 2178 0045 06       		.uleb128 0x6
+ 2179 0046 28       		.uleb128 0x28
+ 2180 0047 00       		.byte	0
+ 2181 0048 03       		.uleb128 0x3
+ 2182 0049 0E       		.uleb128 0xe
+ 2183 004a 1C       		.uleb128 0x1c
+ 2184 004b 0D       		.uleb128 0xd
+ 2185 004c 00       		.byte	0
+ 2186 004d 00       		.byte	0
+ 2187 004e 07       		.uleb128 0x7
+ 2188 004f 13       		.uleb128 0x13
+ 2189 0050 01       		.byte	0x1
+ 2190 0051 03       		.uleb128 0x3
+ 2191 0052 0E       		.uleb128 0xe
+ 2192 0053 0B       		.uleb128 0xb
+ 2193 0054 0B       		.uleb128 0xb
+ 2194 0055 3A       		.uleb128 0x3a
+ 2195 0056 0B       		.uleb128 0xb
+ 2196 0057 3B       		.uleb128 0x3b
+ 2197 0058 0B       		.uleb128 0xb
+ 2198 0059 01       		.uleb128 0x1
+ 2199 005a 13       		.uleb128 0x13
+ 2200 005b 00       		.byte	0
+ 2201 005c 00       		.byte	0
+ 2202 005d 08       		.uleb128 0x8
+ 2203 005e 0D       		.uleb128 0xd
+ 2204 005f 00       		.byte	0
+ 2205 0060 03       		.uleb128 0x3
+ 2206 0061 0E       		.uleb128 0xe
+ 2207 0062 3A       		.uleb128 0x3a
+ 2208 0063 0B       		.uleb128 0xb
+ 2209 0064 3B       		.uleb128 0x3b
+ 2210 0065 0B       		.uleb128 0xb
+ 2211 0066 49       		.uleb128 0x49
+ 2212 0067 13       		.uleb128 0x13
+ 2213 0068 0B       		.uleb128 0xb
+ 2214 0069 0B       		.uleb128 0xb
+ 2215 006a 0D       		.uleb128 0xd
+ 2216 006b 0B       		.uleb128 0xb
+ 2217 006c 0C       		.uleb128 0xc
+ 2218 006d 0B       		.uleb128 0xb
+ 2219 006e 38       		.uleb128 0x38
+ 2220 006f 0B       		.uleb128 0xb
+ 2221 0070 00       		.byte	0
+ 2222 0071 00       		.byte	0
+ 2223 0072 09       		.uleb128 0x9
+ 2224 0073 0D       		.uleb128 0xd
+ 2225 0074 00       		.byte	0
+ 2226 0075 03       		.uleb128 0x3
+ 2227 0076 08       		.uleb128 0x8
+ 2228 0077 3A       		.uleb128 0x3a
+ 2229 0078 0B       		.uleb128 0xb
+ 2230 0079 3B       		.uleb128 0x3b
+ 2231 007a 0B       		.uleb128 0xb
+ 2232 007b 49       		.uleb128 0x49
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 48
+
+
+ 2233 007c 13       		.uleb128 0x13
+ 2234 007d 0B       		.uleb128 0xb
+ 2235 007e 0B       		.uleb128 0xb
+ 2236 007f 0D       		.uleb128 0xd
+ 2237 0080 0B       		.uleb128 0xb
+ 2238 0081 0C       		.uleb128 0xc
+ 2239 0082 0B       		.uleb128 0xb
+ 2240 0083 38       		.uleb128 0x38
+ 2241 0084 0B       		.uleb128 0xb
+ 2242 0085 00       		.byte	0
+ 2243 0086 00       		.byte	0
+ 2244 0087 0A       		.uleb128 0xa
+ 2245 0088 2E       		.uleb128 0x2e
+ 2246 0089 01       		.byte	0x1
+ 2247 008a 3F       		.uleb128 0x3f
+ 2248 008b 19       		.uleb128 0x19
+ 2249 008c 03       		.uleb128 0x3
+ 2250 008d 0E       		.uleb128 0xe
+ 2251 008e 3A       		.uleb128 0x3a
+ 2252 008f 0B       		.uleb128 0xb
+ 2253 0090 3B       		.uleb128 0x3b
+ 2254 0091 0B       		.uleb128 0xb
+ 2255 0092 27       		.uleb128 0x27
+ 2256 0093 19       		.uleb128 0x19
+ 2257 0094 11       		.uleb128 0x11
+ 2258 0095 01       		.uleb128 0x1
+ 2259 0096 12       		.uleb128 0x12
+ 2260 0097 06       		.uleb128 0x6
+ 2261 0098 40       		.uleb128 0x40
+ 2262 0099 18       		.uleb128 0x18
+ 2263 009a 9742     		.uleb128 0x2117
+ 2264 009c 19       		.uleb128 0x19
+ 2265 009d 01       		.uleb128 0x1
+ 2266 009e 13       		.uleb128 0x13
+ 2267 009f 00       		.byte	0
+ 2268 00a0 00       		.byte	0
+ 2269 00a1 0B       		.uleb128 0xb
+ 2270 00a2 898201   		.uleb128 0x4109
+ 2271 00a5 00       		.byte	0
+ 2272 00a6 11       		.uleb128 0x11
+ 2273 00a7 01       		.uleb128 0x1
+ 2274 00a8 31       		.uleb128 0x31
+ 2275 00a9 13       		.uleb128 0x13
+ 2276 00aa 00       		.byte	0
+ 2277 00ab 00       		.byte	0
+ 2278 00ac 0C       		.uleb128 0xc
+ 2279 00ad 898201   		.uleb128 0x4109
+ 2280 00b0 01       		.byte	0x1
+ 2281 00b1 11       		.uleb128 0x11
+ 2282 00b2 01       		.uleb128 0x1
+ 2283 00b3 31       		.uleb128 0x31
+ 2284 00b4 13       		.uleb128 0x13
+ 2285 00b5 01       		.uleb128 0x1
+ 2286 00b6 13       		.uleb128 0x13
+ 2287 00b7 00       		.byte	0
+ 2288 00b8 00       		.byte	0
+ 2289 00b9 0D       		.uleb128 0xd
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 49
+
+
+ 2290 00ba 8A8201   		.uleb128 0x410a
+ 2291 00bd 00       		.byte	0
+ 2292 00be 02       		.uleb128 0x2
+ 2293 00bf 18       		.uleb128 0x18
+ 2294 00c0 9142     		.uleb128 0x2111
+ 2295 00c2 18       		.uleb128 0x18
+ 2296 00c3 00       		.byte	0
+ 2297 00c4 00       		.byte	0
+ 2298 00c5 0E       		.uleb128 0xe
+ 2299 00c6 2E       		.uleb128 0x2e
+ 2300 00c7 01       		.byte	0x1
+ 2301 00c8 3F       		.uleb128 0x3f
+ 2302 00c9 19       		.uleb128 0x19
+ 2303 00ca 03       		.uleb128 0x3
+ 2304 00cb 0E       		.uleb128 0xe
+ 2305 00cc 3A       		.uleb128 0x3a
+ 2306 00cd 0B       		.uleb128 0xb
+ 2307 00ce 3B       		.uleb128 0x3b
+ 2308 00cf 05       		.uleb128 0x5
+ 2309 00d0 27       		.uleb128 0x27
+ 2310 00d1 19       		.uleb128 0x19
+ 2311 00d2 11       		.uleb128 0x11
+ 2312 00d3 01       		.uleb128 0x1
+ 2313 00d4 12       		.uleb128 0x12
+ 2314 00d5 06       		.uleb128 0x6
+ 2315 00d6 40       		.uleb128 0x40
+ 2316 00d7 18       		.uleb128 0x18
+ 2317 00d8 9642     		.uleb128 0x2116
+ 2318 00da 19       		.uleb128 0x19
+ 2319 00db 01       		.uleb128 0x1
+ 2320 00dc 13       		.uleb128 0x13
+ 2321 00dd 00       		.byte	0
+ 2322 00de 00       		.byte	0
+ 2323 00df 0F       		.uleb128 0xf
+ 2324 00e0 898201   		.uleb128 0x4109
+ 2325 00e3 01       		.byte	0x1
+ 2326 00e4 11       		.uleb128 0x11
+ 2327 00e5 01       		.uleb128 0x1
+ 2328 00e6 31       		.uleb128 0x31
+ 2329 00e7 13       		.uleb128 0x13
+ 2330 00e8 00       		.byte	0
+ 2331 00e9 00       		.byte	0
+ 2332 00ea 10       		.uleb128 0x10
+ 2333 00eb 2E       		.uleb128 0x2e
+ 2334 00ec 01       		.byte	0x1
+ 2335 00ed 3F       		.uleb128 0x3f
+ 2336 00ee 19       		.uleb128 0x19
+ 2337 00ef 03       		.uleb128 0x3
+ 2338 00f0 0E       		.uleb128 0xe
+ 2339 00f1 3A       		.uleb128 0x3a
+ 2340 00f2 0B       		.uleb128 0xb
+ 2341 00f3 3B       		.uleb128 0x3b
+ 2342 00f4 0B       		.uleb128 0xb
+ 2343 00f5 27       		.uleb128 0x27
+ 2344 00f6 19       		.uleb128 0x19
+ 2345 00f7 49       		.uleb128 0x49
+ 2346 00f8 13       		.uleb128 0x13
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 50
+
+
+ 2347 00f9 11       		.uleb128 0x11
+ 2348 00fa 01       		.uleb128 0x1
+ 2349 00fb 12       		.uleb128 0x12
+ 2350 00fc 06       		.uleb128 0x6
+ 2351 00fd 40       		.uleb128 0x40
+ 2352 00fe 18       		.uleb128 0x18
+ 2353 00ff 9642     		.uleb128 0x2116
+ 2354 0101 19       		.uleb128 0x19
+ 2355 0102 01       		.uleb128 0x1
+ 2356 0103 13       		.uleb128 0x13
+ 2357 0104 00       		.byte	0
+ 2358 0105 00       		.byte	0
+ 2359 0106 11       		.uleb128 0x11
+ 2360 0107 01       		.uleb128 0x1
+ 2361 0108 01       		.byte	0x1
+ 2362 0109 49       		.uleb128 0x49
+ 2363 010a 13       		.uleb128 0x13
+ 2364 010b 01       		.uleb128 0x1
+ 2365 010c 13       		.uleb128 0x13
+ 2366 010d 00       		.byte	0
+ 2367 010e 00       		.byte	0
+ 2368 010f 12       		.uleb128 0x12
+ 2369 0110 21       		.uleb128 0x21
+ 2370 0111 00       		.byte	0
+ 2371 0112 49       		.uleb128 0x49
+ 2372 0113 13       		.uleb128 0x13
+ 2373 0114 2F       		.uleb128 0x2f
+ 2374 0115 0B       		.uleb128 0xb
+ 2375 0116 00       		.byte	0
+ 2376 0117 00       		.byte	0
+ 2377 0118 13       		.uleb128 0x13
+ 2378 0119 34       		.uleb128 0x34
+ 2379 011a 00       		.byte	0
+ 2380 011b 03       		.uleb128 0x3
+ 2381 011c 0E       		.uleb128 0xe
+ 2382 011d 3A       		.uleb128 0x3a
+ 2383 011e 0B       		.uleb128 0xb
+ 2384 011f 3B       		.uleb128 0x3b
+ 2385 0120 0B       		.uleb128 0xb
+ 2386 0121 49       		.uleb128 0x49
+ 2387 0122 13       		.uleb128 0x13
+ 2388 0123 3F       		.uleb128 0x3f
+ 2389 0124 19       		.uleb128 0x19
+ 2390 0125 02       		.uleb128 0x2
+ 2391 0126 18       		.uleb128 0x18
+ 2392 0127 00       		.byte	0
+ 2393 0128 00       		.byte	0
+ 2394 0129 14       		.uleb128 0x14
+ 2395 012a 35       		.uleb128 0x35
+ 2396 012b 00       		.byte	0
+ 2397 012c 49       		.uleb128 0x49
+ 2398 012d 13       		.uleb128 0x13
+ 2399 012e 00       		.byte	0
+ 2400 012f 00       		.byte	0
+ 2401 0130 15       		.uleb128 0x15
+ 2402 0131 34       		.uleb128 0x34
+ 2403 0132 00       		.byte	0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 51
+
+
+ 2404 0133 03       		.uleb128 0x3
+ 2405 0134 0E       		.uleb128 0xe
+ 2406 0135 3A       		.uleb128 0x3a
+ 2407 0136 0B       		.uleb128 0xb
+ 2408 0137 3B       		.uleb128 0x3b
+ 2409 0138 05       		.uleb128 0x5
+ 2410 0139 49       		.uleb128 0x49
+ 2411 013a 13       		.uleb128 0x13
+ 2412 013b 3F       		.uleb128 0x3f
+ 2413 013c 19       		.uleb128 0x19
+ 2414 013d 02       		.uleb128 0x2
+ 2415 013e 18       		.uleb128 0x18
+ 2416 013f 00       		.byte	0
+ 2417 0140 00       		.byte	0
+ 2418 0141 16       		.uleb128 0x16
+ 2419 0142 2E       		.uleb128 0x2e
+ 2420 0143 00       		.byte	0
+ 2421 0144 3F       		.uleb128 0x3f
+ 2422 0145 19       		.uleb128 0x19
+ 2423 0146 03       		.uleb128 0x3
+ 2424 0147 0E       		.uleb128 0xe
+ 2425 0148 3A       		.uleb128 0x3a
+ 2426 0149 0B       		.uleb128 0xb
+ 2427 014a 3B       		.uleb128 0x3b
+ 2428 014b 0B       		.uleb128 0xb
+ 2429 014c 27       		.uleb128 0x27
+ 2430 014d 19       		.uleb128 0x19
+ 2431 014e 3C       		.uleb128 0x3c
+ 2432 014f 19       		.uleb128 0x19
+ 2433 0150 00       		.byte	0
+ 2434 0151 00       		.byte	0
+ 2435 0152 17       		.uleb128 0x17
+ 2436 0153 2E       		.uleb128 0x2e
+ 2437 0154 00       		.byte	0
+ 2438 0155 3F       		.uleb128 0x3f
+ 2439 0156 19       		.uleb128 0x19
+ 2440 0157 03       		.uleb128 0x3
+ 2441 0158 0E       		.uleb128 0xe
+ 2442 0159 3A       		.uleb128 0x3a
+ 2443 015a 0B       		.uleb128 0xb
+ 2444 015b 3B       		.uleb128 0x3b
+ 2445 015c 05       		.uleb128 0x5
+ 2446 015d 27       		.uleb128 0x27
+ 2447 015e 19       		.uleb128 0x19
+ 2448 015f 3C       		.uleb128 0x3c
+ 2449 0160 19       		.uleb128 0x19
+ 2450 0161 00       		.byte	0
+ 2451 0162 00       		.byte	0
+ 2452 0163 18       		.uleb128 0x18
+ 2453 0164 2E       		.uleb128 0x2e
+ 2454 0165 01       		.byte	0x1
+ 2455 0166 3F       		.uleb128 0x3f
+ 2456 0167 19       		.uleb128 0x19
+ 2457 0168 03       		.uleb128 0x3
+ 2458 0169 0E       		.uleb128 0xe
+ 2459 016a 3A       		.uleb128 0x3a
+ 2460 016b 0B       		.uleb128 0xb
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 52
+
+
+ 2461 016c 3B       		.uleb128 0x3b
+ 2462 016d 05       		.uleb128 0x5
+ 2463 016e 27       		.uleb128 0x27
+ 2464 016f 19       		.uleb128 0x19
+ 2465 0170 3C       		.uleb128 0x3c
+ 2466 0171 19       		.uleb128 0x19
+ 2467 0172 01       		.uleb128 0x1
+ 2468 0173 13       		.uleb128 0x13
+ 2469 0174 00       		.byte	0
+ 2470 0175 00       		.byte	0
+ 2471 0176 19       		.uleb128 0x19
+ 2472 0177 05       		.uleb128 0x5
+ 2473 0178 00       		.byte	0
+ 2474 0179 49       		.uleb128 0x49
+ 2475 017a 13       		.uleb128 0x13
+ 2476 017b 00       		.byte	0
+ 2477 017c 00       		.byte	0
+ 2478 017d 1A       		.uleb128 0x1a
+ 2479 017e 2E       		.uleb128 0x2e
+ 2480 017f 01       		.byte	0x1
+ 2481 0180 3F       		.uleb128 0x3f
+ 2482 0181 19       		.uleb128 0x19
+ 2483 0182 03       		.uleb128 0x3
+ 2484 0183 0E       		.uleb128 0xe
+ 2485 0184 3A       		.uleb128 0x3a
+ 2486 0185 0B       		.uleb128 0xb
+ 2487 0186 3B       		.uleb128 0x3b
+ 2488 0187 0B       		.uleb128 0xb
+ 2489 0188 27       		.uleb128 0x27
+ 2490 0189 19       		.uleb128 0x19
+ 2491 018a 3C       		.uleb128 0x3c
+ 2492 018b 19       		.uleb128 0x19
+ 2493 018c 01       		.uleb128 0x1
+ 2494 018d 13       		.uleb128 0x13
+ 2495 018e 00       		.byte	0
+ 2496 018f 00       		.byte	0
+ 2497 0190 1B       		.uleb128 0x1b
+ 2498 0191 2E       		.uleb128 0x2e
+ 2499 0192 00       		.byte	0
+ 2500 0193 3F       		.uleb128 0x3f
+ 2501 0194 19       		.uleb128 0x19
+ 2502 0195 03       		.uleb128 0x3
+ 2503 0196 0E       		.uleb128 0xe
+ 2504 0197 3A       		.uleb128 0x3a
+ 2505 0198 0B       		.uleb128 0xb
+ 2506 0199 3B       		.uleb128 0x3b
+ 2507 019a 05       		.uleb128 0x5
+ 2508 019b 27       		.uleb128 0x27
+ 2509 019c 19       		.uleb128 0x19
+ 2510 019d 49       		.uleb128 0x49
+ 2511 019e 13       		.uleb128 0x13
+ 2512 019f 3C       		.uleb128 0x3c
+ 2513 01a0 19       		.uleb128 0x19
+ 2514 01a1 00       		.byte	0
+ 2515 01a2 00       		.byte	0
+ 2516 01a3 1C       		.uleb128 0x1c
+ 2517 01a4 2E       		.uleb128 0x2e
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 53
+
+
+ 2518 01a5 00       		.byte	0
+ 2519 01a6 3F       		.uleb128 0x3f
+ 2520 01a7 19       		.uleb128 0x19
+ 2521 01a8 03       		.uleb128 0x3
+ 2522 01a9 0E       		.uleb128 0xe
+ 2523 01aa 3A       		.uleb128 0x3a
+ 2524 01ab 0B       		.uleb128 0xb
+ 2525 01ac 3B       		.uleb128 0x3b
+ 2526 01ad 0B       		.uleb128 0xb
+ 2527 01ae 27       		.uleb128 0x27
+ 2528 01af 19       		.uleb128 0x19
+ 2529 01b0 49       		.uleb128 0x49
+ 2530 01b1 13       		.uleb128 0x13
+ 2531 01b2 3C       		.uleb128 0x3c
+ 2532 01b3 19       		.uleb128 0x19
+ 2533 01b4 00       		.byte	0
+ 2534 01b5 00       		.byte	0
+ 2535 01b6 00       		.byte	0
+ 2536              		.section	.debug_aranges,"",%progbits
+ 2537 0000 2C000000 		.4byte	0x2c
+ 2538 0004 0200     		.2byte	0x2
+ 2539 0006 00000000 		.4byte	.Ldebug_info0
+ 2540 000a 04       		.byte	0x4
+ 2541 000b 00       		.byte	0
+ 2542 000c 0000     		.2byte	0
+ 2543 000e 0000     		.2byte	0
+ 2544 0010 00000000 		.4byte	.LFB34
+ 2545 0014 18010000 		.4byte	.LFE34-.LFB34
+ 2546 0018 00000000 		.4byte	.LFB35
+ 2547 001c D0000000 		.4byte	.LFE35-.LFB35
+ 2548 0020 00000000 		.4byte	.LFB33
+ 2549 0024 F8010000 		.4byte	.LFE33-.LFB33
+ 2550 0028 00000000 		.4byte	0
+ 2551 002c 00000000 		.4byte	0
+ 2552              		.section	.debug_ranges,"",%progbits
+ 2553              	.Ldebug_ranges0:
+ 2554 0000 00000000 		.4byte	.LFB34
+ 2555 0004 18010000 		.4byte	.LFE34
+ 2556 0008 00000000 		.4byte	.LFB35
+ 2557 000c D0000000 		.4byte	.LFE35
+ 2558 0010 00000000 		.4byte	.LFB33
+ 2559 0014 F8010000 		.4byte	.LFE33
+ 2560 0018 00000000 		.4byte	0
+ 2561 001c 00000000 		.4byte	0
+ 2562              		.section	.debug_line,"",%progbits
+ 2563              	.Ldebug_line0:
+ 2564 0000 81030000 		.section	.debug_str,"MS",%progbits,1
+ 2564      02006302 
+ 2564      00000201 
+ 2564      FB0E0D00 
+ 2564      01010101 
+ 2565              	.LASF106:
+ 2566 0000 43795379 		.ascii	"CySysWdtWriteMode\000"
+ 2566      73576474 
+ 2566      57726974 
+ 2566      654D6F64 
+ 2566      6500
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 54
+
+
+ 2567              	.LASF88:
+ 2568 0012 50574D5F 		.ascii	"PWM_MAX\000"
+ 2568      4D415800 
+ 2569              	.LASF130:
+ 2570 001a 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 2570      4320342E 
+ 2570      392E3320 
+ 2570      32303135 
+ 2570      30333033 
+ 2571 004d 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 2571      20726576 
+ 2571      6973696F 
+ 2571      6E203232 
+ 2571      31323230 
+ 2572 0080 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 2572      66756E63 
+ 2572      74696F6E 
+ 2572      2D736563 
+ 2572      74696F6E 
+ 2573              	.LASF90:
+ 2574 00a8 50574D5F 		.ascii	"PWM_MIN\000"
+ 2574      4D494E00 
+ 2575              	.LASF126:
+ 2576 00b0 4C45445F 		.ascii	"LED_Main_Write\000"
+ 2576      4D61696E 
+ 2576      5F577269 
+ 2576      746500
+ 2577              	.LASF3:
+ 2578 00bf 5F5F7569 		.ascii	"__uint8_t\000"
+ 2578      6E74385F 
+ 2578      7400
+ 2579              	.LASF62:
+ 2580 00c9 64696D6D 		.ascii	"dimmer_status\000"
+ 2580      65725F73 
+ 2580      74617475 
+ 2580      7300
+ 2581              	.LASF75:
+ 2582 00d7 444D525F 		.ascii	"DMR_ADJ_CNT\000"
+ 2582      41444A5F 
+ 2582      434E5400 
+ 2583              	.LASF73:
+ 2584 00e3 55495F54 		.ascii	"UI_TICK_CNT\000"
+ 2584      49434B5F 
+ 2584      434E5400 
+ 2585              	.LASF22:
+ 2586 00ef 50574D5F 		.ascii	"PWM_Max_Low\000"
+ 2586      4D61785F 
+ 2586      4C6F7700 
+ 2587              	.LASF9:
+ 2588 00fb 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2588      206C6F6E 
+ 2588      6720756E 
+ 2588      7369676E 
+ 2588      65642069 
+ 2589              	.LASF19:
+ 2590 0112 43616C5F 		.ascii	"Cal_Key\000"
+ 2590      4B657900 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 55
+
+
+ 2591              	.LASF79:
+ 2592 011a 5449434B 		.ascii	"TICK_CNT_Display\000"
+ 2592      5F434E54 
+ 2592      5F446973 
+ 2592      706C6179 
+ 2592      00
+ 2593              	.LASF48:
+ 2594 012b 646D725F 		.ascii	"dmr_status\000"
+ 2594      73746174 
+ 2594      757300
+ 2595              	.LASF85:
+ 2596 0136 474F544F 		.ascii	"GOTO_BED_INTERVAL\000"
+ 2596      5F424544 
+ 2596      5F494E54 
+ 2596      45525641 
+ 2596      4C00
+ 2597              	.LASF86:
+ 2598 0148 464C4153 		.ascii	"FLASH_CNT\000"
+ 2598      485F434E 
+ 2598      5400
+ 2599              	.LASF28:
+ 2600 0152 50425F4D 		.ascii	"PB_MAIN\000"
+ 2600      41494E00 
+ 2601              	.LASF123:
+ 2602 015a 72656164 		.ascii	"read_pushbutton\000"
+ 2602      5F707573 
+ 2602      68627574 
+ 2602      746F6E00 
+ 2603              	.LASF8:
+ 2604 016a 6C6F6E67 		.ascii	"long long int\000"
+ 2604      206C6F6E 
+ 2604      6720696E 
+ 2604      7400
+ 2605              	.LASF0:
+ 2606 0178 7369676E 		.ascii	"signed char\000"
+ 2606      65642063 
+ 2606      68617200 
+ 2607              	.LASF99:
+ 2608 0184 5A65726F 		.ascii	"Zero_Cross_Start\000"
+ 2608      5F43726F 
+ 2608      73735F53 
+ 2608      74617274 
+ 2608      00
+ 2609              	.LASF77:
+ 2610 0195 5449434B 		.ascii	"TICK_CNT_100mS\000"
+ 2610      5F434E54 
+ 2610      5F313030 
+ 2610      6D5300
+ 2611              	.LASF111:
+ 2612 01a4 43795379 		.ascii	"CySysWdtLock\000"
+ 2612      73576474 
+ 2612      4C6F636B 
+ 2612      00
+ 2613              	.LASF31:
+ 2614 01b1 73776974 		.ascii	"switched_on\000"
+ 2614      63686564 
+ 2614      5F6F6E00 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 56
+
+
+ 2615              	.LASF84:
+ 2616 01bd 4E756973 		.ascii	"Nuisance_Trigger\000"
+ 2616      616E6365 
+ 2616      5F547269 
+ 2616      67676572 
+ 2616      00
+ 2617              	.LASF40:
+ 2618 01ce 7365636F 		.ascii	"second\000"
+ 2618      6E6400
+ 2619              	.LASF25:
+ 2620 01d5 50574D5F 		.ascii	"PWM_Trgt_High\000"
+ 2620      54726774 
+ 2620      5F486967 
+ 2620      6800
+ 2621              	.LASF67:
+ 2622 01e3 55495F56 		.ascii	"UI_VAL\000"
+ 2622      414C00
+ 2623              	.LASF6:
+ 2624 01ea 6C6F6E67 		.ascii	"long int\000"
+ 2624      20696E74 
+ 2624      00
+ 2625              	.LASF36:
+ 2626 01f3 70757368 		.ascii	"pushbutton_status\000"
+ 2626      62757474 
+ 2626      6F6E5F73 
+ 2626      74617475 
+ 2626      7300
+ 2627              	.LASF65:
+ 2628 0205 4E4F4E5F 		.ascii	"NON_VOL_A\000"
+ 2628      564F4C5F 
+ 2628      4100
+ 2629              	.LASF96:
+ 2630 020f 444D525F 		.ascii	"DMR_Status\000"
+ 2630      53746174 
+ 2630      757300
+ 2631              	.LASF13:
+ 2632 021a 75696E74 		.ascii	"uint8\000"
+ 2632      3800
+ 2633              	.LASF26:
+ 2634 0220 6E6F6E5F 		.ascii	"non_vol_vals\000"
+ 2634      766F6C5F 
+ 2634      76616C73 
+ 2634      00
+ 2635              	.LASF112:
+ 2636 022d 52656C61 		.ascii	"Relay_3W_Write\000"
+ 2636      795F3357 
+ 2636      5F577269 
+ 2636      746500
+ 2637              	.LASF115:
+ 2638 023c 72656164 		.ascii	"read_data_flash\000"
+ 2638      5F646174 
+ 2638      615F666C 
+ 2638      61736800 
+ 2639              	.LASF12:
+ 2640 024c 75696E74 		.ascii	"uint16_t\000"
+ 2640      31365F74 
+ 2640      00
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 57
+
+
+ 2641              	.LASF16:
+ 2642 0255 646F7562 		.ascii	"double\000"
+ 2642      6C6500
+ 2643              	.LASF109:
+ 2644 025c 43795379 		.ascii	"CySysWdtWriteCascade\000"
+ 2644      73576474 
+ 2644      57726974 
+ 2644      65436173 
+ 2644      63616465 
+ 2645              	.LASF92:
+ 2646 0271 50574D5F 		.ascii	"PWM_CAL_CNT\000"
+ 2646      43414C5F 
+ 2646      434E5400 
+ 2647              	.LASF38:
+ 2648 027d 7469636B 		.ascii	"tick\000"
+ 2648      00
+ 2649              	.LASF14:
+ 2650 0282 75696E74 		.ascii	"uint32\000"
+ 2650      333200
+ 2651              	.LASF39:
+ 2652 0289 70776D74 		.ascii	"pwmtick\000"
+ 2652      69636B00 
+ 2653              	.LASF103:
+ 2654 0291 52656C61 		.ascii	"Relay_Fire_ISR_Start\000"
+ 2654      795F4669 
+ 2654      72655F49 
+ 2654      53525F53 
+ 2654      74617274 
+ 2655              	.LASF27:
+ 2656 02a6 70757368 		.ascii	"pushbuttons\000"
+ 2656      62757474 
+ 2656      6F6E7300 
+ 2657              	.LASF46:
+ 2658 02b2 6F766C64 		.ascii	"ovldend_bug\000"
+ 2658      656E645F 
+ 2658      62756700 
+ 2659              	.LASF114:
+ 2660 02be 54657374 		.ascii	"Test_Write\000"
+ 2660      5F577269 
+ 2660      746500
+ 2661              	.LASF35:
+ 2662 02c9 70625F73 		.ascii	"pb_status_t\000"
+ 2662      74617475 
+ 2662      735F7400 
+ 2663              	.LASF110:
+ 2664 02d5 43795379 		.ascii	"CySysWdtEnable\000"
+ 2664      73576474 
+ 2664      456E6162 
+ 2664      6C6500
+ 2665              	.LASF122:
+ 2666 02e4 495F5365 		.ascii	"I_Sense_Read\000"
+ 2666      6E73655F 
+ 2666      52656164 
+ 2666      00
+ 2667              	.LASF10:
+ 2668 02f1 756E7369 		.ascii	"unsigned int\000"
+ 2668      676E6564 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 58
+
+
+ 2668      20696E74 
+ 2668      00
+ 2669              	.LASF64:
+ 2670 02fe 67705F31 		.ascii	"gp_100mS_timer\000"
+ 2670      30306D53 
+ 2670      5F74696D 
+ 2670      657200
+ 2671              	.LASF7:
+ 2672 030d 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2672      20756E73 
+ 2672      69676E65 
+ 2672      6420696E 
+ 2672      7400
+ 2673              	.LASF53:
+ 2674 031f 73696E67 		.ascii	"single_pole\000"
+ 2674      6C655F70 
+ 2674      6F6C6500 
+ 2675              	.LASF66:
+ 2676 032b 55495F43 		.ascii	"UI_CNTR\000"
+ 2676      4E545200 
+ 2677              	.LASF82:
+ 2678 0333 52454C41 		.ascii	"RELAY_CNT\000"
+ 2678      595F434E 
+ 2678      5400
+ 2679              	.LASF129:
+ 2680 033d 43795379 		.ascii	"CySysPmSleep\000"
+ 2680      73506D53 
+ 2680      6C656570 
+ 2680      00
+ 2681              	.LASF101:
+ 2682 034a 44696D6D 		.ascii	"Dimming_Start\000"
+ 2682      696E675F 
+ 2682      53746172 
+ 2682      7400
+ 2683              	.LASF5:
+ 2684 0358 73686F72 		.ascii	"short unsigned int\000"
+ 2684      7420756E 
+ 2684      7369676E 
+ 2684      65642069 
+ 2684      6E7400
+ 2685              	.LASF44:
+ 2686 036b 706F735F 		.ascii	"pos_half\000"
+ 2686      68616C66 
+ 2686      00
+ 2687              	.LASF59:
+ 2688 0374 6D617863 		.ascii	"maxcalibration\000"
+ 2688      616C6962 
+ 2688      72617469 
+ 2688      6F6E00
+ 2689              	.LASF47:
+ 2690 0383 746D725F 		.ascii	"tmr_status\000"
+ 2690      73746174 
+ 2690      757300
+ 2691              	.LASF34:
+ 2692 038e 68656C64 		.ascii	"held_off\000"
+ 2692      5F6F6666 
+ 2692      00
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 59
+
+
+ 2693              	.LASF30:
+ 2694 0397 50425F44 		.ascii	"PB_DOWN\000"
+ 2694      4F574E00 
+ 2695              	.LASF116:
+ 2696 039f 696E6974 		.ascii	"init_pb_status\000"
+ 2696      5F70625F 
+ 2696      73746174 
+ 2696      757300
+ 2697              	.LASF117:
+ 2698 03ae 43795379 		.ascii	"CySysWdtUnlock\000"
+ 2698      73576474 
+ 2698      556E6C6F 
+ 2698      636B00
+ 2699              	.LASF100:
+ 2700 03bd 50574D5F 		.ascii	"PWM_ISR_Start\000"
+ 2700      4953525F 
+ 2700      53746172 
+ 2700      7400
+ 2701              	.LASF33:
+ 2702 03cb 73776974 		.ascii	"switched_off\000"
+ 2702      63686564 
+ 2702      5F6F6666 
+ 2702      00
+ 2703              	.LASF52:
+ 2704 03d8 666C6173 		.ascii	"flash\000"
+ 2704      6800
+ 2705              	.LASF104:
+ 2706 03de 52656C61 		.ascii	"Relay_Offset_Start\000"
+ 2706      795F4F66 
+ 2706      66736574 
+ 2706      5F537461 
+ 2706      727400
+ 2707              	.LASF108:
+ 2708 03f1 43795379 		.ascii	"CySysWdtWriteClearOnMatch\000"
+ 2708      73576474 
+ 2708      57726974 
+ 2708      65436C65 
+ 2708      61724F6E 
+ 2709              	.LASF131:
+ 2710 040b 2E5C5573 		.ascii	".\\User_Source\\main.c\000"
+ 2710      65725F53 
+ 2710      6F757263 
+ 2710      655C6D61 
+ 2710      696E2E63 
+ 2711              	.LASF18:
+ 2712 0420 73697A65 		.ascii	"sizetype\000"
+ 2712      74797065 
+ 2712      00
+ 2713              	.LASF125:
+ 2714 0429 75736572 		.ascii	"user_interface\000"
+ 2714      5F696E74 
+ 2714      65726661 
+ 2714      636500
+ 2715              	.LASF60:
+ 2716 0438 6D696E5F 		.ascii	"min_cal_adjust\000"
+ 2716      63616C5F 
+ 2716      61646A75 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 60
+
+
+ 2716      737400
+ 2717              	.LASF81:
+ 2718 0447 495F5345 		.ascii	"I_SENSE_ACC\000"
+ 2718      4E53455F 
+ 2718      41434300 
+ 2719              	.LASF132:
+ 2720 0453 433A5C4C 		.ascii	"C:\\Legrand\\Dimmers\\A4W sofTap and Touch\\A4W_Sof"
+ 2720      65677261 
+ 2720      6E645C44 
+ 2720      696D6D65 
+ 2720      72735C41 
+ 2721 0482 7461702E 		.ascii	"tap.cydsn\000"
+ 2721      63796473 
+ 2721      6E00
+ 2722              	.LASF118:
+ 2723 048c 43795379 		.ascii	"CySysWdtResetCounters\000"
+ 2723      73576474 
+ 2723      52657365 
+ 2723      74436F75 
+ 2723      6E746572 
+ 2724              	.LASF15:
+ 2725 04a2 666C6F61 		.ascii	"float\000"
+ 2725      7400
+ 2726              	.LASF29:
+ 2727 04a8 50425F55 		.ascii	"PB_UP\000"
+ 2727      5000
+ 2728              	.LASF102:
+ 2729 04ae 4F70746F 		.ascii	"Opto_PWM_Start\000"
+ 2729      5F50574D 
+ 2729      5F537461 
+ 2729      727400
+ 2730              	.LASF72:
+ 2731 04bd 5345434F 		.ascii	"SECOND_CNTR\000"
+ 2731      4E445F43 
+ 2731      4E545200 
+ 2732              	.LASF98:
+ 2733 04c9 5A435F49 		.ascii	"ZC_ISR_Start\000"
+ 2733      53525F53 
+ 2733      74617274 
+ 2733      00
+ 2734              	.LASF1:
+ 2735 04d6 756E7369 		.ascii	"unsigned char\000"
+ 2735      676E6564 
+ 2735      20636861 
+ 2735      7200
+ 2736              	.LASF87:
+ 2737 04e4 50574D5F 		.ascii	"PWM_CURRENT\000"
+ 2737      43555252 
+ 2737      454E5400 
+ 2738              	.LASF107:
+ 2739 04f0 43795379 		.ascii	"CySysWdtWriteMatch\000"
+ 2739      73576474 
+ 2739      57726974 
+ 2739      654D6174 
+ 2739      636800
+ 2740              	.LASF41:
+ 2741 0503 7A635F74 		.ascii	"zc_tick\000"
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 61
+
+
+ 2741      69636B00 
+ 2742              	.LASF32:
+ 2743 050b 68656C64 		.ascii	"held_on\000"
+ 2743      5F6F6E00 
+ 2744              	.LASF2:
+ 2745 0513 73686F72 		.ascii	"short int\000"
+ 2745      7420696E 
+ 2745      7400
+ 2746              	.LASF21:
+ 2747 051d 50574D5F 		.ascii	"PWM_Min_High\000"
+ 2747      4D696E5F 
+ 2747      48696768 
+ 2747      00
+ 2748              	.LASF80:
+ 2749 052a 495F5345 		.ascii	"I_SENSE_CNT\000"
+ 2749      4E53455F 
+ 2749      434E5400 
+ 2750              	.LASF20:
+ 2751 0536 50574D5F 		.ascii	"PWM_Min_Low\000"
+ 2751      4D696E5F 
+ 2751      4C6F7700 
+ 2752              	.LASF23:
+ 2753 0542 50574D5F 		.ascii	"PWM_Max_High\000"
+ 2753      4D61785F 
+ 2753      48696768 
+ 2753      00
+ 2754              	.LASF55:
+ 2755 054f 636F696C 		.ascii	"coilactive\000"
+ 2755      61637469 
+ 2755      766500
+ 2756              	.LASF42:
+ 2757 055a 67705F31 		.ascii	"gp_100mS_tick\000"
+ 2757      30306D53 
+ 2757      5F746963 
+ 2757      6B00
+ 2758              	.LASF120:
+ 2759 0568 54657374 		.ascii	"Test_ReadDataReg\000"
+ 2759      5F526561 
+ 2759      64446174 
+ 2759      61526567 
+ 2759      00
+ 2760              	.LASF61:
+ 2761 0579 6D61785F 		.ascii	"max_cal_adjust\000"
+ 2761      63616C5F 
+ 2761      61646A75 
+ 2761      737400
+ 2762              	.LASF89:
+ 2763 0588 50574D5F 		.ascii	"PWM_CHG\000"
+ 2763      43484700 
+ 2764              	.LASF49:
+ 2765 0590 66616465 		.ascii	"fade_on\000"
+ 2765      5F6F6E00 
+ 2766              	.LASF50:
+ 2767 0598 66616465 		.ascii	"fade_off\000"
+ 2767      5F6F6666 
+ 2767      00
+ 2768              	.LASF83:
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 62
+
+
+ 2769 05a1 52454C41 		.ascii	"RELAY_OFFSET\000"
+ 2769      595F4F46 
+ 2769      46534554 
+ 2769      00
+ 2770              	.LASF69:
+ 2771 05ae 4D43555F 		.ascii	"MCU_OSC_ACC\000"
+ 2771      4F53435F 
+ 2771      41434300 
+ 2772              	.LASF63:
+ 2773 05ba 696E6974 		.ascii	"init_dimmer_status\000"
+ 2773      5F64696D 
+ 2773      6D65725F 
+ 2773      73746174 
+ 2773      757300
+ 2774              	.LASF93:
+ 2775 05cd 52454C41 		.ascii	"RELAY_STATE\000"
+ 2775      595F5354 
+ 2775      41544500 
+ 2776              	.LASF17:
+ 2777 05d9 63686172 		.ascii	"char\000"
+ 2777      00
+ 2778              	.LASF128:
+ 2779 05de 4C45445F 		.ascii	"LED_Minus_Write\000"
+ 2779      4D696E75 
+ 2779      735F5772 
+ 2779      69746500 
+ 2780              	.LASF4:
+ 2781 05ee 5F5F7569 		.ascii	"__uint16_t\000"
+ 2781      6E743136 
+ 2781      5F7400
+ 2782              	.LASF56:
+ 2783 05f9 7468726F 		.ascii	"throwrelay\000"
+ 2783      7772656C 
+ 2783      617900
+ 2784              	.LASF121:
+ 2785 0604 5A65726F 		.ascii	"Zero_Cross_GetCompare\000"
+ 2785      5F43726F 
+ 2785      73735F47 
+ 2785      6574436F 
+ 2785      6D706172 
+ 2786              	.LASF37:
+ 2787 061a 74696D65 		.ascii	"timer_status\000"
+ 2787      725F7374 
+ 2787      61747573 
+ 2787      00
+ 2788              	.LASF78:
+ 2789 0627 5449434B 		.ascii	"TICK_DBL_TAP\000"
+ 2789      5F44424C 
+ 2789      5F544150 
+ 2789      00
+ 2790              	.LASF70:
+ 2791 0634 50425F49 		.ascii	"PB_INTERVAL_TICK\000"
+ 2791      4E544552 
+ 2791      56414C5F 
+ 2791      5449434B 
+ 2791      00
+ 2792              	.LASF74:
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 63
+
+
+ 2793 0645 46414445 		.ascii	"FADE_CNT\000"
+ 2793      5F434E54 
+ 2793      00
+ 2794              	.LASF43:
+ 2795 064e 73696E67 		.ascii	"single_tap\000"
+ 2795      6C655F74 
+ 2795      617000
+ 2796              	.LASF57:
+ 2797 0659 73746F72 		.ascii	"store_status\000"
+ 2797      655F7374 
+ 2797      61747573 
+ 2797      00
+ 2798              	.LASF94:
+ 2799 0666 50425F53 		.ascii	"PB_Status\000"
+ 2799      74617475 
+ 2799      7300
+ 2800              	.LASF127:
+ 2801 0670 4C45445F 		.ascii	"LED_Plus_Write\000"
+ 2801      506C7573 
+ 2801      5F577269 
+ 2801      746500
+ 2802              	.LASF105:
+ 2803 067f 44696D6D 		.ascii	"Dimming_WriteCompare\000"
+ 2803      696E675F 
+ 2803      57726974 
+ 2803      65436F6D 
+ 2803      70617265 
+ 2804              	.LASF45:
+ 2805 0694 6E65675F 		.ascii	"neg_half\000"
+ 2805      68616C66 
+ 2805      00
+ 2806              	.LASF51:
+ 2807 069d 676F746F 		.ascii	"goto_bed\000"
+ 2807      5F626564 
+ 2807      00
+ 2808              	.LASF11:
+ 2809 06a6 75696E74 		.ascii	"uint8_t\000"
+ 2809      385F7400 
+ 2810              	.LASF91:
+ 2811 06ae 50574D5F 		.ascii	"PWM_TARGET\000"
+ 2811      54415247 
+ 2811      455400
+ 2812              	.LASF71:
+ 2813 06b9 5A435F43 		.ascii	"ZC_CNTR\000"
+ 2813      4E545200 
+ 2814              	.LASF119:
+ 2815 06c1 44696D6D 		.ascii	"Dimming_ReadCompare\000"
+ 2815      696E675F 
+ 2815      52656164 
+ 2815      436F6D70 
+ 2815      61726500 
+ 2816              	.LASF68:
+ 2817 06d5 5A435F54 		.ascii	"ZC_TEST\000"
+ 2817      45535400 
+ 2818              	.LASF113:
+ 2819 06dd 52656C61 		.ascii	"Relay_1P_Write\000"
+ 2819      795F3150 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccb8Rhum.s 			page 64
+
+
+ 2819      5F577269 
+ 2819      746500
+ 2820              	.LASF97:
+ 2821 06ec 77726974 		.ascii	"write_data_flash\000"
+ 2821      655F6461 
+ 2821      74615F66 
+ 2821      6C617368 
+ 2821      00
+ 2822              	.LASF58:
+ 2823 06fd 6D696E63 		.ascii	"mincalibration\000"
+ 2823      616C6962 
+ 2823      72617469 
+ 2823      6F6E00
+ 2824              	.LASF76:
+ 2825 070c 5449434B 		.ascii	"TICK_CNT\000"
+ 2825      5F434E54 
+ 2825      00
+ 2826              	.LASF133:
+ 2827 0715 6D61696E 		.ascii	"main\000"
+ 2827      00
+ 2828              	.LASF54:
+ 2829 071a 74687265 		.ascii	"three_way\000"
+ 2829      655F7761 
+ 2829      7900
+ 2830              	.LASF95:
+ 2831 0724 544D525F 		.ascii	"TMR_Status\000"
+ 2831      53746174 
+ 2831      757300
+ 2832              	.LASF124:
+ 2833 072f 62757474 		.ascii	"button_response\000"
+ 2833      6F6E5F72 
+ 2833      6573706F 
+ 2833      6E736500 
+ 2834              	.LASF24:
+ 2835 073f 50574D5F 		.ascii	"PWM_Trgt_Low\000"
+ 2835      54726774 
+ 2835      5F4C6F77 
+ 2835      00
+ 2836              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

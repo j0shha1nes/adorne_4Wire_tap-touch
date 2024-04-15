@@ -1,0 +1,8 @@
+C:/Legrand/Dimmers/A4W\ sofTap\ and\ Touch/A4W_Softap.cydsn/CortexM0/ARM_GCC_493/Debug/CyBootAsmGnu.o : C:/Legrand/Dimmers/A4W\ sofTap\ and\ Touch/A4W_Softap.cydsn/Generated_Source/PSoC4/CyBootAsmGnu.s C:/Legrand/Dimmers/A4W\ sofTap\ and\ Touch/A4W_Softap.cydsn/Generated_Source/PSoC4/cydevicegnu_trm.inc C:/Legrand/Dimmers/A4W\ sofTap\ and\ Touch/A4W_Softap.cydsn/Generated_Source/PSoC4/cyfittergnu.inc 
+
+C:/Legrand/Dimmers/A4W\ sofTap\ and\ Touch/A4W_Softap.cydsn/Generated_Source/PSoC4/CyBootAsmGnu.s : 
+
+C:/Legrand/Dimmers/A4W\ sofTap\ and\ Touch/A4W_Softap.cydsn/Generated_Source/PSoC4/cydevicegnu_trm.inc : 
+
+C:/Legrand/Dimmers/A4W\ sofTap\ and\ Touch/A4W_Softap.cydsn/Generated_Source/PSoC4/cyfittergnu.inc : 
+

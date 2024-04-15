@@ -1,0 +1,853 @@
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccBMnOtB.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 4
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"Zero_Cross_PM.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.Zero_Cross_SaveConfig,"ax",%progbits
+  18              		.align	1
+  19              		.global	Zero_Cross_SaveConfig
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	Zero_Cross_SaveConfig, %function
+  23              	Zero_Cross_SaveConfig:
+  24              	.LFB0:
+  25              		.file 1 ".\\Generated_Source\\PSoC4\\Zero_Cross_PM.c"
+   1:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * File Name: Zero_Cross_PM.c
+   3:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Version 1.10
+   4:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+   5:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Description:
+   6:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  This file provides the power management source code APIs for the
+   7:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  Comparator.
+   8:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+   9:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Note:
+  10:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  None
+  11:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+  12:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** ********************************************************************************
+  13:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Copyright 2013-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  14:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * You may use this file only in accordance with the license, terms, conditions,
+  15:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  16:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * the software package with which this file was provided.
+  17:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *******************************************************************************/
+  18:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** 
+  19:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** #include "Zero_Cross.h"
+  20:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** 
+  21:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** #if(!Zero_Cross_CHECK_DEEPSLEEP_SUPPORT)
+  22:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****     static Zero_Cross_BACKUP_STRUCT Zero_Cross_backup =
+  23:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****     {
+  24:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****         0u, /* enableState */
+  25:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****     };
+  26:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** #endif /* (Zero_Cross_CHECK_DEEPSLEEP_SUPPORT) */
+  27:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** 
+  28:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** 
+  29:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** /*******************************************************************************
+  30:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Function Name: Zero_Cross_SaveConfig
+  31:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** ********************************************************************************
+  32:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccBMnOtB.s 			page 2
+
+
+  33:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Summary:
+  34:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  Empty function. Included for consistency with other components.
+  35:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+  36:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Parameters:
+  37:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  None
+  38:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+  39:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Return:
+  40:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  None
+  41:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+  42:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *******************************************************************************/
+  43:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** void Zero_Cross_SaveConfig(void)
+  44:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** {
+  26              		.loc 1 44 0
+  27              		.cfi_startproc
+  45:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** 
+  46:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** }
+  28              		.loc 1 46 0
+  29              		@ sp needed
+  30 0000 7047     		bx	lr
+  31              		.cfi_endproc
+  32              	.LFE0:
+  33              		.size	Zero_Cross_SaveConfig, .-Zero_Cross_SaveConfig
+  34              		.section	.text.Zero_Cross_RestoreConfig,"ax",%progbits
+  35              		.align	1
+  36              		.global	Zero_Cross_RestoreConfig
+  37              		.code	16
+  38              		.thumb_func
+  39              		.type	Zero_Cross_RestoreConfig, %function
+  40              	Zero_Cross_RestoreConfig:
+  41              	.LFB1:
+  47:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** 
+  48:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** 
+  49:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** /*******************************************************************************
+  50:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Function Name: Zero_Cross_RestoreConfig
+  51:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** ********************************************************************************
+  52:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+  53:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Summary:
+  54:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  Empty function. Included for consistency with other components.
+  55:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+  56:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Parameters:
+  57:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  None
+  58:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+  59:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Return:
+  60:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  None
+  61:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+  62:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** ********************************************************************************/
+  63:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** void Zero_Cross_RestoreConfig(void)
+  64:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** {
+  42              		.loc 1 64 0
+  43              		.cfi_startproc
+  65:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** 
+  66:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** }
+  44              		.loc 1 66 0
+  45              		@ sp needed
+  46 0000 7047     		bx	lr
+  47              		.cfi_endproc
+  48              	.LFE1:
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccBMnOtB.s 			page 3
+
+
+  49              		.size	Zero_Cross_RestoreConfig, .-Zero_Cross_RestoreConfig
+  50              		.section	.text.Zero_Cross_Sleep,"ax",%progbits
+  51              		.align	1
+  52              		.global	Zero_Cross_Sleep
+  53              		.code	16
+  54              		.thumb_func
+  55              		.type	Zero_Cross_Sleep, %function
+  56              	Zero_Cross_Sleep:
+  57              	.LFB2:
+  67:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** 
+  68:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** 
+  69:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** /*******************************************************************************
+  70:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Function Name: Zero_Cross_Sleep
+  71:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** ********************************************************************************
+  72:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+  73:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Summary:
+  74:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  This is the preferred API to prepare the component for sleep. The Sleep() API 
+  75:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  saves the current component state. Call the Comp_Sleep() function before 
+  76:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  calling the CySysPmDeepSleep() or the CySysPmHibernate() functions.
+  77:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  The "Deep sleep operation" option has an influence on this function
+  78:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  implementation.
+  79:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+  80:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Parameters:
+  81:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  None
+  82:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+  83:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Return:
+  84:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  None
+  85:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+  86:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *******************************************************************************/
+  87:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** void Zero_Cross_Sleep(void)
+  88:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** {
+  58              		.loc 1 88 0
+  59              		.cfi_startproc
+  60 0000 08B5     		push	{r3, lr}
+  61              		.cfi_def_cfa_offset 8
+  62              		.cfi_offset 3, -8
+  63              		.cfi_offset 14, -4
+  89:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** #if(!Zero_Cross_CHECK_DEEPSLEEP_SUPPORT)
+  90:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****     if(Zero_Cross_CHECK_PWR_MODE_OFF)
+  64              		.loc 1 90 0
+  65 0002 064B     		ldr	r3, .L7
+  66 0004 1A68     		ldr	r2, [r3]
+  67 0006 0323     		mov	r3, #3
+  68 0008 1340     		and	r3, r2
+  69 000a 054A     		ldr	r2, .L7+4
+  70 000c 04D0     		beq	.L4
+  91:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****     {
+  92:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****         Zero_Cross_backup.enableState = 1u;
+  71              		.loc 1 92 0
+  72 000e 0123     		mov	r3, #1
+  73 0010 1370     		strb	r3, [r2]
+  93:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****         Zero_Cross_Stop();
+  74              		.loc 1 93 0
+  75 0012 FFF7FEFF 		bl	Zero_Cross_Stop
+  76              	.LVL0:
+  77 0016 00E0     		b	.L3
+  78              	.L4:
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccBMnOtB.s 			page 4
+
+
+  94:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****     }
+  95:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****     else /* Component is disabled */
+  96:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****     {
+  97:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****         Zero_Cross_backup.enableState = 0u;
+  79              		.loc 1 97 0
+  80 0018 1370     		strb	r3, [r2]
+  81              	.L3:
+  98:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****     }
+  99:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** #endif /* (Zero_Cross_CHECK_DEEPSLEEP_SUPPORT) */
+ 100:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** }
+  82              		.loc 1 100 0
+  83              		@ sp needed
+  84 001a 08BD     		pop	{r3, pc}
+  85              	.L8:
+  86              		.align	2
+  87              	.L7:
+  88 001c 08001040 		.word	1074790408
+  89 0020 00000000 		.word	.LANCHOR0
+  90              		.cfi_endproc
+  91              	.LFE2:
+  92              		.size	Zero_Cross_Sleep, .-Zero_Cross_Sleep
+  93              		.section	.text.Zero_Cross_Wakeup,"ax",%progbits
+  94              		.align	1
+  95              		.global	Zero_Cross_Wakeup
+  96              		.code	16
+  97              		.thumb_func
+  98              		.type	Zero_Cross_Wakeup, %function
+  99              	Zero_Cross_Wakeup:
+ 100              	.LFB3:
+ 101:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** 
+ 102:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** 
+ 103:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** /*******************************************************************************
+ 104:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Function Name: Zero_Cross_Wakeup
+ 105:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** ********************************************************************************
+ 106:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+ 107:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Summary:
+ 108:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  This is the preferred API to restore the component to the state when Sleep() 
+ 109:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  was called. The Wakeup() function will also re-enable the component. 
+ 110:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  The "Deep sleep operation" option has an influence on this function
+ 111:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  implementation.
+ 112:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+ 113:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Parameters:
+ 114:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  None
+ 115:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+ 116:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** * Return:
+ 117:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *  None
+ 118:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *
+ 119:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** *******************************************************************************/
+ 120:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** void Zero_Cross_Wakeup(void)
+ 121:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** {
+ 101              		.loc 1 121 0
+ 102              		.cfi_startproc
+ 103 0000 08B5     		push	{r3, lr}
+ 104              		.cfi_def_cfa_offset 8
+ 105              		.cfi_offset 3, -8
+ 106              		.cfi_offset 14, -4
+ 122:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** #if(!Zero_Cross_CHECK_DEEPSLEEP_SUPPORT)
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccBMnOtB.s 			page 5
+
+
+ 123:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****     if(0u != Zero_Cross_backup.enableState)
+ 107              		.loc 1 123 0
+ 108 0002 034B     		ldr	r3, .L14
+ 109 0004 1B78     		ldrb	r3, [r3]
+ 110 0006 002B     		cmp	r3, #0
+ 111 0008 01D0     		beq	.L9
+ 124:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****     {
+ 125:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****         /* Enable Comp's operation */
+ 126:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****         Zero_Cross_Enable();
+ 112              		.loc 1 126 0
+ 113 000a FFF7FEFF 		bl	Zero_Cross_Enable
+ 114              	.LVL1:
+ 115              	.L9:
+ 127:.\Generated_Source\PSoC4/Zero_Cross_PM.c ****     } /* Do nothing if Comp was disabled before */
+ 128:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** #endif /* (Zero_Cross_CHECK_DEEPSLEEP_SUPPORT) */
+ 129:.\Generated_Source\PSoC4/Zero_Cross_PM.c **** }
+ 116              		.loc 1 129 0
+ 117              		@ sp needed
+ 118 000e 08BD     		pop	{r3, pc}
+ 119              	.L15:
+ 120              		.align	2
+ 121              	.L14:
+ 122 0010 00000000 		.word	.LANCHOR0
+ 123              		.cfi_endproc
+ 124              	.LFE3:
+ 125              		.size	Zero_Cross_Wakeup, .-Zero_Cross_Wakeup
+ 126              		.bss
+ 127              		.set	.LANCHOR0,. + 0
+ 128              		.type	Zero_Cross_backup, %object
+ 129              		.size	Zero_Cross_backup, 1
+ 130              	Zero_Cross_backup:
+ 131 0000 00       		.space	1
+ 132              		.text
+ 133              	.Letext0:
+ 134              		.file 2 ".\\Generated_Source\\PSoC4\\cytypes.h"
+ 135              		.file 3 ".\\Generated_Source\\PSoC4\\Zero_Cross.h"
+ 136              		.section	.debug_info,"",%progbits
+ 137              	.Ldebug_info0:
+ 138 0000 4A010000 		.4byte	0x14a
+ 139 0004 0400     		.2byte	0x4
+ 140 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 141 000a 04       		.byte	0x4
+ 142 000b 01       		.uleb128 0x1
+ 143 000c A7000000 		.4byte	.LASF23
+ 144 0010 01       		.byte	0x1
+ 145 0011 E0010000 		.4byte	.LASF24
+ 146 0015 3F000000 		.4byte	.LASF25
+ 147 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 148 001d 00000000 		.4byte	0
+ 149 0021 00000000 		.4byte	.Ldebug_line0
+ 150 0025 02       		.uleb128 0x2
+ 151 0026 01       		.byte	0x1
+ 152 0027 06       		.byte	0x6
+ 153 0028 D4010000 		.4byte	.LASF0
+ 154 002c 02       		.uleb128 0x2
+ 155 002d 01       		.byte	0x1
+ 156 002e 08       		.byte	0x8
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccBMnOtB.s 			page 6
+
+
+ 157 002f 93010000 		.4byte	.LASF1
+ 158 0033 02       		.uleb128 0x2
+ 159 0034 02       		.byte	0x2
+ 160 0035 05       		.byte	0x5
+ 161 0036 28020000 		.4byte	.LASF2
+ 162 003a 02       		.uleb128 0x2
+ 163 003b 02       		.byte	0x2
+ 164 003c 07       		.byte	0x7
+ 165 003d 70010000 		.4byte	.LASF3
+ 166 0041 02       		.uleb128 0x2
+ 167 0042 04       		.byte	0x4
+ 168 0043 05       		.byte	0x5
+ 169 0044 A6010000 		.4byte	.LASF4
+ 170 0048 02       		.uleb128 0x2
+ 171 0049 04       		.byte	0x4
+ 172 004a 07       		.byte	0x7
+ 173 004b 35010000 		.4byte	.LASF5
+ 174 004f 02       		.uleb128 0x2
+ 175 0050 08       		.byte	0x8
+ 176 0051 05       		.byte	0x5
+ 177 0052 00000000 		.4byte	.LASF6
+ 178 0056 02       		.uleb128 0x2
+ 179 0057 08       		.byte	0x8
+ 180 0058 07       		.byte	0x7
+ 181 0059 47010000 		.4byte	.LASF7
+ 182 005d 03       		.uleb128 0x3
+ 183 005e 04       		.byte	0x4
+ 184 005f 05       		.byte	0x5
+ 185 0060 696E7400 		.ascii	"int\000"
+ 186 0064 02       		.uleb128 0x2
+ 187 0065 04       		.byte	0x4
+ 188 0066 07       		.byte	0x7
+ 189 0067 21000000 		.4byte	.LASF8
+ 190 006b 04       		.uleb128 0x4
+ 191 006c CE010000 		.4byte	.LASF9
+ 192 0070 02       		.byte	0x2
+ 193 0071 A1       		.byte	0xa1
+ 194 0072 2C000000 		.4byte	0x2c
+ 195 0076 04       		.uleb128 0x4
+ 196 0077 0E000000 		.4byte	.LASF10
+ 197 007b 02       		.byte	0x2
+ 198 007c A3       		.byte	0xa3
+ 199 007d 48000000 		.4byte	0x48
+ 200 0081 02       		.uleb128 0x2
+ 201 0082 04       		.byte	0x4
+ 202 0083 04       		.byte	0x4
+ 203 0084 09020000 		.4byte	.LASF11
+ 204 0088 02       		.uleb128 0x2
+ 205 0089 08       		.byte	0x8
+ 206 008a 04       		.byte	0x4
+ 207 008b C1010000 		.4byte	.LASF12
+ 208 008f 02       		.uleb128 0x2
+ 209 0090 01       		.byte	0x1
+ 210 0091 08       		.byte	0x8
+ 211 0092 A1010000 		.4byte	.LASF13
+ 212 0096 05       		.uleb128 0x5
+ 213 0097 C8010000 		.4byte	.LASF14
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccBMnOtB.s 			page 7
+
+
+ 214 009b 02       		.byte	0x2
+ 215 009c 4D01     		.2byte	0x14d
+ 216 009e A2000000 		.4byte	0xa2
+ 217 00a2 06       		.uleb128 0x6
+ 218 00a3 76000000 		.4byte	0x76
+ 219 00a7 02       		.uleb128 0x2
+ 220 00a8 04       		.byte	0x4
+ 221 00a9 07       		.byte	0x7
+ 222 00aa 44020000 		.4byte	.LASF15
+ 223 00ae 07       		.uleb128 0x7
+ 224 00af 01       		.byte	0x1
+ 225 00b0 03       		.byte	0x3
+ 226 00b1 20       		.byte	0x20
+ 227 00b2 C3000000 		.4byte	0xc3
+ 228 00b6 08       		.uleb128 0x8
+ 229 00b7 15000000 		.4byte	.LASF26
+ 230 00bb 03       		.byte	0x3
+ 231 00bc 22       		.byte	0x22
+ 232 00bd 6B000000 		.4byte	0x6b
+ 233 00c1 00       		.byte	0
+ 234 00c2 00       		.byte	0
+ 235 00c3 04       		.uleb128 0x4
+ 236 00c4 8E000000 		.4byte	.LASF16
+ 237 00c8 03       		.byte	0x3
+ 238 00c9 23       		.byte	0x23
+ 239 00ca AE000000 		.4byte	0xae
+ 240 00ce 09       		.uleb128 0x9
+ 241 00cf 78000000 		.4byte	.LASF17
+ 242 00d3 01       		.byte	0x1
+ 243 00d4 2B       		.byte	0x2b
+ 244 00d5 00000000 		.4byte	.LFB0
+ 245 00d9 02000000 		.4byte	.LFE0-.LFB0
+ 246 00dd 01       		.uleb128 0x1
+ 247 00de 9C       		.byte	0x9c
+ 248 00df 09       		.uleb128 0x9
+ 249 00e0 0F020000 		.4byte	.LASF18
+ 250 00e4 01       		.byte	0x1
+ 251 00e5 3F       		.byte	0x3f
+ 252 00e6 00000000 		.4byte	.LFB1
+ 253 00ea 02000000 		.4byte	.LFE1-.LFB1
+ 254 00ee 01       		.uleb128 0x1
+ 255 00ef 9C       		.byte	0x9c
+ 256 00f0 0A       		.uleb128 0xa
+ 257 00f1 2E000000 		.4byte	.LASF19
+ 258 00f5 01       		.byte	0x1
+ 259 00f6 57       		.byte	0x57
+ 260 00f7 00000000 		.4byte	.LFB2
+ 261 00fb 24000000 		.4byte	.LFE2-.LFB2
+ 262 00ff 01       		.uleb128 0x1
+ 263 0100 9C       		.byte	0x9c
+ 264 0101 0F010000 		.4byte	0x10f
+ 265 0105 0B       		.uleb128 0xb
+ 266 0106 16000000 		.4byte	.LVL0
+ 267 010a 3F010000 		.4byte	0x13f
+ 268 010e 00       		.byte	0
+ 269 010f 0A       		.uleb128 0xa
+ 270 0110 AF010000 		.4byte	.LASF20
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccBMnOtB.s 			page 8
+
+
+ 271 0114 01       		.byte	0x1
+ 272 0115 78       		.byte	0x78
+ 273 0116 00000000 		.4byte	.LFB3
+ 274 011a 14000000 		.4byte	.LFE3-.LFB3
+ 275 011e 01       		.uleb128 0x1
+ 276 011f 9C       		.byte	0x9c
+ 277 0120 2E010000 		.4byte	0x12e
+ 278 0124 0B       		.uleb128 0xb
+ 279 0125 0E000000 		.4byte	.LVL1
+ 280 0129 46010000 		.4byte	0x146
+ 281 012d 00       		.byte	0
+ 282 012e 0C       		.uleb128 0xc
+ 283 012f 5E010000 		.4byte	.LASF27
+ 284 0133 01       		.byte	0x1
+ 285 0134 16       		.byte	0x16
+ 286 0135 C3000000 		.4byte	0xc3
+ 287 0139 05       		.uleb128 0x5
+ 288 013a 03       		.byte	0x3
+ 289 013b 00000000 		.4byte	Zero_Cross_backup
+ 290 013f 0D       		.uleb128 0xd
+ 291 0140 83010000 		.4byte	.LASF21
+ 292 0144 03       		.byte	0x3
+ 293 0145 2C       		.byte	0x2c
+ 294 0146 0D       		.uleb128 0xd
+ 295 0147 32020000 		.4byte	.LASF22
+ 296 014b 03       		.byte	0x3
+ 297 014c 2A       		.byte	0x2a
+ 298 014d 00       		.byte	0
+ 299              		.section	.debug_abbrev,"",%progbits
+ 300              	.Ldebug_abbrev0:
+ 301 0000 01       		.uleb128 0x1
+ 302 0001 11       		.uleb128 0x11
+ 303 0002 01       		.byte	0x1
+ 304 0003 25       		.uleb128 0x25
+ 305 0004 0E       		.uleb128 0xe
+ 306 0005 13       		.uleb128 0x13
+ 307 0006 0B       		.uleb128 0xb
+ 308 0007 03       		.uleb128 0x3
+ 309 0008 0E       		.uleb128 0xe
+ 310 0009 1B       		.uleb128 0x1b
+ 311 000a 0E       		.uleb128 0xe
+ 312 000b 55       		.uleb128 0x55
+ 313 000c 17       		.uleb128 0x17
+ 314 000d 11       		.uleb128 0x11
+ 315 000e 01       		.uleb128 0x1
+ 316 000f 10       		.uleb128 0x10
+ 317 0010 17       		.uleb128 0x17
+ 318 0011 00       		.byte	0
+ 319 0012 00       		.byte	0
+ 320 0013 02       		.uleb128 0x2
+ 321 0014 24       		.uleb128 0x24
+ 322 0015 00       		.byte	0
+ 323 0016 0B       		.uleb128 0xb
+ 324 0017 0B       		.uleb128 0xb
+ 325 0018 3E       		.uleb128 0x3e
+ 326 0019 0B       		.uleb128 0xb
+ 327 001a 03       		.uleb128 0x3
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccBMnOtB.s 			page 9
+
+
+ 328 001b 0E       		.uleb128 0xe
+ 329 001c 00       		.byte	0
+ 330 001d 00       		.byte	0
+ 331 001e 03       		.uleb128 0x3
+ 332 001f 24       		.uleb128 0x24
+ 333 0020 00       		.byte	0
+ 334 0021 0B       		.uleb128 0xb
+ 335 0022 0B       		.uleb128 0xb
+ 336 0023 3E       		.uleb128 0x3e
+ 337 0024 0B       		.uleb128 0xb
+ 338 0025 03       		.uleb128 0x3
+ 339 0026 08       		.uleb128 0x8
+ 340 0027 00       		.byte	0
+ 341 0028 00       		.byte	0
+ 342 0029 04       		.uleb128 0x4
+ 343 002a 16       		.uleb128 0x16
+ 344 002b 00       		.byte	0
+ 345 002c 03       		.uleb128 0x3
+ 346 002d 0E       		.uleb128 0xe
+ 347 002e 3A       		.uleb128 0x3a
+ 348 002f 0B       		.uleb128 0xb
+ 349 0030 3B       		.uleb128 0x3b
+ 350 0031 0B       		.uleb128 0xb
+ 351 0032 49       		.uleb128 0x49
+ 352 0033 13       		.uleb128 0x13
+ 353 0034 00       		.byte	0
+ 354 0035 00       		.byte	0
+ 355 0036 05       		.uleb128 0x5
+ 356 0037 16       		.uleb128 0x16
+ 357 0038 00       		.byte	0
+ 358 0039 03       		.uleb128 0x3
+ 359 003a 0E       		.uleb128 0xe
+ 360 003b 3A       		.uleb128 0x3a
+ 361 003c 0B       		.uleb128 0xb
+ 362 003d 3B       		.uleb128 0x3b
+ 363 003e 05       		.uleb128 0x5
+ 364 003f 49       		.uleb128 0x49
+ 365 0040 13       		.uleb128 0x13
+ 366 0041 00       		.byte	0
+ 367 0042 00       		.byte	0
+ 368 0043 06       		.uleb128 0x6
+ 369 0044 35       		.uleb128 0x35
+ 370 0045 00       		.byte	0
+ 371 0046 49       		.uleb128 0x49
+ 372 0047 13       		.uleb128 0x13
+ 373 0048 00       		.byte	0
+ 374 0049 00       		.byte	0
+ 375 004a 07       		.uleb128 0x7
+ 376 004b 13       		.uleb128 0x13
+ 377 004c 01       		.byte	0x1
+ 378 004d 0B       		.uleb128 0xb
+ 379 004e 0B       		.uleb128 0xb
+ 380 004f 3A       		.uleb128 0x3a
+ 381 0050 0B       		.uleb128 0xb
+ 382 0051 3B       		.uleb128 0x3b
+ 383 0052 0B       		.uleb128 0xb
+ 384 0053 01       		.uleb128 0x1
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccBMnOtB.s 			page 10
+
+
+ 385 0054 13       		.uleb128 0x13
+ 386 0055 00       		.byte	0
+ 387 0056 00       		.byte	0
+ 388 0057 08       		.uleb128 0x8
+ 389 0058 0D       		.uleb128 0xd
+ 390 0059 00       		.byte	0
+ 391 005a 03       		.uleb128 0x3
+ 392 005b 0E       		.uleb128 0xe
+ 393 005c 3A       		.uleb128 0x3a
+ 394 005d 0B       		.uleb128 0xb
+ 395 005e 3B       		.uleb128 0x3b
+ 396 005f 0B       		.uleb128 0xb
+ 397 0060 49       		.uleb128 0x49
+ 398 0061 13       		.uleb128 0x13
+ 399 0062 38       		.uleb128 0x38
+ 400 0063 0B       		.uleb128 0xb
+ 401 0064 00       		.byte	0
+ 402 0065 00       		.byte	0
+ 403 0066 09       		.uleb128 0x9
+ 404 0067 2E       		.uleb128 0x2e
+ 405 0068 00       		.byte	0
+ 406 0069 3F       		.uleb128 0x3f
+ 407 006a 19       		.uleb128 0x19
+ 408 006b 03       		.uleb128 0x3
+ 409 006c 0E       		.uleb128 0xe
+ 410 006d 3A       		.uleb128 0x3a
+ 411 006e 0B       		.uleb128 0xb
+ 412 006f 3B       		.uleb128 0x3b
+ 413 0070 0B       		.uleb128 0xb
+ 414 0071 27       		.uleb128 0x27
+ 415 0072 19       		.uleb128 0x19
+ 416 0073 11       		.uleb128 0x11
+ 417 0074 01       		.uleb128 0x1
+ 418 0075 12       		.uleb128 0x12
+ 419 0076 06       		.uleb128 0x6
+ 420 0077 40       		.uleb128 0x40
+ 421 0078 18       		.uleb128 0x18
+ 422 0079 9742     		.uleb128 0x2117
+ 423 007b 19       		.uleb128 0x19
+ 424 007c 00       		.byte	0
+ 425 007d 00       		.byte	0
+ 426 007e 0A       		.uleb128 0xa
+ 427 007f 2E       		.uleb128 0x2e
+ 428 0080 01       		.byte	0x1
+ 429 0081 3F       		.uleb128 0x3f
+ 430 0082 19       		.uleb128 0x19
+ 431 0083 03       		.uleb128 0x3
+ 432 0084 0E       		.uleb128 0xe
+ 433 0085 3A       		.uleb128 0x3a
+ 434 0086 0B       		.uleb128 0xb
+ 435 0087 3B       		.uleb128 0x3b
+ 436 0088 0B       		.uleb128 0xb
+ 437 0089 27       		.uleb128 0x27
+ 438 008a 19       		.uleb128 0x19
+ 439 008b 11       		.uleb128 0x11
+ 440 008c 01       		.uleb128 0x1
+ 441 008d 12       		.uleb128 0x12
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccBMnOtB.s 			page 11
+
+
+ 442 008e 06       		.uleb128 0x6
+ 443 008f 40       		.uleb128 0x40
+ 444 0090 18       		.uleb128 0x18
+ 445 0091 9742     		.uleb128 0x2117
+ 446 0093 19       		.uleb128 0x19
+ 447 0094 01       		.uleb128 0x1
+ 448 0095 13       		.uleb128 0x13
+ 449 0096 00       		.byte	0
+ 450 0097 00       		.byte	0
+ 451 0098 0B       		.uleb128 0xb
+ 452 0099 898201   		.uleb128 0x4109
+ 453 009c 00       		.byte	0
+ 454 009d 11       		.uleb128 0x11
+ 455 009e 01       		.uleb128 0x1
+ 456 009f 31       		.uleb128 0x31
+ 457 00a0 13       		.uleb128 0x13
+ 458 00a1 00       		.byte	0
+ 459 00a2 00       		.byte	0
+ 460 00a3 0C       		.uleb128 0xc
+ 461 00a4 34       		.uleb128 0x34
+ 462 00a5 00       		.byte	0
+ 463 00a6 03       		.uleb128 0x3
+ 464 00a7 0E       		.uleb128 0xe
+ 465 00a8 3A       		.uleb128 0x3a
+ 466 00a9 0B       		.uleb128 0xb
+ 467 00aa 3B       		.uleb128 0x3b
+ 468 00ab 0B       		.uleb128 0xb
+ 469 00ac 49       		.uleb128 0x49
+ 470 00ad 13       		.uleb128 0x13
+ 471 00ae 02       		.uleb128 0x2
+ 472 00af 18       		.uleb128 0x18
+ 473 00b0 00       		.byte	0
+ 474 00b1 00       		.byte	0
+ 475 00b2 0D       		.uleb128 0xd
+ 476 00b3 2E       		.uleb128 0x2e
+ 477 00b4 00       		.byte	0
+ 478 00b5 3F       		.uleb128 0x3f
+ 479 00b6 19       		.uleb128 0x19
+ 480 00b7 03       		.uleb128 0x3
+ 481 00b8 0E       		.uleb128 0xe
+ 482 00b9 3A       		.uleb128 0x3a
+ 483 00ba 0B       		.uleb128 0xb
+ 484 00bb 3B       		.uleb128 0x3b
+ 485 00bc 0B       		.uleb128 0xb
+ 486 00bd 27       		.uleb128 0x27
+ 487 00be 19       		.uleb128 0x19
+ 488 00bf 3C       		.uleb128 0x3c
+ 489 00c0 19       		.uleb128 0x19
+ 490 00c1 00       		.byte	0
+ 491 00c2 00       		.byte	0
+ 492 00c3 00       		.byte	0
+ 493              		.section	.debug_aranges,"",%progbits
+ 494 0000 34000000 		.4byte	0x34
+ 495 0004 0200     		.2byte	0x2
+ 496 0006 00000000 		.4byte	.Ldebug_info0
+ 497 000a 04       		.byte	0x4
+ 498 000b 00       		.byte	0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccBMnOtB.s 			page 12
+
+
+ 499 000c 0000     		.2byte	0
+ 500 000e 0000     		.2byte	0
+ 501 0010 00000000 		.4byte	.LFB0
+ 502 0014 02000000 		.4byte	.LFE0-.LFB0
+ 503 0018 00000000 		.4byte	.LFB1
+ 504 001c 02000000 		.4byte	.LFE1-.LFB1
+ 505 0020 00000000 		.4byte	.LFB2
+ 506 0024 24000000 		.4byte	.LFE2-.LFB2
+ 507 0028 00000000 		.4byte	.LFB3
+ 508 002c 14000000 		.4byte	.LFE3-.LFB3
+ 509 0030 00000000 		.4byte	0
+ 510 0034 00000000 		.4byte	0
+ 511              		.section	.debug_ranges,"",%progbits
+ 512              	.Ldebug_ranges0:
+ 513 0000 00000000 		.4byte	.LFB0
+ 514 0004 02000000 		.4byte	.LFE0
+ 515 0008 00000000 		.4byte	.LFB1
+ 516 000c 02000000 		.4byte	.LFE1
+ 517 0010 00000000 		.4byte	.LFB2
+ 518 0014 24000000 		.4byte	.LFE2
+ 519 0018 00000000 		.4byte	.LFB3
+ 520 001c 14000000 		.4byte	.LFE3
+ 521 0020 00000000 		.4byte	0
+ 522 0024 00000000 		.4byte	0
+ 523              		.section	.debug_line,"",%progbits
+ 524              	.Ldebug_line0:
+ 525 0000 AA000000 		.section	.debug_str,"MS",%progbits,1
+ 525      02005C00 
+ 525      00000201 
+ 525      FB0E0D00 
+ 525      01010101 
+ 526              	.LASF6:
+ 527 0000 6C6F6E67 		.ascii	"long long int\000"
+ 527      206C6F6E 
+ 527      6720696E 
+ 527      7400
+ 528              	.LASF10:
+ 529 000e 75696E74 		.ascii	"uint32\000"
+ 529      333200
+ 530              	.LASF26:
+ 531 0015 656E6162 		.ascii	"enableState\000"
+ 531      6C655374 
+ 531      61746500 
+ 532              	.LASF8:
+ 533 0021 756E7369 		.ascii	"unsigned int\000"
+ 533      676E6564 
+ 533      20696E74 
+ 533      00
+ 534              	.LASF19:
+ 535 002e 5A65726F 		.ascii	"Zero_Cross_Sleep\000"
+ 535      5F43726F 
+ 535      73735F53 
+ 535      6C656570 
+ 535      00
+ 536              	.LASF25:
+ 537 003f 433A5C4C 		.ascii	"C:\\Legrand\\Dimmers\\A4W sofTap and Touch\\A4W_Sof"
+ 537      65677261 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccBMnOtB.s 			page 13
+
+
+ 537      6E645C44 
+ 537      696D6D65 
+ 537      72735C41 
+ 538 006e 7461702E 		.ascii	"tap.cydsn\000"
+ 538      63796473 
+ 538      6E00
+ 539              	.LASF17:
+ 540 0078 5A65726F 		.ascii	"Zero_Cross_SaveConfig\000"
+ 540      5F43726F 
+ 540      73735F53 
+ 540      61766543 
+ 540      6F6E6669 
+ 541              	.LASF16:
+ 542 008e 5A65726F 		.ascii	"Zero_Cross_BACKUP_STRUCT\000"
+ 542      5F43726F 
+ 542      73735F42 
+ 542      41434B55 
+ 542      505F5354 
+ 543              	.LASF23:
+ 544 00a7 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 544      4320342E 
+ 544      392E3320 
+ 544      32303135 
+ 544      30333033 
+ 545 00da 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 545      20726576 
+ 545      6973696F 
+ 545      6E203232 
+ 545      31323230 
+ 546 010d 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 546      66756E63 
+ 546      74696F6E 
+ 546      2D736563 
+ 546      74696F6E 
+ 547              	.LASF5:
+ 548 0135 6C6F6E67 		.ascii	"long unsigned int\000"
+ 548      20756E73 
+ 548      69676E65 
+ 548      6420696E 
+ 548      7400
+ 549              	.LASF7:
+ 550 0147 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 550      206C6F6E 
+ 550      6720756E 
+ 550      7369676E 
+ 550      65642069 
+ 551              	.LASF27:
+ 552 015e 5A65726F 		.ascii	"Zero_Cross_backup\000"
+ 552      5F43726F 
+ 552      73735F62 
+ 552      61636B75 
+ 552      7000
+ 553              	.LASF3:
+ 554 0170 73686F72 		.ascii	"short unsigned int\000"
+ 554      7420756E 
+ 554      7369676E 
+ 554      65642069 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccBMnOtB.s 			page 14
+
+
+ 554      6E7400
+ 555              	.LASF21:
+ 556 0183 5A65726F 		.ascii	"Zero_Cross_Stop\000"
+ 556      5F43726F 
+ 556      73735F53 
+ 556      746F7000 
+ 557              	.LASF1:
+ 558 0193 756E7369 		.ascii	"unsigned char\000"
+ 558      676E6564 
+ 558      20636861 
+ 558      7200
+ 559              	.LASF13:
+ 560 01a1 63686172 		.ascii	"char\000"
+ 560      00
+ 561              	.LASF4:
+ 562 01a6 6C6F6E67 		.ascii	"long int\000"
+ 562      20696E74 
+ 562      00
+ 563              	.LASF20:
+ 564 01af 5A65726F 		.ascii	"Zero_Cross_Wakeup\000"
+ 564      5F43726F 
+ 564      73735F57 
+ 564      616B6575 
+ 564      7000
+ 565              	.LASF12:
+ 566 01c1 646F7562 		.ascii	"double\000"
+ 566      6C6500
+ 567              	.LASF14:
+ 568 01c8 72656733 		.ascii	"reg32\000"
+ 568      3200
+ 569              	.LASF9:
+ 570 01ce 75696E74 		.ascii	"uint8\000"
+ 570      3800
+ 571              	.LASF0:
+ 572 01d4 7369676E 		.ascii	"signed char\000"
+ 572      65642063 
+ 572      68617200 
+ 573              	.LASF24:
+ 574 01e0 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\Zero_Cross_PM.c\000"
+ 574      6E657261 
+ 574      7465645F 
+ 574      536F7572 
+ 574      63655C50 
+ 575              	.LASF11:
+ 576 0209 666C6F61 		.ascii	"float\000"
+ 576      7400
+ 577              	.LASF18:
+ 578 020f 5A65726F 		.ascii	"Zero_Cross_RestoreConfig\000"
+ 578      5F43726F 
+ 578      73735F52 
+ 578      6573746F 
+ 578      7265436F 
+ 579              	.LASF2:
+ 580 0228 73686F72 		.ascii	"short int\000"
+ 580      7420696E 
+ 580      7400
+ 581              	.LASF22:
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccBMnOtB.s 			page 15
+
+
+ 582 0232 5A65726F 		.ascii	"Zero_Cross_Enable\000"
+ 582      5F43726F 
+ 582      73735F45 
+ 582      6E61626C 
+ 582      6500
+ 583              	.LASF15:
+ 584 0244 73697A65 		.ascii	"sizetype\000"
+ 584      74797065 
+ 584      00
+ 585              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

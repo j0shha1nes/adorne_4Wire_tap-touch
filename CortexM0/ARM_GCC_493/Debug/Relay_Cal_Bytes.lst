@@ -1,0 +1,1287 @@
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 4
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"Relay_Cal_Bytes.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.Relay_Cal_Bytes_Start,"ax",%progbits
+  18              		.align	1
+  19              		.global	Relay_Cal_Bytes_Start
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	Relay_Cal_Bytes_Start, %function
+  23              	Relay_Cal_Bytes_Start:
+  24              	.LFB0:
+  25              		.file 1 ".\\Generated_Source\\PSoC4\\Relay_Cal_Bytes.c"
+   1:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * File Name: Relay_Cal_Bytes.c
+   3:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * Version 1.10
+   4:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *
+   5:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * Description:
+   6:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *  This file provides the source code to API for the Emulated EEPROM Component.
+   7:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *
+   8:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** ********************************************************************************
+   9:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * Copyright 2013, Cypress Semiconductor Corporation.  All rights reserved.
+  10:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * You may use this file only in accordance with the license, terms, conditions,
+  11:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  12:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * the software package with which this file was provided.
+  13:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *******************************************************************************/
+  14:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+  15:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** #include "Relay_Cal_Bytes.h"
+  16:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+  17:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+  18:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** /*******************************************************************************
+  19:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * Function Name: Relay_Cal_Bytes_Start
+  20:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** ********************************************************************************
+  21:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *
+  22:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * Summary:
+  23:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *  Empty function. Included for consistency with other
+  24:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *  components.
+  25:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *
+  26:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * Parameters:
+  27:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *  None
+  28:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *
+  29:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * Return:
+  30:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *  None
+  31:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *
+  32:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *******************************************************************************/
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 2
+
+
+  33:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** void Relay_Cal_Bytes_Start(void) 
+  34:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** {
+  26              		.loc 1 34 0
+  27              		.cfi_startproc
+  35:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+  36:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** }
+  28              		.loc 1 36 0
+  29              		@ sp needed
+  30 0000 7047     		bx	lr
+  31              		.cfi_endproc
+  32              	.LFE0:
+  33              		.size	Relay_Cal_Bytes_Start, .-Relay_Cal_Bytes_Start
+  34              		.section	.text.Relay_Cal_Bytes_Stop,"ax",%progbits
+  35              		.align	1
+  36              		.global	Relay_Cal_Bytes_Stop
+  37              		.code	16
+  38              		.thumb_func
+  39              		.type	Relay_Cal_Bytes_Stop, %function
+  40              	Relay_Cal_Bytes_Stop:
+  41              	.LFB1:
+  37:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+  38:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+  39:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** /*******************************************************************************
+  40:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * Function Name: Relay_Cal_Bytes_Stop
+  41:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** ********************************************************************************
+  42:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *
+  43:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * Summary:
+  44:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *  Empty function. Included for consistency with other
+  45:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *  components.
+  46:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *
+  47:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * Parameters:
+  48:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *  None
+  49:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *
+  50:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * Return:
+  51:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *  None
+  52:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *
+  53:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *******************************************************************************/
+  54:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** void Relay_Cal_Bytes_Stop(void) 
+  55:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** {
+  42              		.loc 1 55 0
+  43              		.cfi_startproc
+  56:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+  57:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** }
+  44              		.loc 1 57 0
+  45              		@ sp needed
+  46 0000 7047     		bx	lr
+  47              		.cfi_endproc
+  48              	.LFE1:
+  49              		.size	Relay_Cal_Bytes_Stop, .-Relay_Cal_Bytes_Stop
+  50              		.section	.text.Relay_Cal_Bytes_Write,"ax",%progbits
+  51              		.align	1
+  52              		.global	Relay_Cal_Bytes_Write
+  53              		.code	16
+  54              		.thumb_func
+  55              		.type	Relay_Cal_Bytes_Write, %function
+  56              	Relay_Cal_Bytes_Write:
+  57              	.LFB2:
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 3
+
+
+  58:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+  59:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+  60:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** /*******************************************************************************
+  61:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * Function Name: Relay_Cal_Bytes_Write
+  62:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** ********************************************************************************
+  63:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *
+  64:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * Summary:
+  65:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *  Writes the specified number of bytes from the source buffer in SRAM to the
+  66:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *  emulated EEPROM array in flash, without modifying other data in flash.
+  67:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *
+  68:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * Parameters:
+  69:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *  srcBuf:    Pointer to the SRAM buffer holding the data to write.
+  70:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *  eepromPtr: Pointer to the array or variable in flash representing
+  71:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *             the emulated EEPROM.
+  72:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *  byteCount: Number of bytes to write from srcBuf to eepromPtr.
+  73:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *
+  74:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** * Return:
+  75:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *    CYRET_SUCCESS     Successful write.
+  76:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *    CYRET_BAD_PARAM   eepromPtr is out of range of flash memory.
+  77:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *    CYRET_UNKNOWN     Other error in writing flash.
+  78:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *
+  79:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** *******************************************************************************/
+  80:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** #if (CY_PSOC3)
+  81:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     cystatus Relay_Cal_Bytes_Write(const uint8 srcBuf[], const uint8 eepromPtr[], uint16 byteCount)
+  82:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                                                                             
+  83:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** #else
+  84:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     cystatus Relay_Cal_Bytes_Write(const uint8 srcBuf[], const uint8 eepromPtr[], uint32 byteCount)
+  85:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** #endif /* (!CY_PSOC3) */
+  86:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** {
+  58              		.loc 1 86 0
+  59              		.cfi_startproc
+  60              	.LVL0:
+  61 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  62              		.cfi_def_cfa_offset 20
+  63              		.cfi_offset 4, -20
+  64              		.cfi_offset 5, -16
+  65              		.cfi_offset 6, -12
+  66              		.cfi_offset 7, -8
+  67              		.cfi_offset 14, -4
+  87:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     uint8 writeBuffer[CY_FLASH_SIZEOF_ROW];
+  88:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     uint32 arrayId;
+  89:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     uint32 rowId;
+  90:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     uint32 dstIndex;
+  91:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     uint32 srcIndex;
+  92:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     cystatus rc;
+  93:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     uint32 eeOffset;
+  94:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     uint32 byteOffset;
+  95:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     
+  96:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     #if (!CY_PSOC4)
+  97:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         #if (CYDEV_ECC_ENABLE == 0)
+  98:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             uint8 rowBuffer[CY_FLASH_SIZEOF_ROW + CY_FLASH_SIZEOF_ECC_ROW];
+  99:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         #endif /* CYDEV_ECC_ENABLE == 0) */
+ 100:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     #endif /* (!CY_PSOC4) */
+ 101:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+ 102:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     eeOffset = (uint32)eepromPtr;
+ 103:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     #if (CY_PSOC3)
+ 104:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         eeOffset &= Relay_Cal_Bytes_CODE_ADDR_MASK;
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 4
+
+
+ 105:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     #endif /* (CY_PSOC3) */
+ 106:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+ 107:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     /* Make sure, that eepromPtr[] points to ROM */
+ 108:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     #if (CY_PSOC3)
+ 109:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         if (((uint32)eepromPtr >= Relay_Cal_Bytes_CODE_ADDR_OFFSET) &&
+ 110:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             (((uint32)eepromPtr + byteCount) <= Relay_Cal_Bytes_CODE_ADDR_END))
+ 111:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     #else
+ 112:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         if (((uint32)eepromPtr + byteCount) < Relay_Cal_Bytes_FLASH_END_ADDR)
+  68              		.loc 1 112 0
+  69 0002 1D4B     		ldr	r3, .L16
+  70 0004 8D18     		add	r5, r1, r2
+  86:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     uint8 writeBuffer[CY_FLASH_SIZEOF_ROW];
+  71              		.loc 1 86 0
+  72 0006 A5B0     		sub	sp, sp, #148
+  73              		.cfi_def_cfa_offset 168
+ 113:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     #endif /* (CY_PSOC3) */
+ 114:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     {
+ 115:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         #if (!CY_PSOC4)
+ 116:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             (void)CySetTemp();
+ 117:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+ 118:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             #if(CYDEV_ECC_ENABLE == 0)
+ 119:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 (void)CySetFlashEEBuffer(rowBuffer);
+ 120:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             #endif
+ 121:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         #endif /* (!CY_PSOC4) */
+ 122:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+ 123:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         arrayId = eeOffset / CY_FLASH_SIZEOF_ARRAY;
+ 124:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         rowId = (eeOffset / CY_FLASH_SIZEOF_ROW) % Relay_Cal_Bytes_ROWS_IN_ARRAY;
+ 125:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         byteOffset = (CY_FLASH_SIZEOF_ARRAY * arrayId) + (CY_FLASH_SIZEOF_ROW * rowId);
+ 126:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         srcIndex = 0u;
+ 127:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+ 128:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         rc = CYRET_SUCCESS;
+ 129:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+ 130:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         while ((srcIndex < byteCount) && (CYRET_SUCCESS == rc))
+ 131:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         {
+ 132:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             /* Copy data to the write buffer either from the source buffer or from the flash */
+ 133:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             for (dstIndex = 0u; dstIndex < CY_FLASH_SIZEOF_ROW; dstIndex++)
+ 134:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             {
+ 135:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 if ((byteOffset >= eeOffset) && (srcIndex < byteCount))
+ 136:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 {
+ 137:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                     writeBuffer[dstIndex] = srcBuf[srcIndex];
+ 138:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                     srcIndex++;
+ 139:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 }
+ 140:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 else
+ 141:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 {
+ 142:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                     writeBuffer[dstIndex] = CY_GET_XTND_REG8(CYDEV_FLASH_BASE + byteOffset);
+ 143:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 }
+ 144:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 byteOffset++;
+ 145:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             }
+ 146:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+ 147:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             /* Write flash row */
+ 148:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             #if (CY_PSOC4)
+ 149:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 rc = CySysFlashWriteRow(rowId, writeBuffer);
+ 150:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             #else
+ 151:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 rc = CyWriteRowData((uint8)arrayId, (uint16)rowId, writeBuffer);
+ 152:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             #endif /* (CY_PSOC4) */
+ 153:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+ 154:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             /* Go to the next row */
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 5
+
+
+ 155:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             rowId++;
+ 156:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             #if (CY_FLASH_NUMBER_ARRAYS > 1)
+ 157:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 if (rowId >= Relay_Cal_Bytes_ROWS_IN_ARRAY)
+ 158:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 {
+ 159:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                     arrayId++;
+ 160:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                     rowId = 0u;
+ 161:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 }
+ 162:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             #endif /* (CY_FLASH_NUMBER_ARRAYS > 1) */
+ 163:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         }
+ 164:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+ 165:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         /* Flush both Cache and PHUB prefetch buffer */
+ 166:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         #if (CY_PSOC5)
+ 167:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             CyFlushCache();
+ 168:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         #elif (CY_PSOC3)
+ 169:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             CY_FLASH_CONTROL_REG |= 6u;
+ 170:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         #endif /* (CY_PSOC5) */
+ 171:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     }
+ 172:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     else
+ 173:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     {
+ 174:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         rc = CYRET_BAD_PARAM;
+  74              		.loc 1 174 0
+  75 0008 0124     		mov	r4, #1
+ 112:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     #endif /* (CY_PSOC3) */
+  76              		.loc 1 112 0
+  77 000a 9D42     		cmp	r5, r3
+  78 000c 30D8     		bhi	.L10
+  79 000e 0390     		str	r0, [sp, #12]
+  80              	.LVL1:
+ 128:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+  81              		.loc 1 128 0
+  82 0010 0020     		mov	r0, #0
+  83              	.LVL2:
+ 126:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+  84              		.loc 1 126 0
+  85 0012 071C     		mov	r7, r0
+ 124:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         byteOffset = (CY_FLASH_SIZEOF_ARRAY * arrayId) + (CY_FLASH_SIZEOF_ROW * rowId);
+  86              		.loc 1 124 0
+  87 0014 8D04     		lsl	r5, r1, #18
+ 123:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         rowId = (eeOffset / CY_FLASH_SIZEOF_ROW) % Relay_Cal_Bytes_ROWS_IN_ARRAY;
+  88              		.loc 1 123 0
+  89 0016 8C0B     		lsr	r4, r1, #14
+ 124:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         byteOffset = (CY_FLASH_SIZEOF_ARRAY * arrayId) + (CY_FLASH_SIZEOF_ROW * rowId);
+  90              		.loc 1 124 0
+  91 0018 6D0E     		lsr	r5, r5, #25
+  92              	.LVL3:
+ 125:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         srcIndex = 0u;
+  93              		.loc 1 125 0
+  94 001a E401     		lsl	r4, r4, #7
+  95 001c 6419     		add	r4, r4, r5
+  96 001e E401     		lsl	r4, r4, #7
+  97              	.LVL4:
+  98 0020 04AE     		add	r6, sp, #16
+  99 0022 0292     		str	r2, [sp, #8]
+ 100 0024 0191     		str	r1, [sp, #4]
+ 101              	.LVL5:
+ 102 0026 361B     		sub	r6, r6, r4
+ 103              	.LVL6:
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 6
+
+
+ 104              	.L5:
+ 130:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         {
+ 105              		.loc 1 130 0
+ 106 0028 029B     		ldr	r3, [sp, #8]
+ 107 002a 9F42     		cmp	r7, r3
+ 108 002c 05D3     		bcc	.L9
+ 109              	.L14:
+ 110 002e 041E     		sub	r4, r0, #0
+ 111              	.LVL7:
+ 175:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     }
+ 176:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** 
+ 177:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     /* Mask return codes from flash, if they are not supported */
+ 178:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     if ((CYRET_SUCCESS != rc) && (CYRET_BAD_PARAM != rc))
+ 112              		.loc 1 178 0
+ 113 0030 012C     		cmp	r4, #1
+ 114 0032 1DD9     		bls	.L10
+ 115              	.LVL8:
+ 179:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     {
+ 180:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         rc = CYRET_UNKNOWN;
+ 116              		.loc 1 180 0
+ 117 0034 0124     		mov	r4, #1
+ 118 0036 6442     		neg	r4, r4
+ 119 0038 1AE0     		b	.L10
+ 120              	.LVL9:
+ 121              	.L9:
+ 130:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****         {
+ 122              		.loc 1 130 0 discriminator 1
+ 123 003a 0028     		cmp	r0, #0
+ 124 003c F7D1     		bne	.L14
+ 125 003e 231C     		mov	r3, r4
+ 126 0040 8033     		add	r3, r3, #128
+ 127              	.L8:
+ 128              	.LVL10:
+ 135:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 {
+ 129              		.loc 1 135 0
+ 130 0042 019A     		ldr	r2, [sp, #4]
+ 131 0044 A242     		cmp	r2, r4
+ 132 0046 07D8     		bhi	.L6
+ 135:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 {
+ 133              		.loc 1 135 0 is_stmt 0 discriminator 1
+ 134 0048 029A     		ldr	r2, [sp, #8]
+ 135 004a 9742     		cmp	r7, r2
+ 136 004c 04D2     		bcs	.L6
+ 137:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                     srcIndex++;
+ 137              		.loc 1 137 0 is_stmt 1
+ 138 004e 039A     		ldr	r2, [sp, #12]
+ 139 0050 D25D     		ldrb	r2, [r2, r7]
+ 138:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 }
+ 140              		.loc 1 138 0
+ 141 0052 0137     		add	r7, r7, #1
+ 142              	.LVL11:
+ 137:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                     srcIndex++;
+ 143              		.loc 1 137 0
+ 144 0054 3255     		strb	r2, [r6, r4]
+ 138:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 }
+ 145              		.loc 1 138 0
+ 146 0056 01E0     		b	.L7
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 7
+
+
+ 147              	.L6:
+ 142:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****                 }
+ 148              		.loc 1 142 0
+ 149 0058 2278     		ldrb	r2, [r4]
+ 150 005a 3255     		strb	r2, [r6, r4]
+ 151              	.L7:
+ 144:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             }
+ 152              		.loc 1 144 0 discriminator 2
+ 153 005c 0134     		add	r4, r4, #1
+ 154              	.LVL12:
+ 133:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             {
+ 155              		.loc 1 133 0 discriminator 2
+ 156 005e 9C42     		cmp	r4, r3
+ 157 0060 EFD1     		bne	.L8
+ 149:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             #else
+ 158              		.loc 1 149 0
+ 159 0062 281C     		mov	r0, r5
+ 160              	.LVL13:
+ 161 0064 04A9     		add	r1, sp, #16
+ 162 0066 FFF7FEFF 		bl	CySysFlashWriteRow
+ 163              	.LVL14:
+ 155:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****             #if (CY_FLASH_NUMBER_ARRAYS > 1)
+ 164              		.loc 1 155 0
+ 165 006a 0135     		add	r5, r5, #1
+ 166              	.LVL15:
+ 167 006c 803E     		sub	r6, r6, #128
+ 168 006e DBE7     		b	.L5
+ 169              	.LVL16:
+ 170              	.L10:
+ 181:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     }
+ 182:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     
+ 183:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c ****     return (rc);
+ 184:.\Generated_Source\PSoC4/Relay_Cal_Bytes.c **** }
+ 171              		.loc 1 184 0
+ 172 0070 201C     		mov	r0, r4
+ 173 0072 25B0     		add	sp, sp, #148
+ 174              		@ sp needed
+ 175              	.LVL17:
+ 176 0074 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 177              	.L17:
+ 178 0076 C046     		.align	2
+ 179              	.L16:
+ 180 0078 FF3F0000 		.word	16383
+ 181              		.cfi_endproc
+ 182              	.LFE2:
+ 183              		.size	Relay_Cal_Bytes_Write, .-Relay_Cal_Bytes_Write
+ 184              		.text
+ 185              	.Letext0:
+ 186              		.file 2 ".\\Generated_Source\\PSoC4\\cytypes.h"
+ 187              		.file 3 ".\\Generated_Source\\PSoC4\\CyFlash.h"
+ 188              		.section	.debug_info,"",%progbits
+ 189              	.Ldebug_info0:
+ 190 0000 DF010000 		.4byte	0x1df
+ 191 0004 0400     		.2byte	0x4
+ 192 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 193 000a 04       		.byte	0x4
+ 194 000b 01       		.uleb128 0x1
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 8
+
+
+ 195 000c 16000000 		.4byte	.LASF29
+ 196 0010 01       		.byte	0x1
+ 197 0011 95010000 		.4byte	.LASF30
+ 198 0015 DF000000 		.4byte	.LASF31
+ 199 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 200 001d 00000000 		.4byte	0
+ 201 0021 00000000 		.4byte	.Ldebug_line0
+ 202 0025 02       		.uleb128 0x2
+ 203 0026 01       		.byte	0x1
+ 204 0027 06       		.byte	0x6
+ 205 0028 4F020000 		.4byte	.LASF0
+ 206 002c 02       		.uleb128 0x2
+ 207 002d 01       		.byte	0x1
+ 208 002e 08       		.byte	0x8
+ 209 002f 48010000 		.4byte	.LASF1
+ 210 0033 02       		.uleb128 0x2
+ 211 0034 02       		.byte	0x2
+ 212 0035 05       		.byte	0x5
+ 213 0036 33020000 		.4byte	.LASF2
+ 214 003a 02       		.uleb128 0x2
+ 215 003b 02       		.byte	0x2
+ 216 003c 07       		.byte	0x7
+ 217 003d CC000000 		.4byte	.LASF3
+ 218 0041 02       		.uleb128 0x2
+ 219 0042 04       		.byte	0x4
+ 220 0043 05       		.byte	0x5
+ 221 0044 3D020000 		.4byte	.LASF4
+ 222 0048 02       		.uleb128 0x2
+ 223 0049 04       		.byte	0x4
+ 224 004a 07       		.byte	0x7
+ 225 004b 5B010000 		.4byte	.LASF5
+ 226 004f 02       		.uleb128 0x2
+ 227 0050 08       		.byte	0x8
+ 228 0051 05       		.byte	0x5
+ 229 0052 16020000 		.4byte	.LASF6
+ 230 0056 02       		.uleb128 0x2
+ 231 0057 08       		.byte	0x8
+ 232 0058 07       		.byte	0x7
+ 233 0059 F0010000 		.4byte	.LASF7
+ 234 005d 03       		.uleb128 0x3
+ 235 005e 04       		.byte	0x4
+ 236 005f 05       		.byte	0x5
+ 237 0060 696E7400 		.ascii	"int\000"
+ 238 0064 02       		.uleb128 0x2
+ 239 0065 04       		.byte	0x4
+ 240 0066 07       		.byte	0x7
+ 241 0067 E3010000 		.4byte	.LASF8
+ 242 006b 04       		.uleb128 0x4
+ 243 006c 6D010000 		.4byte	.LASF9
+ 244 0070 02       		.byte	0x2
+ 245 0071 A1       		.byte	0xa1
+ 246 0072 2C000000 		.4byte	0x2c
+ 247 0076 04       		.uleb128 0x4
+ 248 0077 DC010000 		.4byte	.LASF10
+ 249 007b 02       		.byte	0x2
+ 250 007c A3       		.byte	0xa3
+ 251 007d 48000000 		.4byte	0x48
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 9
+
+
+ 252 0081 02       		.uleb128 0x2
+ 253 0082 04       		.byte	0x4
+ 254 0083 04       		.byte	0x4
+ 255 0084 2C010000 		.4byte	.LASF11
+ 256 0088 02       		.uleb128 0x2
+ 257 0089 08       		.byte	0x8
+ 258 008a 04       		.byte	0x4
+ 259 008b 8E010000 		.4byte	.LASF12
+ 260 008f 02       		.uleb128 0x2
+ 261 0090 01       		.byte	0x1
+ 262 0091 08       		.byte	0x8
+ 263 0092 24020000 		.4byte	.LASF13
+ 264 0096 05       		.uleb128 0x5
+ 265 0097 D3010000 		.4byte	.LASF14
+ 266 009b 02       		.byte	0x2
+ 267 009c 4301     		.2byte	0x143
+ 268 009e 48000000 		.4byte	0x48
+ 269 00a2 05       		.uleb128 0x5
+ 270 00a3 56010000 		.4byte	.LASF15
+ 271 00a7 02       		.byte	0x2
+ 272 00a8 4B01     		.2byte	0x14b
+ 273 00aa AE000000 		.4byte	0xae
+ 274 00ae 06       		.uleb128 0x6
+ 275 00af 6B000000 		.4byte	0x6b
+ 276 00b3 02       		.uleb128 0x2
+ 277 00b4 04       		.byte	0x4
+ 278 00b5 07       		.byte	0x7
+ 279 00b6 0D020000 		.4byte	.LASF16
+ 280 00ba 07       		.uleb128 0x7
+ 281 00bb 00000000 		.4byte	.LASF17
+ 282 00bf 01       		.byte	0x1
+ 283 00c0 21       		.byte	0x21
+ 284 00c1 00000000 		.4byte	.LFB0
+ 285 00c5 02000000 		.4byte	.LFE0-.LFB0
+ 286 00c9 01       		.uleb128 0x1
+ 287 00ca 9C       		.byte	0x9c
+ 288 00cb 07       		.uleb128 0x7
+ 289 00cc A4000000 		.4byte	.LASF18
+ 290 00d0 01       		.byte	0x1
+ 291 00d1 36       		.byte	0x36
+ 292 00d2 00000000 		.4byte	.LFB1
+ 293 00d6 02000000 		.4byte	.LFE1-.LFB1
+ 294 00da 01       		.uleb128 0x1
+ 295 00db 9C       		.byte	0x9c
+ 296 00dc 08       		.uleb128 0x8
+ 297 00dd 32010000 		.4byte	.LASF32
+ 298 00e1 01       		.byte	0x1
+ 299 00e2 54       		.byte	0x54
+ 300 00e3 96000000 		.4byte	0x96
+ 301 00e7 00000000 		.4byte	.LFB2
+ 302 00eb 7C000000 		.4byte	.LFE2-.LFB2
+ 303 00ef 01       		.uleb128 0x1
+ 304 00f0 9C       		.byte	0x9c
+ 305 00f1 B1010000 		.4byte	0x1b1
+ 306 00f5 09       		.uleb128 0x9
+ 307 00f6 C5000000 		.4byte	.LASF19
+ 308 00fa 01       		.byte	0x1
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 10
+
+
+ 309 00fb 54       		.byte	0x54
+ 310 00fc B1010000 		.4byte	0x1b1
+ 311 0100 00000000 		.4byte	.LLST0
+ 312 0104 09       		.uleb128 0x9
+ 313 0105 29020000 		.4byte	.LASF20
+ 314 0109 01       		.byte	0x1
+ 315 010a 54       		.byte	0x54
+ 316 010b B1010000 		.4byte	0x1b1
+ 317 010f 2E000000 		.4byte	.LLST1
+ 318 0113 09       		.uleb128 0x9
+ 319 0114 7B010000 		.4byte	.LASF21
+ 320 0118 01       		.byte	0x1
+ 321 0119 54       		.byte	0x54
+ 322 011a 76000000 		.4byte	0x76
+ 323 011e 5C000000 		.4byte	.LLST2
+ 324 0122 0A       		.uleb128 0xa
+ 325 0123 B9000000 		.4byte	.LASF22
+ 326 0127 01       		.byte	0x1
+ 327 0128 57       		.byte	0x57
+ 328 0129 BC010000 		.4byte	0x1bc
+ 329 012d 03       		.uleb128 0x3
+ 330 012e 91       		.byte	0x91
+ 331 012f E87E     		.sleb128 -152
+ 332 0131 0B       		.uleb128 0xb
+ 333 0132 73010000 		.4byte	.LASF23
+ 334 0136 01       		.byte	0x1
+ 335 0137 58       		.byte	0x58
+ 336 0138 76000000 		.4byte	0x76
+ 337 013c 8A000000 		.4byte	.LLST3
+ 338 0140 0B       		.uleb128 0xb
+ 339 0141 07020000 		.4byte	.LASF24
+ 340 0145 01       		.byte	0x1
+ 341 0146 59       		.byte	0x59
+ 342 0147 76000000 		.4byte	0x76
+ 343 014b A3000000 		.4byte	.LLST4
+ 344 014f 0B       		.uleb128 0xb
+ 345 0150 85010000 		.4byte	.LASF25
+ 346 0154 01       		.byte	0x1
+ 347 0155 5A       		.byte	0x5a
+ 348 0156 76000000 		.4byte	0x76
+ 349 015a B6000000 		.4byte	.LLST5
+ 350 015e 0B       		.uleb128 0xb
+ 351 015f 18010000 		.4byte	.LASF26
+ 352 0163 01       		.byte	0x1
+ 353 0164 5B       		.byte	0x5b
+ 354 0165 76000000 		.4byte	0x76
+ 355 0169 CA000000 		.4byte	.LLST6
+ 356 016d 0C       		.uleb128 0xc
+ 357 016e 726300   		.ascii	"rc\000"
+ 358 0171 01       		.byte	0x1
+ 359 0172 5C       		.byte	0x5c
+ 360 0173 96000000 		.4byte	0x96
+ 361 0177 E9000000 		.4byte	.LLST7
+ 362 017b 0B       		.uleb128 0xb
+ 363 017c 46020000 		.4byte	.LASF27
+ 364 0180 01       		.byte	0x1
+ 365 0181 5D       		.byte	0x5d
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 11
+
+
+ 366 0182 76000000 		.4byte	0x76
+ 367 0186 2E000000 		.4byte	.LLST1
+ 368 018a 0B       		.uleb128 0xb
+ 369 018b 21010000 		.4byte	.LASF28
+ 370 018f 01       		.byte	0x1
+ 371 0190 5E       		.byte	0x5e
+ 372 0191 76000000 		.4byte	0x76
+ 373 0195 3F010000 		.4byte	.LLST9
+ 374 0199 0D       		.uleb128 0xd
+ 375 019a 6A000000 		.4byte	.LVL14
+ 376 019e CC010000 		.4byte	0x1cc
+ 377 01a2 0E       		.uleb128 0xe
+ 378 01a3 01       		.uleb128 0x1
+ 379 01a4 51       		.byte	0x51
+ 380 01a5 03       		.uleb128 0x3
+ 381 01a6 91       		.byte	0x91
+ 382 01a7 E87E     		.sleb128 -152
+ 383 01a9 0E       		.uleb128 0xe
+ 384 01aa 01       		.uleb128 0x1
+ 385 01ab 50       		.byte	0x50
+ 386 01ac 02       		.uleb128 0x2
+ 387 01ad 75       		.byte	0x75
+ 388 01ae 00       		.sleb128 0
+ 389 01af 00       		.byte	0
+ 390 01b0 00       		.byte	0
+ 391 01b1 0F       		.uleb128 0xf
+ 392 01b2 04       		.byte	0x4
+ 393 01b3 B7010000 		.4byte	0x1b7
+ 394 01b7 10       		.uleb128 0x10
+ 395 01b8 6B000000 		.4byte	0x6b
+ 396 01bc 11       		.uleb128 0x11
+ 397 01bd 6B000000 		.4byte	0x6b
+ 398 01c1 CC010000 		.4byte	0x1cc
+ 399 01c5 12       		.uleb128 0x12
+ 400 01c6 B3000000 		.4byte	0xb3
+ 401 01ca 7F       		.byte	0x7f
+ 402 01cb 00       		.byte	0
+ 403 01cc 13       		.uleb128 0x13
+ 404 01cd C0010000 		.4byte	.LASF33
+ 405 01d1 03       		.byte	0x3
+ 406 01d2 1C       		.byte	0x1c
+ 407 01d3 76000000 		.4byte	0x76
+ 408 01d7 14       		.uleb128 0x14
+ 409 01d8 76000000 		.4byte	0x76
+ 410 01dc 14       		.uleb128 0x14
+ 411 01dd B1010000 		.4byte	0x1b1
+ 412 01e1 00       		.byte	0
+ 413 01e2 00       		.byte	0
+ 414              		.section	.debug_abbrev,"",%progbits
+ 415              	.Ldebug_abbrev0:
+ 416 0000 01       		.uleb128 0x1
+ 417 0001 11       		.uleb128 0x11
+ 418 0002 01       		.byte	0x1
+ 419 0003 25       		.uleb128 0x25
+ 420 0004 0E       		.uleb128 0xe
+ 421 0005 13       		.uleb128 0x13
+ 422 0006 0B       		.uleb128 0xb
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 12
+
+
+ 423 0007 03       		.uleb128 0x3
+ 424 0008 0E       		.uleb128 0xe
+ 425 0009 1B       		.uleb128 0x1b
+ 426 000a 0E       		.uleb128 0xe
+ 427 000b 55       		.uleb128 0x55
+ 428 000c 17       		.uleb128 0x17
+ 429 000d 11       		.uleb128 0x11
+ 430 000e 01       		.uleb128 0x1
+ 431 000f 10       		.uleb128 0x10
+ 432 0010 17       		.uleb128 0x17
+ 433 0011 00       		.byte	0
+ 434 0012 00       		.byte	0
+ 435 0013 02       		.uleb128 0x2
+ 436 0014 24       		.uleb128 0x24
+ 437 0015 00       		.byte	0
+ 438 0016 0B       		.uleb128 0xb
+ 439 0017 0B       		.uleb128 0xb
+ 440 0018 3E       		.uleb128 0x3e
+ 441 0019 0B       		.uleb128 0xb
+ 442 001a 03       		.uleb128 0x3
+ 443 001b 0E       		.uleb128 0xe
+ 444 001c 00       		.byte	0
+ 445 001d 00       		.byte	0
+ 446 001e 03       		.uleb128 0x3
+ 447 001f 24       		.uleb128 0x24
+ 448 0020 00       		.byte	0
+ 449 0021 0B       		.uleb128 0xb
+ 450 0022 0B       		.uleb128 0xb
+ 451 0023 3E       		.uleb128 0x3e
+ 452 0024 0B       		.uleb128 0xb
+ 453 0025 03       		.uleb128 0x3
+ 454 0026 08       		.uleb128 0x8
+ 455 0027 00       		.byte	0
+ 456 0028 00       		.byte	0
+ 457 0029 04       		.uleb128 0x4
+ 458 002a 16       		.uleb128 0x16
+ 459 002b 00       		.byte	0
+ 460 002c 03       		.uleb128 0x3
+ 461 002d 0E       		.uleb128 0xe
+ 462 002e 3A       		.uleb128 0x3a
+ 463 002f 0B       		.uleb128 0xb
+ 464 0030 3B       		.uleb128 0x3b
+ 465 0031 0B       		.uleb128 0xb
+ 466 0032 49       		.uleb128 0x49
+ 467 0033 13       		.uleb128 0x13
+ 468 0034 00       		.byte	0
+ 469 0035 00       		.byte	0
+ 470 0036 05       		.uleb128 0x5
+ 471 0037 16       		.uleb128 0x16
+ 472 0038 00       		.byte	0
+ 473 0039 03       		.uleb128 0x3
+ 474 003a 0E       		.uleb128 0xe
+ 475 003b 3A       		.uleb128 0x3a
+ 476 003c 0B       		.uleb128 0xb
+ 477 003d 3B       		.uleb128 0x3b
+ 478 003e 05       		.uleb128 0x5
+ 479 003f 49       		.uleb128 0x49
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 13
+
+
+ 480 0040 13       		.uleb128 0x13
+ 481 0041 00       		.byte	0
+ 482 0042 00       		.byte	0
+ 483 0043 06       		.uleb128 0x6
+ 484 0044 35       		.uleb128 0x35
+ 485 0045 00       		.byte	0
+ 486 0046 49       		.uleb128 0x49
+ 487 0047 13       		.uleb128 0x13
+ 488 0048 00       		.byte	0
+ 489 0049 00       		.byte	0
+ 490 004a 07       		.uleb128 0x7
+ 491 004b 2E       		.uleb128 0x2e
+ 492 004c 00       		.byte	0
+ 493 004d 3F       		.uleb128 0x3f
+ 494 004e 19       		.uleb128 0x19
+ 495 004f 03       		.uleb128 0x3
+ 496 0050 0E       		.uleb128 0xe
+ 497 0051 3A       		.uleb128 0x3a
+ 498 0052 0B       		.uleb128 0xb
+ 499 0053 3B       		.uleb128 0x3b
+ 500 0054 0B       		.uleb128 0xb
+ 501 0055 27       		.uleb128 0x27
+ 502 0056 19       		.uleb128 0x19
+ 503 0057 11       		.uleb128 0x11
+ 504 0058 01       		.uleb128 0x1
+ 505 0059 12       		.uleb128 0x12
+ 506 005a 06       		.uleb128 0x6
+ 507 005b 40       		.uleb128 0x40
+ 508 005c 18       		.uleb128 0x18
+ 509 005d 9742     		.uleb128 0x2117
+ 510 005f 19       		.uleb128 0x19
+ 511 0060 00       		.byte	0
+ 512 0061 00       		.byte	0
+ 513 0062 08       		.uleb128 0x8
+ 514 0063 2E       		.uleb128 0x2e
+ 515 0064 01       		.byte	0x1
+ 516 0065 3F       		.uleb128 0x3f
+ 517 0066 19       		.uleb128 0x19
+ 518 0067 03       		.uleb128 0x3
+ 519 0068 0E       		.uleb128 0xe
+ 520 0069 3A       		.uleb128 0x3a
+ 521 006a 0B       		.uleb128 0xb
+ 522 006b 3B       		.uleb128 0x3b
+ 523 006c 0B       		.uleb128 0xb
+ 524 006d 27       		.uleb128 0x27
+ 525 006e 19       		.uleb128 0x19
+ 526 006f 49       		.uleb128 0x49
+ 527 0070 13       		.uleb128 0x13
+ 528 0071 11       		.uleb128 0x11
+ 529 0072 01       		.uleb128 0x1
+ 530 0073 12       		.uleb128 0x12
+ 531 0074 06       		.uleb128 0x6
+ 532 0075 40       		.uleb128 0x40
+ 533 0076 18       		.uleb128 0x18
+ 534 0077 9742     		.uleb128 0x2117
+ 535 0079 19       		.uleb128 0x19
+ 536 007a 01       		.uleb128 0x1
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 14
+
+
+ 537 007b 13       		.uleb128 0x13
+ 538 007c 00       		.byte	0
+ 539 007d 00       		.byte	0
+ 540 007e 09       		.uleb128 0x9
+ 541 007f 05       		.uleb128 0x5
+ 542 0080 00       		.byte	0
+ 543 0081 03       		.uleb128 0x3
+ 544 0082 0E       		.uleb128 0xe
+ 545 0083 3A       		.uleb128 0x3a
+ 546 0084 0B       		.uleb128 0xb
+ 547 0085 3B       		.uleb128 0x3b
+ 548 0086 0B       		.uleb128 0xb
+ 549 0087 49       		.uleb128 0x49
+ 550 0088 13       		.uleb128 0x13
+ 551 0089 02       		.uleb128 0x2
+ 552 008a 17       		.uleb128 0x17
+ 553 008b 00       		.byte	0
+ 554 008c 00       		.byte	0
+ 555 008d 0A       		.uleb128 0xa
+ 556 008e 34       		.uleb128 0x34
+ 557 008f 00       		.byte	0
+ 558 0090 03       		.uleb128 0x3
+ 559 0091 0E       		.uleb128 0xe
+ 560 0092 3A       		.uleb128 0x3a
+ 561 0093 0B       		.uleb128 0xb
+ 562 0094 3B       		.uleb128 0x3b
+ 563 0095 0B       		.uleb128 0xb
+ 564 0096 49       		.uleb128 0x49
+ 565 0097 13       		.uleb128 0x13
+ 566 0098 02       		.uleb128 0x2
+ 567 0099 18       		.uleb128 0x18
+ 568 009a 00       		.byte	0
+ 569 009b 00       		.byte	0
+ 570 009c 0B       		.uleb128 0xb
+ 571 009d 34       		.uleb128 0x34
+ 572 009e 00       		.byte	0
+ 573 009f 03       		.uleb128 0x3
+ 574 00a0 0E       		.uleb128 0xe
+ 575 00a1 3A       		.uleb128 0x3a
+ 576 00a2 0B       		.uleb128 0xb
+ 577 00a3 3B       		.uleb128 0x3b
+ 578 00a4 0B       		.uleb128 0xb
+ 579 00a5 49       		.uleb128 0x49
+ 580 00a6 13       		.uleb128 0x13
+ 581 00a7 02       		.uleb128 0x2
+ 582 00a8 17       		.uleb128 0x17
+ 583 00a9 00       		.byte	0
+ 584 00aa 00       		.byte	0
+ 585 00ab 0C       		.uleb128 0xc
+ 586 00ac 34       		.uleb128 0x34
+ 587 00ad 00       		.byte	0
+ 588 00ae 03       		.uleb128 0x3
+ 589 00af 08       		.uleb128 0x8
+ 590 00b0 3A       		.uleb128 0x3a
+ 591 00b1 0B       		.uleb128 0xb
+ 592 00b2 3B       		.uleb128 0x3b
+ 593 00b3 0B       		.uleb128 0xb
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 15
+
+
+ 594 00b4 49       		.uleb128 0x49
+ 595 00b5 13       		.uleb128 0x13
+ 596 00b6 02       		.uleb128 0x2
+ 597 00b7 17       		.uleb128 0x17
+ 598 00b8 00       		.byte	0
+ 599 00b9 00       		.byte	0
+ 600 00ba 0D       		.uleb128 0xd
+ 601 00bb 898201   		.uleb128 0x4109
+ 602 00be 01       		.byte	0x1
+ 603 00bf 11       		.uleb128 0x11
+ 604 00c0 01       		.uleb128 0x1
+ 605 00c1 31       		.uleb128 0x31
+ 606 00c2 13       		.uleb128 0x13
+ 607 00c3 00       		.byte	0
+ 608 00c4 00       		.byte	0
+ 609 00c5 0E       		.uleb128 0xe
+ 610 00c6 8A8201   		.uleb128 0x410a
+ 611 00c9 00       		.byte	0
+ 612 00ca 02       		.uleb128 0x2
+ 613 00cb 18       		.uleb128 0x18
+ 614 00cc 9142     		.uleb128 0x2111
+ 615 00ce 18       		.uleb128 0x18
+ 616 00cf 00       		.byte	0
+ 617 00d0 00       		.byte	0
+ 618 00d1 0F       		.uleb128 0xf
+ 619 00d2 0F       		.uleb128 0xf
+ 620 00d3 00       		.byte	0
+ 621 00d4 0B       		.uleb128 0xb
+ 622 00d5 0B       		.uleb128 0xb
+ 623 00d6 49       		.uleb128 0x49
+ 624 00d7 13       		.uleb128 0x13
+ 625 00d8 00       		.byte	0
+ 626 00d9 00       		.byte	0
+ 627 00da 10       		.uleb128 0x10
+ 628 00db 26       		.uleb128 0x26
+ 629 00dc 00       		.byte	0
+ 630 00dd 49       		.uleb128 0x49
+ 631 00de 13       		.uleb128 0x13
+ 632 00df 00       		.byte	0
+ 633 00e0 00       		.byte	0
+ 634 00e1 11       		.uleb128 0x11
+ 635 00e2 01       		.uleb128 0x1
+ 636 00e3 01       		.byte	0x1
+ 637 00e4 49       		.uleb128 0x49
+ 638 00e5 13       		.uleb128 0x13
+ 639 00e6 01       		.uleb128 0x1
+ 640 00e7 13       		.uleb128 0x13
+ 641 00e8 00       		.byte	0
+ 642 00e9 00       		.byte	0
+ 643 00ea 12       		.uleb128 0x12
+ 644 00eb 21       		.uleb128 0x21
+ 645 00ec 00       		.byte	0
+ 646 00ed 49       		.uleb128 0x49
+ 647 00ee 13       		.uleb128 0x13
+ 648 00ef 2F       		.uleb128 0x2f
+ 649 00f0 0B       		.uleb128 0xb
+ 650 00f1 00       		.byte	0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 16
+
+
+ 651 00f2 00       		.byte	0
+ 652 00f3 13       		.uleb128 0x13
+ 653 00f4 2E       		.uleb128 0x2e
+ 654 00f5 01       		.byte	0x1
+ 655 00f6 3F       		.uleb128 0x3f
+ 656 00f7 19       		.uleb128 0x19
+ 657 00f8 03       		.uleb128 0x3
+ 658 00f9 0E       		.uleb128 0xe
+ 659 00fa 3A       		.uleb128 0x3a
+ 660 00fb 0B       		.uleb128 0xb
+ 661 00fc 3B       		.uleb128 0x3b
+ 662 00fd 0B       		.uleb128 0xb
+ 663 00fe 27       		.uleb128 0x27
+ 664 00ff 19       		.uleb128 0x19
+ 665 0100 49       		.uleb128 0x49
+ 666 0101 13       		.uleb128 0x13
+ 667 0102 3C       		.uleb128 0x3c
+ 668 0103 19       		.uleb128 0x19
+ 669 0104 00       		.byte	0
+ 670 0105 00       		.byte	0
+ 671 0106 14       		.uleb128 0x14
+ 672 0107 05       		.uleb128 0x5
+ 673 0108 00       		.byte	0
+ 674 0109 49       		.uleb128 0x49
+ 675 010a 13       		.uleb128 0x13
+ 676 010b 00       		.byte	0
+ 677 010c 00       		.byte	0
+ 678 010d 00       		.byte	0
+ 679              		.section	.debug_loc,"",%progbits
+ 680              	.Ldebug_loc0:
+ 681              	.LLST0:
+ 682 0000 00000000 		.4byte	.LVL0
+ 683 0004 12000000 		.4byte	.LVL2
+ 684 0008 0100     		.2byte	0x1
+ 685 000a 50       		.byte	0x50
+ 686 000b 12000000 		.4byte	.LVL2
+ 687 000f 70000000 		.4byte	.LVL16
+ 688 0013 0300     		.2byte	0x3
+ 689 0015 91       		.byte	0x91
+ 690 0016 E47E     		.sleb128 -156
+ 691 0018 70000000 		.4byte	.LVL16
+ 692 001c 7C000000 		.4byte	.LFE2
+ 693 0020 0400     		.2byte	0x4
+ 694 0022 F3       		.byte	0xf3
+ 695 0023 01       		.uleb128 0x1
+ 696 0024 50       		.byte	0x50
+ 697 0025 9F       		.byte	0x9f
+ 698 0026 00000000 		.4byte	0
+ 699 002a 00000000 		.4byte	0
+ 700              	.LLST1:
+ 701 002e 00000000 		.4byte	.LVL0
+ 702 0032 28000000 		.4byte	.LVL6
+ 703 0036 0100     		.2byte	0x1
+ 704 0038 51       		.byte	0x51
+ 705 0039 28000000 		.4byte	.LVL6
+ 706 003d 70000000 		.4byte	.LVL16
+ 707 0041 0300     		.2byte	0x3
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 17
+
+
+ 708 0043 91       		.byte	0x91
+ 709 0044 DC7E     		.sleb128 -164
+ 710 0046 70000000 		.4byte	.LVL16
+ 711 004a 7C000000 		.4byte	.LFE2
+ 712 004e 0400     		.2byte	0x4
+ 713 0050 F3       		.byte	0xf3
+ 714 0051 01       		.uleb128 0x1
+ 715 0052 51       		.byte	0x51
+ 716 0053 9F       		.byte	0x9f
+ 717 0054 00000000 		.4byte	0
+ 718 0058 00000000 		.4byte	0
+ 719              	.LLST2:
+ 720 005c 00000000 		.4byte	.LVL0
+ 721 0060 28000000 		.4byte	.LVL6
+ 722 0064 0100     		.2byte	0x1
+ 723 0066 52       		.byte	0x52
+ 724 0067 28000000 		.4byte	.LVL6
+ 725 006b 70000000 		.4byte	.LVL16
+ 726 006f 0300     		.2byte	0x3
+ 727 0071 91       		.byte	0x91
+ 728 0072 E07E     		.sleb128 -160
+ 729 0074 70000000 		.4byte	.LVL16
+ 730 0078 7C000000 		.4byte	.LFE2
+ 731 007c 0400     		.2byte	0x4
+ 732 007e F3       		.byte	0xf3
+ 733 007f 01       		.uleb128 0x1
+ 734 0080 52       		.byte	0x52
+ 735 0081 9F       		.byte	0x9f
+ 736 0082 00000000 		.4byte	0
+ 737 0086 00000000 		.4byte	0
+ 738              	.LLST3:
+ 739 008a 10000000 		.4byte	.LVL1
+ 740 008e 26000000 		.4byte	.LVL5
+ 741 0092 0700     		.2byte	0x7
+ 742 0094 91       		.byte	0x91
+ 743 0095 DC7E     		.sleb128 -164
+ 744 0097 06       		.byte	0x6
+ 745 0098 3E       		.byte	0x3e
+ 746 0099 25       		.byte	0x25
+ 747 009a 9F       		.byte	0x9f
+ 748 009b 00000000 		.4byte	0
+ 749 009f 00000000 		.4byte	0
+ 750              	.LLST4:
+ 751 00a3 1A000000 		.4byte	.LVL3
+ 752 00a7 70000000 		.4byte	.LVL16
+ 753 00ab 0100     		.2byte	0x1
+ 754 00ad 55       		.byte	0x55
+ 755 00ae 00000000 		.4byte	0
+ 756 00b2 00000000 		.4byte	0
+ 757              	.LLST5:
+ 758 00b6 42000000 		.4byte	.LVL10
+ 759 00ba 70000000 		.4byte	.LVL16
+ 760 00be 0200     		.2byte	0x2
+ 761 00c0 30       		.byte	0x30
+ 762 00c1 9F       		.byte	0x9f
+ 763 00c2 00000000 		.4byte	0
+ 764 00c6 00000000 		.4byte	0
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 18
+
+
+ 765              	.LLST6:
+ 766 00ca 20000000 		.4byte	.LVL4
+ 767 00ce 28000000 		.4byte	.LVL6
+ 768 00d2 0200     		.2byte	0x2
+ 769 00d4 30       		.byte	0x30
+ 770 00d5 9F       		.byte	0x9f
+ 771 00d6 28000000 		.4byte	.LVL6
+ 772 00da 70000000 		.4byte	.LVL16
+ 773 00de 0100     		.2byte	0x1
+ 774 00e0 57       		.byte	0x57
+ 775 00e1 00000000 		.4byte	0
+ 776 00e5 00000000 		.4byte	0
+ 777              	.LLST7:
+ 778 00e9 20000000 		.4byte	.LVL4
+ 779 00ed 28000000 		.4byte	.LVL6
+ 780 00f1 0200     		.2byte	0x2
+ 781 00f3 30       		.byte	0x30
+ 782 00f4 9F       		.byte	0x9f
+ 783 00f5 28000000 		.4byte	.LVL6
+ 784 00f9 30000000 		.4byte	.LVL7
+ 785 00fd 0100     		.2byte	0x1
+ 786 00ff 50       		.byte	0x50
+ 787 0100 30000000 		.4byte	.LVL7
+ 788 0104 34000000 		.4byte	.LVL8
+ 789 0108 0100     		.2byte	0x1
+ 790 010a 54       		.byte	0x54
+ 791 010b 34000000 		.4byte	.LVL8
+ 792 010f 64000000 		.4byte	.LVL13
+ 793 0113 0100     		.2byte	0x1
+ 794 0115 50       		.byte	0x50
+ 795 0116 6A000000 		.4byte	.LVL14
+ 796 011a 70000000 		.4byte	.LVL16
+ 797 011e 0100     		.2byte	0x1
+ 798 0120 50       		.byte	0x50
+ 799 0121 70000000 		.4byte	.LVL16
+ 800 0125 74000000 		.4byte	.LVL17
+ 801 0129 0100     		.2byte	0x1
+ 802 012b 54       		.byte	0x54
+ 803 012c 74000000 		.4byte	.LVL17
+ 804 0130 7C000000 		.4byte	.LFE2
+ 805 0134 0100     		.2byte	0x1
+ 806 0136 50       		.byte	0x50
+ 807 0137 00000000 		.4byte	0
+ 808 013b 00000000 		.4byte	0
+ 809              	.LLST9:
+ 810 013f 20000000 		.4byte	.LVL4
+ 811 0143 30000000 		.4byte	.LVL7
+ 812 0147 0100     		.2byte	0x1
+ 813 0149 54       		.byte	0x54
+ 814 014a 3A000000 		.4byte	.LVL9
+ 815 014e 70000000 		.4byte	.LVL16
+ 816 0152 0100     		.2byte	0x1
+ 817 0154 54       		.byte	0x54
+ 818 0155 00000000 		.4byte	0
+ 819 0159 00000000 		.4byte	0
+ 820              		.section	.debug_aranges,"",%progbits
+ 821 0000 2C000000 		.4byte	0x2c
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 19
+
+
+ 822 0004 0200     		.2byte	0x2
+ 823 0006 00000000 		.4byte	.Ldebug_info0
+ 824 000a 04       		.byte	0x4
+ 825 000b 00       		.byte	0
+ 826 000c 0000     		.2byte	0
+ 827 000e 0000     		.2byte	0
+ 828 0010 00000000 		.4byte	.LFB0
+ 829 0014 02000000 		.4byte	.LFE0-.LFB0
+ 830 0018 00000000 		.4byte	.LFB1
+ 831 001c 02000000 		.4byte	.LFE1-.LFB1
+ 832 0020 00000000 		.4byte	.LFB2
+ 833 0024 7C000000 		.4byte	.LFE2-.LFB2
+ 834 0028 00000000 		.4byte	0
+ 835 002c 00000000 		.4byte	0
+ 836              		.section	.debug_ranges,"",%progbits
+ 837              	.Ldebug_ranges0:
+ 838 0000 00000000 		.4byte	.LFB0
+ 839 0004 02000000 		.4byte	.LFE0
+ 840 0008 00000000 		.4byte	.LFB1
+ 841 000c 02000000 		.4byte	.LFE1
+ 842 0010 00000000 		.4byte	.LFB2
+ 843 0014 7C000000 		.4byte	.LFE2
+ 844 0018 00000000 		.4byte	0
+ 845 001c 00000000 		.4byte	0
+ 846              		.section	.debug_line,"",%progbits
+ 847              	.Ldebug_line0:
+ 848 0000 D2000000 		.section	.debug_str,"MS",%progbits,1
+ 848      02005B00 
+ 848      00000201 
+ 848      FB0E0D00 
+ 848      01010101 
+ 849              	.LASF17:
+ 850 0000 52656C61 		.ascii	"Relay_Cal_Bytes_Start\000"
+ 850      795F4361 
+ 850      6C5F4279 
+ 850      7465735F 
+ 850      53746172 
+ 851              	.LASF29:
+ 852 0016 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 852      4320342E 
+ 852      392E3320 
+ 852      32303135 
+ 852      30333033 
+ 853 0049 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 853      20726576 
+ 853      6973696F 
+ 853      6E203232 
+ 853      31323230 
+ 854 007c 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 854      66756E63 
+ 854      74696F6E 
+ 854      2D736563 
+ 854      74696F6E 
+ 855              	.LASF18:
+ 856 00a4 52656C61 		.ascii	"Relay_Cal_Bytes_Stop\000"
+ 856      795F4361 
+ 856      6C5F4279 
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 20
+
+
+ 856      7465735F 
+ 856      53746F70 
+ 857              	.LASF22:
+ 858 00b9 77726974 		.ascii	"writeBuffer\000"
+ 858      65427566 
+ 858      66657200 
+ 859              	.LASF19:
+ 860 00c5 73726342 		.ascii	"srcBuf\000"
+ 860      756600
+ 861              	.LASF3:
+ 862 00cc 73686F72 		.ascii	"short unsigned int\000"
+ 862      7420756E 
+ 862      7369676E 
+ 862      65642069 
+ 862      6E7400
+ 863              	.LASF31:
+ 864 00df 433A5C4C 		.ascii	"C:\\Legrand\\Dimmers\\A4W sofTap and Touch\\A4W_Sof"
+ 864      65677261 
+ 864      6E645C44 
+ 864      696D6D65 
+ 864      72735C41 
+ 865 010e 7461702E 		.ascii	"tap.cydsn\000"
+ 865      63796473 
+ 865      6E00
+ 866              	.LASF26:
+ 867 0118 73726349 		.ascii	"srcIndex\000"
+ 867      6E646578 
+ 867      00
+ 868              	.LASF28:
+ 869 0121 62797465 		.ascii	"byteOffset\000"
+ 869      4F666673 
+ 869      657400
+ 870              	.LASF11:
+ 871 012c 666C6F61 		.ascii	"float\000"
+ 871      7400
+ 872              	.LASF32:
+ 873 0132 52656C61 		.ascii	"Relay_Cal_Bytes_Write\000"
+ 873      795F4361 
+ 873      6C5F4279 
+ 873      7465735F 
+ 873      57726974 
+ 874              	.LASF1:
+ 875 0148 756E7369 		.ascii	"unsigned char\000"
+ 875      676E6564 
+ 875      20636861 
+ 875      7200
+ 876              	.LASF15:
+ 877 0156 72656738 		.ascii	"reg8\000"
+ 877      00
+ 878              	.LASF5:
+ 879 015b 6C6F6E67 		.ascii	"long unsigned int\000"
+ 879      20756E73 
+ 879      69676E65 
+ 879      6420696E 
+ 879      7400
+ 880              	.LASF9:
+ 881 016d 75696E74 		.ascii	"uint8\000"
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 21
+
+
+ 881      3800
+ 882              	.LASF23:
+ 883 0173 61727261 		.ascii	"arrayId\000"
+ 883      79496400 
+ 884              	.LASF21:
+ 885 017b 62797465 		.ascii	"byteCount\000"
+ 885      436F756E 
+ 885      7400
+ 886              	.LASF25:
+ 887 0185 64737449 		.ascii	"dstIndex\000"
+ 887      6E646578 
+ 887      00
+ 888              	.LASF12:
+ 889 018e 646F7562 		.ascii	"double\000"
+ 889      6C6500
+ 890              	.LASF30:
+ 891 0195 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\Relay_Cal_Bytes.c\000"
+ 891      6E657261 
+ 891      7465645F 
+ 891      536F7572 
+ 891      63655C50 
+ 892              	.LASF33:
+ 893 01c0 43795379 		.ascii	"CySysFlashWriteRow\000"
+ 893      73466C61 
+ 893      73685772 
+ 893      69746552 
+ 893      6F7700
+ 894              	.LASF14:
+ 895 01d3 63797374 		.ascii	"cystatus\000"
+ 895      61747573 
+ 895      00
+ 896              	.LASF10:
+ 897 01dc 75696E74 		.ascii	"uint32\000"
+ 897      333200
+ 898              	.LASF8:
+ 899 01e3 756E7369 		.ascii	"unsigned int\000"
+ 899      676E6564 
+ 899      20696E74 
+ 899      00
+ 900              	.LASF7:
+ 901 01f0 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 901      206C6F6E 
+ 901      6720756E 
+ 901      7369676E 
+ 901      65642069 
+ 902              	.LASF24:
+ 903 0207 726F7749 		.ascii	"rowId\000"
+ 903      6400
+ 904              	.LASF16:
+ 905 020d 73697A65 		.ascii	"sizetype\000"
+ 905      74797065 
+ 905      00
+ 906              	.LASF6:
+ 907 0216 6C6F6E67 		.ascii	"long long int\000"
+ 907      206C6F6E 
+ 907      6720696E 
+ 907      7400
+ARM GAS  C:\Users\syhaines\AppData\Local\Temp\ccAcuQYc.s 			page 22
+
+
+ 908              	.LASF13:
+ 909 0224 63686172 		.ascii	"char\000"
+ 909      00
+ 910              	.LASF20:
+ 911 0229 65657072 		.ascii	"eepromPtr\000"
+ 911      6F6D5074 
+ 911      7200
+ 912              	.LASF2:
+ 913 0233 73686F72 		.ascii	"short int\000"
+ 913      7420696E 
+ 913      7400
+ 914              	.LASF4:
+ 915 023d 6C6F6E67 		.ascii	"long int\000"
+ 915      20696E74 
+ 915      00
+ 916              	.LASF27:
+ 917 0246 65654F66 		.ascii	"eeOffset\000"
+ 917      66736574 
+ 917      00
+ 918              	.LASF0:
+ 919 024f 7369676E 		.ascii	"signed char\000"
+ 919      65642063 
+ 919      68617200 
+ 920              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

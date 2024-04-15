@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<blockRegMap version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cypress.com/xsd/cyblockregmap cyblockregmap.xsd" xmlns="http://cypress.com/xsd/cyblockregmap">
+  <block name="D1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Test" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="D3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="D2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="I_Sense" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Dimming" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
+    <block name="VMux_count" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_reload" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_start" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_stop" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_capture" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_clock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cy_m0s8_tcpwm_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <register name="COUNTER" address="0x40050148" bitWidth="32" desc="Current counter value" hidden="false" />
+    <register name="CC" address="0x4005014C" bitWidth="32" desc="Compare / capture value" hidden="false" />
+    <register name="CC_BUF" address="0x40050150" bitWidth="32" desc="Compare / capture buffer value" hidden="false" />
+    <register name="PERIOD" address="0x40050154" bitWidth="32" desc="Period value" hidden="false" />
+    <register name="PERIOD_BUF" address="0x40050158" bitWidth="32" desc="Period buffer value" hidden="false" />
+  </block>
+  <block name="GND_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="PWM_CLK" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="PWM_Out" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R7" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R6" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="D5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="D4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="D9" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="D6" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Q1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="GND_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="U3A" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="CC_Ctrl" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Opto_PWM" BASE="0x0" SIZE="0x0" desc="OpAmp" visible="true" hidden="false">
+    <block name="cy_analog_noconnect_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cy_analog_virtualmux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cy_analog_virtualmux_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cy_psoc4_abuf" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <register name="CTB_CTRL" address="0x40100000" bitWidth="32" desc="Global CTB IP and power control" hidden="false">
+      <field name="DEEPSLEEP_ON" from="30" to="30" access="RW" resetVal="" desc="Selects component behavior in DeepSleep power mode">
+        <value name="DISABLE" value="0" desc="CTB IP disabled off during DeepSleep power mode" />
+        <value name="ENABLE" value="1" desc="CTB IP remains enabled during DeepSleep power mode (if ENABLED=1)" />
+      </field>
+      <field name="ENABLED" from="31" to="31" access="RW" resetVal="" desc="Selects component behavior in DeepSleep power mode">
+        <value name="DISABLE" value="0" desc="CTB IP disabled (put analog in power down, open all switches)" />
+        <value name="ENABLE" value="1" desc="CTB IP enabledCTB IP enabled" />
+      </field>
+    </register>
+    <register name="OA_RES_CTRL" address="0x40100004" bitWidth="32" desc="Opamp and resistor control" hidden="false">
+      <field name="OA_PWR_MODE" from="1" to="0" access="RW" resetVal="" desc="Selects power for opamp">
+        <value name="OFF" value="00" desc="Off" />
+        <value name="LOW" value="01" desc="Low power" />
+        <value name="MED" value="10" desc="Medium power" />
+        <value name="HIGH" value="11" desc="High power" />
+      </field>
+      <field name="OA0_DRIVE_STR_SEL" from="2" to="2" access="RW" resetVal="" desc="Opamp output strenght select">
+        <value name="1x" value="0" desc="Internal only" />
+        <value name="10x" value="1" desc="Output to pin" />
+      </field>
+      <field name="OA_PUMP_EN" from="11" to="11" access="RW" resetVal="" desc="Selects pump">
+        <value name="DISABLE" value="0" desc="Pump disabled" />
+        <value name="ENABLE" value="1" desc="Pump enabled" />
+      </field>
+    </register>
+    <register name="OA_COMP_TRIM" address="0x40100F08" bitWidth="32" desc="Opamp Compenation Capacitor Trim" hidden="false">
+      <field name="OA_COMP_TRIM" from="1" to="0" access="RW" resetVal="" desc="Opamp Compenation Capacitor Trim">
+        <value name="HIGH_SPEED" value="01" desc="High Speed" />
+        <value name="BALANCED" value="10" desc="Balanced" />
+        <value name="HIGH_STABILITY" value="11" desc="High Stability" />
+      </field>
+    </register>
+  </block>
+  <block name="cy_boot" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Dimming_Reference" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="OPTO_Drv" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="ZC_NInv" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="ZC_Inv" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R25" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R26" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="UI_Pwr_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="C1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="UI_Pwr" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="ZC_ISR" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R8" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="SW_Minus" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Minus" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Relay_Fire_ISR" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Relay_Offset" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
+    <block name="VMux_count" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_reload" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_start" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_stop" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_capture" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_clock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cy_m0s8_tcpwm_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <register name="COUNTER" address="0x40050108" bitWidth="32" desc="Current counter value" hidden="false" />
+    <register name="CC" address="0x4005010C" bitWidth="32" desc="Compare / capture value" hidden="false" />
+    <register name="CC_BUF" address="0x40050110" bitWidth="32" desc="Compare / capture buffer value" hidden="false" />
+    <register name="PERIOD" address="0x40050114" bitWidth="32" desc="Period value" hidden="false" />
+    <register name="PERIOD_BUF" address="0x40050118" bitWidth="32" desc="Period buffer value" hidden="false" />
+  </block>
+  <block name="SW_Plus" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="SW_Main" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="On_Off" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="GND_4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Plus" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="GlobalSignal" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Zero_Cross" BASE="0x0" SIZE="0x0" desc="Comparator" visible="true" hidden="false">
+    <block name="cy_psoc4_abuf" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="not_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VirtualMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cy_analog_noconnect_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cy_analog_noconnect_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cy_analog_noconnect_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <register name="CTB_CTRL" address="0x40100000" bitWidth="32" desc="Global CTB IP and power control" hidden="false">
+      <field name="DEEPSLEEP_ON" from="30" to="30" access="RW" resetVal="" desc="Selects component behavior in DeepSleep power mode">
+        <value name="DISABLE" value="0" desc="CTB IP disabled off during DeepSleep power mode" />
+        <value name="ENABLE" value="1" desc="CTB IP remains enabled during DeepSleep power mode (if ENABLED=1)" />
+      </field>
+      <field name="ENABLED" from="31" to="31" access="RW" resetVal="" desc="Selects component behavior in DeepSleep power mode">
+        <value name="DISABLE" value="0" desc="CTB IP disabled (put analog in power down, open all switches)" />
+        <value name="ENABLE" value="1" desc="CTB IP enabledCTB IP enabled" />
+      </field>
+    </register>
+    <register name="OA_RES_CTRL" address="0x40100008" bitWidth="32" desc="Comparator and resistor control" hidden="false">
+      <field name="OA_PWR_MODE" from="1" to="0" access="RW" resetVal="" desc="Selects speed for comparator">
+        <value name="OFF" value="00" desc="Off" />
+        <value name="SLOW" value="01" desc="Slow speed" />
+        <value name="MED" value="10" desc="Medium speed" />
+        <value name="FAST" value="11" desc="Fast speed" />
+      </field>
+      <field name="OA_HYST_EN" from="5" to="5" access="RW" resetVal="" desc="Selects hysteresis (10mV)">
+        <value name="DISABLE" value="0" desc="Hysteresis disabled" />
+        <value name="ENABLE" value="1" desc="Hysteresis enabled" />
+      </field>
+      <field name="OA_COMPINT" from="9" to="8" access="RW" resetVal="" desc="Selects comparator edge detect">
+        <value name="DISABLE" value="00" desc="Disabled" />
+        <value name="RISING" value="01" desc="Rising edge" />
+        <value name="FALLING" value="10" desc="Falling edge" />
+        <value name="BOTH" value="11" desc="Both rising and falling edges" />
+      </field>
+      <field name="OA_PUMP_EN" from="11" to="11" access="RW" resetVal="" desc="Selects pump">
+        <value name="DISABLE" value="0" desc="Pump disabled" />
+        <value name="ENABLE" value="1" desc="Pump enabled" />
+      </field>
+    </register>
+    <register name="COMP_STAT" address="0x4010000C" bitWidth="32" desc="Comparator status" hidden="false">
+      <field name="OA_COMP" from="16" to="16" access="R" resetVal="" desc="Current comparator status" />
+    </register>
+    <register name="INTR" address="0x40100020" bitWidth="32" desc="Interrupt request register" hidden="false">
+      <field name="COMP1" from="0" to="0" access="RW" resetVal="" desc="Comparator #1 Interrupt: hardware sets this interrupt when comparator 0 triggers. Write with '1' to clear bit." />
+      <field name="COMP2" from="1" to="1" access="RW" resetVal="" desc="Comparator #2 Interrupt: hardware sets this interrupt when comparator 0 triggers. Write with '1' to clear bit." />
+    </register>
+    <register name="INTR_SET" address="0x40100024" bitWidth="32" desc="Interrupt request set register" hidden="false">
+      <field name="COMP1_SET" from="0" to="0" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." />
+      <field name="COMP2_SET" from="1" to="1" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." />
+    </register>
+    <register name="INTR_MASK" address="0x40100028" bitWidth="32" desc="Interrupt request mask" hidden="false">
+      <field name="COMP1_MASK" from="0" to="0" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." />
+      <field name="COMP2_MASK" from="1" to="1" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." />
+    </register>
+    <register name="INTR_MASKED" address="0x4010002C" bitWidth="32" desc="Interrupt request masked" hidden="false">
+      <field name="COMP1_MASKED" from="0" to="0" access="R" resetVal="" desc="Logical and of corresponding request and mask bits." />
+      <field name="COMP2_MASKED" from="1" to="1" access="R" resetVal="" desc="Logical and of corresponding request and mask bits." />
+    </register>
+    <register name="OA_OFFSET_TRIM" address="0x40100F0C" bitWidth="32" desc="Comparator offset trim" hidden="false" />
+    <register name="OA_SLOPE_OFFSET_TRIM" address="0x40100F10" bitWidth="32" desc="Comparator slope offset drift trim" hidden="false" />
+    <register name="OA_COMP_TRIM" address="0x40100F14" bitWidth="32" desc="Comparator trim" hidden="false" />
+  </block>
+  <block name="WDT_ISR" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="WatchdogTMR" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="PWM_ISR" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Relay_3W" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Relay_1P" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Relay_Cal_Bytes" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Cap_Mod" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="LED_4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="LED_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="LED_Hi" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="LED_5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="LED_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="UI_Pwr_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R11" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="LED_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="LED_LO" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="D12" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="LED_Minus" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="LED_Main" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R14" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R13" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R12" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="D10" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="D11" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="LED_Plus" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+</blockRegMap>
